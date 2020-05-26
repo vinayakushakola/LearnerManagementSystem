@@ -17,11 +17,14 @@ namespace LMSRepositoryLayer.Services
     {
         private readonly IConfiguration _configuration;
 
-        private int count;
+        private static int count;
+
+        private readonly string sqlConnectionString;
 
         public UserRepository(IConfiguration configuration)
         {
             _configuration = configuration;
+            sqlConnectionString = _configuration.GetConnectionString("LMSDBConnection");
         }
 
         /// <summary>
@@ -34,7 +37,7 @@ namespace LMSRepositoryLayer.Services
             {
                 List<RegistrationResponse> userList = null;
 
-                using (SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("LMSDBConnection")))
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     userList = new List<RegistrationResponse>();
                     SqlCommand cmd = new SqlCommand("SP_GetAllUsers", conn);
@@ -79,7 +82,7 @@ namespace LMSRepositoryLayer.Services
                 RegistrationResponse responseData = null;
                 try
                 {
-                    using (SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("LMSDBConnection")))
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
                         SqlCommand cmd = new SqlCommand("SP_InsertUser", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -137,7 +140,7 @@ namespace LMSRepositoryLayer.Services
             try
             {
                 RegistrationResponse responseData = new RegistrationResponse();
-                using (SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("LMSDBConnection")))
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     SqlCommand cmd = new SqlCommand("SP_UpdateUser", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -188,7 +191,7 @@ namespace LMSRepositoryLayer.Services
             {
                 if (userID > 0)
                 {
-                    using (SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("LMSDBConnection")))
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
                         SqlCommand cmd = new SqlCommand("SP_DeleteUser", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -205,6 +208,57 @@ namespace LMSRepositoryLayer.Services
                         return false;
                 }
                 return false;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// It checks login Email & Password
+        /// </summary>
+        /// <param name="login">Login Data</param>
+        /// <returns>If Data Found return ResponseData else null or BadRequest</returns>
+        public RegistrationResponse Login(LoginRequest login)
+        {
+            try
+            {
+                RegistrationResponse responseData = null;
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_LoginValidation", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@Email", login.Email);
+                        cmd.Parameters.AddWithValue("@Password", login.Password);
+
+                        conn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            responseData = new RegistrationResponse();
+                            responseData.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
+                            responseData.FirstName = dataReader["FirstName"].ToString();
+                            responseData.LastName = dataReader["LastName"].ToString();
+                            responseData.Email = dataReader["Email"].ToString();
+                            responseData.ContactNumber = dataReader["ContactNumber"].ToString();
+                            responseData.Verified = dataReader["Verified"].ToString();
+                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
+                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        }
+                        conn.Close();
+                    }
+                }
+                catch
+                {
+                    return null;
+                }
+                return responseData;
             }
             catch(Exception ex)
             {

@@ -18,5 +18,7 @@ namespace LMSRepositoryLayer.Interface
         RegistrationResponse UpdateUser(int userID, UserUpdateRequest updateRequest);
 
         bool DeleteUser(int userID);
+
+        RegistrationResponse Login(LoginRequest login);
     }
 }

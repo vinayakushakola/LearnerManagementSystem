@@ -44,5 +44,10 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
+        public RegistrationResponse Login(LoginRequest login)
+        {
+            var responseData = _userRepository.Login(login);
+            return responseData;
+        }
     }
 }

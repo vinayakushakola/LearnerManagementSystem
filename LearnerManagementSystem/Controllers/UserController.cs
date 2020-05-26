@@ -6,7 +6,9 @@
 using LMSBusinessLayer.Interface;
 using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
+using Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 
@@ -18,9 +20,12 @@ namespace LearnerManagementSystem.Controllers
     {
         private readonly IUserBusiness _userBusiness;
 
-        public UserController(IUserBusiness userBusiness)
+        private readonly IConfiguration _configuration;
+
+        public UserController(IUserBusiness userBusiness, IConfiguration configuration)
         {
             _userBusiness = userBusiness;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -142,6 +147,38 @@ namespace LearnerManagementSystem.Controllers
                 }
             }
             catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// It is used Login
+        /// </summary>
+        /// <param name="login">Login Data</param>
+        /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        [HttpPost]
+        [Route("Login")]
+        public IActionResult Login(LoginRequest login)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                RegistrationResponse data = _userBusiness.Login(login);
+                if (data != null)
+                {
+                    success = true;
+                    message = "User Logged In Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Enter Valid Email & Password!";
+                    return Ok(new { success, message });
+                }
+            }
+            catch(Exception ex)
             {
                 return BadRequest(new { ex.Message });
             }
