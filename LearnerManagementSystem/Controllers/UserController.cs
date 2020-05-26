@@ -6,6 +6,7 @@
 using LMSBusinessLayer.Interface;
 using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -25,7 +26,9 @@ namespace LearnerManagementSystem.Controllers
 
         private readonly IConfiguration _configuration;
 
-        private readonly string _login = "login";
+        private readonly string _login = "Login";
+        
+        private readonly string _forgotPassword = "ForgotPassword";
 
         public UserController(IUserBusiness userBusiness, IConfiguration configuration)
         {
@@ -101,6 +104,7 @@ namespace LearnerManagementSystem.Controllers
         /// <param name="updateRequest">User Update Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPut("{userID}")]
+        [Authorize]
         public IActionResult UpdateUser(int userID, UserUpdateRequest updateRequest)
         {
             try
@@ -185,6 +189,34 @@ namespace LearnerManagementSystem.Controllers
                 }
             }
             catch(Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public IActionResult ForgotPassword(ForgotPasswordRequest forgot)
+        {
+            try
+            {
+                bool success = false;
+                string message, token;
+                RegistrationResponse data = _userBusiness.ForgotPassword(forgot);
+                if (data != null)
+                {
+                    success = true;
+                    token = GenerateToken(data, _forgotPassword);
+                    message = "Token Sent Successfully";
+                    return Ok(new { success, message, data, token });
+                }
+                else
+                {
+                    message = "Email Not Found!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
             {
                 return BadRequest(new { ex.Message });
             }

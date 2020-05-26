@@ -20,5 +20,7 @@ namespace LMSBusinessLayer.Interface
         bool DeleteUser(int userID);
 
         RegistrationResponse Login(LoginRequest login);
+
+        RegistrationResponse ForgotPassword(ForgotPasswordRequest forogotPassword);
     }
 }

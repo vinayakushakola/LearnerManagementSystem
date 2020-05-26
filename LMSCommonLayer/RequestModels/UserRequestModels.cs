@@ -70,4 +70,18 @@ namespace LMSCommonLayer.RequestModels
         [Required]
         public string Password { get; set; }
     }
+
+    public class ForgotPasswordRequest
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+    }
+
+    public class ResetPasswordRequest
+    {
+        [Required]
+        [MinLength(8, ErrorMessage = "Your Password Should be Minimum Length of 8")]
+        public string Password{ get; set; }
+    }
 }

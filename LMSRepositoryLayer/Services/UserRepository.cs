@@ -265,5 +265,51 @@ namespace LMSRepositoryLayer.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public RegistrationResponse ForgotPassword(ForgotPasswordRequest forogotPassword)
+        {
+            try
+            {
+                RegistrationResponse responseData = null;
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_VerifyEmail", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@Email", forogotPassword.Email);
+
+                        conn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            responseData = new RegistrationResponse();
+                            responseData.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
+                            responseData.FirstName = dataReader["FirstName"].ToString();
+                            responseData.LastName = dataReader["LastName"].ToString();
+                            responseData.Email = dataReader["Email"].ToString();
+                            responseData.ContactNumber = dataReader["ContactNumber"].ToString();
+                            responseData.Verified = dataReader["Verified"].ToString();
+                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
+                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        }
+                        conn.Close();
+                    }
+                    return responseData;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
