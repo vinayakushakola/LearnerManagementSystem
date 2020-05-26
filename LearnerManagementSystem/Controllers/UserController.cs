@@ -8,11 +8,14 @@ using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 
@@ -206,15 +209,21 @@ namespace LearnerManagementSystem.Controllers
         {
             try
             {
-                bool success = false;
+                bool success = false, sentMail;
                 string message, token;
                 RegistrationResponse data = _userBusiness.ForgotPassword(forgot);
                 if (data != null)
                 {
-                    success = true;
                     token = GenerateToken(data, _forgotPassword);
-                    message = "Token Sent Successfully";
-                    return Ok(new { success, message, data, token });
+                    sentMail = SendMail(data, token);
+                    if (sentMail)
+                    {
+                        success = true;
+                        message = "Token Sent Successfully";
+                        return Ok(new { success, message, data, token });
+                    }
+                    message = "Mail Not sent, Try again";
+                    return Ok(new { success, message });
                 }
                 else
                 {
@@ -289,6 +298,44 @@ namespace LearnerManagementSystem.Controllers
                     signingCredentials: credentials);
 
                 return new JwtSecurityTokenHandler().WriteToken(token);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// It is used to Send Mails
+        /// </summary>
+        /// <param name="data">Response Data</param>
+        /// <param name="token">Token</param>
+        private bool SendMail(RegistrationResponse data, string token)
+        {
+            try
+            {
+                if (data != null)
+                {
+                    string FROMNAME = "Vinayak Ushakola", FROM = "vinayak.mailtesting@gmail.com", TO = data.Email, SUBJECT = "Reset Password";
+                    int PORT = 587;
+                    string FullName = "\n" + data.FirstName + " " + data.LastName;
+                    string message = "\nClick on this link to Reset your password: https://localhost:44314/api/user/resetpassword \nCopy this token & paste in your postman: " + token;
+                    var BODY = "Hi," + FullName + message;
+
+                    MailMessage mailMessage = new MailMessage();
+                    SmtpClient client = new SmtpClient("smtp.gmail.com", PORT);
+                    mailMessage.From = new MailAddress(FROM, FROMNAME);
+                    mailMessage.To.Add(new MailAddress(TO));
+                    mailMessage.Subject = SUBJECT;
+                    mailMessage.Body = BODY;
+
+                    client.Credentials = new NetworkCredential(FROM, "@bcd.1234");
+                    client.EnableSsl = true;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.Send(mailMessage);
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
