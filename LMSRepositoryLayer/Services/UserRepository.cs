@@ -147,7 +147,6 @@ namespace LMSRepositoryLayer.Services
 
                     cmd.Parameters.AddWithValue("@UserID", userID);
                     cmd.Parameters.AddWithValue("@Email", updateRequest.Email);
-                    cmd.Parameters.AddWithValue("@Password", updateRequest.Password);
                     cmd.Parameters.AddWithValue("@ContactNumber", updateRequest.ContactNumber);
                     cmd.Parameters.AddWithValue("@Verified", updateRequest.Verified);
                     cmd.Parameters.AddWithValue("@CreatorStamp", updateRequest.CreatorStamp);
@@ -216,10 +215,10 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
-        /// It checks login Email & Password
+        /// It checks Email & Password
         /// </summary>
         /// <param name="login">Login Data</param>
-        /// <returns>If Data Found return ResponseData else null or BadRequest</returns>
+        /// <returns>If Data Found return ResponseData else null or Exception</returns>
         public RegistrationResponse Login(LoginRequest login)
         {
             try
@@ -266,6 +265,11 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// It Checks Email
+        /// </summary>
+        /// <param name="forogotPassword">Forgot Password Data</param>
+        /// <returns>If Data Found return ResponseData else null or Exception</returns>
         public RegistrationResponse ForgotPassword(ForgotPasswordRequest forogotPassword)
         {
             try
@@ -304,6 +308,39 @@ namespace LMSRepositoryLayer.Services
                 {
                     return null;
                 }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// It Changes the User Password in the Database
+        /// </summary>
+        /// <param name="resetPassword">Reset Password</param>
+        /// <returns>If Password Changed it return true else false or Exception</returns>
+        public bool ResetPassword(int userID, ResetPasswordRequest resetPassword)
+        {
+            try
+            {
+                using(SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_ResetPassword", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@UserID", userID);
+                    cmd.Parameters.AddWithValue("@Password", resetPassword.Password);
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        return true;
+                    }
+                    conn.Close();
+                }
+                return false;
             }
             catch(Exception ex)
             {

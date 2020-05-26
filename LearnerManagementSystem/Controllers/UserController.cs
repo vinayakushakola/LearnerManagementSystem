@@ -103,14 +103,15 @@ namespace LearnerManagementSystem.Controllers
         /// <param name="userID">UserID</param>
         /// <param name="updateRequest">User Update Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
-        [HttpPut("{userID}")]
+        [HttpPut]
         [Authorize]
-        public IActionResult UpdateUser(int userID, UserUpdateRequest updateRequest)
+        public IActionResult UpdateUser(UserUpdateRequest updateRequest)
         {
             try
             {
                 bool success = false;
                 string message;
+                var userID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("UserID", StringComparison.InvariantCultureIgnoreCase)).Value);
                 RegistrationResponse data = _userBusiness.UpdateUser(userID, updateRequest);
                 if (data != null)
                 {
@@ -162,7 +163,7 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used Login
+        /// It is used to Login
         /// </summary>
         /// <param name="login">Login Data</param>
         /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
@@ -194,6 +195,11 @@ namespace LearnerManagementSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// It is Forgot Password API
+        /// </summary>
+        /// <param name="forgot">Forgot Password</param>
+        /// <returns>If Data Found return ok else NotFound or Badrequest</returns>
         [HttpPost]
         [Route("ForgotPassword")]
         public IActionResult ForgotPassword(ForgotPasswordRequest forgot)
@@ -213,6 +219,40 @@ namespace LearnerManagementSystem.Controllers
                 else
                 {
                     message = "Email Not Found!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// It is used to Reset Password
+        /// </summary>
+        /// <param name="reset">Reset Password</param>
+        /// <returns>If ResetPassword Successfull return ok else NotFound or BadRequest</returns>
+        [Authorize]
+        [HttpPost]
+        [Route("ResetPassword")]
+        public IActionResult ResetPassword(ResetPasswordRequest reset)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var userID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("UserID", StringComparison.InvariantCultureIgnoreCase)).Value);
+                bool data = _userBusiness.ResetPassword(userID, reset);
+                if (data)
+                {
+                    success = true;
+                    message = "Password Changed Successfully";
+                    return Ok(new { success, message });
+                }
+                else
+                {
+                    message = "Password Changing Unsuccessfull, Try Again!";
                     return NotFound(new { success, message });
                 }
             }

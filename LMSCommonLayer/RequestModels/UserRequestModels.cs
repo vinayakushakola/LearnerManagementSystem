@@ -43,9 +43,6 @@ namespace LMSCommonLayer.RequestModels
         [EmailAddress]
         public string Email { get; set; }
 
-        [MinLength(8, ErrorMessage = "Your Password Should be Minimum Length of 8")]
-        public string Password { get; set; }
-
         [MinLength(10, ErrorMessage = "Your Mobile Number Should have 10 numbers")]
         [MaxLength(10, ErrorMessage = "Your Mobile Number Should have 10 numbers")]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Your Mobile Number should contain only numbers!")]

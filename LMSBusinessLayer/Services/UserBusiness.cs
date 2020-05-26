@@ -55,5 +55,11 @@ namespace LMSBusinessLayer.Services
             var responseData = _userRepository.ForgotPassword(forogotPassword);
             return responseData;
         }
+
+        public bool ResetPassword(int userID, ResetPasswordRequest resetPassword)
+        {
+            var responseData = _userRepository.ResetPassword(userID, resetPassword);
+            return responseData;
+        }
     }
 }

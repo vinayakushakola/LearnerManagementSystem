@@ -22,5 +22,7 @@ namespace LMSBusinessLayer.Interface
         RegistrationResponse Login(LoginRequest login);
 
         RegistrationResponse ForgotPassword(ForgotPasswordRequest forogotPassword);
+
+        bool ResetPassword(int userID, ResetPasswordRequest resetPassword);
     }
 }
