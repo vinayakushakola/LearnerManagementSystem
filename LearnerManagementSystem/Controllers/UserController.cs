@@ -6,11 +6,14 @@
 using LMSBusinessLayer.Interface;
 using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
-using Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 
 namespace LearnerManagementSystem.Controllers
 {
@@ -21,6 +24,8 @@ namespace LearnerManagementSystem.Controllers
         private readonly IUserBusiness _userBusiness;
 
         private readonly IConfiguration _configuration;
+
+        private readonly string _login = "login";
 
         public UserController(IUserBusiness userBusiness, IConfiguration configuration)
         {
@@ -164,13 +169,14 @@ namespace LearnerManagementSystem.Controllers
             try
             {
                 bool success = false;
-                string message;
+                string message, token;
                 RegistrationResponse data = _userBusiness.Login(login);
                 if (data != null)
                 {
                     success = true;
                     message = "User Logged In Successfully";
-                    return Ok(new { success, message, data });
+                    token = GenerateToken(data, _login);
+                    return Ok(new { success, message, data, token });
                 }
                 else
                 {
@@ -181,6 +187,40 @@ namespace LearnerManagementSystem.Controllers
             catch(Exception ex)
             {
                 return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// It is used to Generate Token
+        /// </summary>
+        /// <param name="tokenData">Response Data</param>
+        /// <param name="tokenType">Token Type</param>
+        /// <returns>It return Token</returns>
+        private string GenerateToken(RegistrationResponse tokenData, string tokenType)
+        {
+            try
+            {
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+                var claims = new[]
+                {
+                    new Claim("UserID", tokenData.UserID.ToString()),
+                    new Claim("Email", tokenData.Email.ToString()),
+                    new Claim("TokenType", tokenType),
+                };
+
+                var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], 
+                    _configuration["Jwt:Issuer"],
+                    claims, 
+                    expires: DateTime.Now.AddDays(1), 
+                    signingCredentials: credentials);
+
+                return new JwtSecurityTokenHandler().WriteToken(token);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }
