@@ -160,58 +160,51 @@ namespace LMSRepositoryLayer.Services
             try
             {
                 HiredRegistrationResponse responseData = null;
-                try
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    SqlCommand cmd = new SqlCommand("SP_HiredUpdate", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@CandidateID", candidateID);
+                    cmd.Parameters.AddWithValue("@HiredCity", hiredRegistrationUpdate.HiredCity);
+                    cmd.Parameters.AddWithValue("@HiredDate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@HiredLab", hiredRegistrationUpdate.HiredLab);
+                    cmd.Parameters.AddWithValue("@Attitude", hiredRegistrationUpdate.Attitude);
+                    cmd.Parameters.AddWithValue("@CommunicationRemark", hiredRegistrationUpdate.CommunicationRemark);
+                    cmd.Parameters.AddWithValue("@KnowledgeRemark", hiredRegistrationUpdate.KnowledgeRemark);
+                    cmd.Parameters.AddWithValue("@AggregateRemark", hiredRegistrationUpdate.AggregateRemark);
+                    cmd.Parameters.AddWithValue("@Status", hiredRegistrationUpdate.Status);
+                    cmd.Parameters.AddWithValue("@CreatorStamp", hiredRegistrationUpdate.CreatorStamp);
+                    cmd.Parameters.AddWithValue("@CreatorUser", hiredRegistrationUpdate.CreatorUser);
+                    cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
                     {
-                        SqlCommand cmd = new SqlCommand("SP_HiredUpdate", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                        cmd.Parameters.AddWithValue("@ID", candidateID);
-                        cmd.Parameters.AddWithValue("@HiredCity", hiredRegistrationUpdate.HiredCity);
-                        cmd.Parameters.AddWithValue("@HiredDate", DateTime.Now);
-                        cmd.Parameters.AddWithValue("@HiredLab", hiredRegistrationUpdate.HiredLab);
-                        cmd.Parameters.AddWithValue("@Attitude", hiredRegistrationUpdate.Attitude);
-                        cmd.Parameters.AddWithValue("@CommunicationRemark", hiredRegistrationUpdate.CommunicationRemark);
-                        cmd.Parameters.AddWithValue("@KnowledgeRemark", hiredRegistrationUpdate.KnowledgeRemark);
-                        cmd.Parameters.AddWithValue("@AggregateRemark", hiredRegistrationUpdate.AggregateRemark);
-                        cmd.Parameters.AddWithValue("@Status", hiredRegistrationUpdate.Status);
-                        cmd.Parameters.AddWithValue("@CreatorStamp", hiredRegistrationUpdate.CreatorStamp);
-                        cmd.Parameters.AddWithValue("@CreatorUser", hiredRegistrationUpdate.CreatorUser);
-                        cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
-
-                        conn.Open();
-                        SqlDataReader dataReader = cmd.ExecuteReader();
-                        while (dataReader.Read())
-                        {
-                            responseData = new HiredRegistrationResponse();
-                            responseData.CandidateID = Convert.ToInt32(dataReader["UserID"].ToString());
-                            responseData.FirstName = dataReader["FirstName"].ToString();
-                            responseData.MiddleName = dataReader["MiddleName"].ToString();
-                            responseData.LastName = dataReader["LastName"].ToString();
-                            responseData.Email = dataReader["Email"].ToString();
-                            responseData.Degree = dataReader["Degree"].ToString();
-                            responseData.MobileNumber = dataReader["MobileNumber"].ToString();
-                            responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
-                            responseData.HiredCity = dataReader["HiredCity"].ToString();
-                            responseData.HiredDate = dataReader["HiredDate"].ToString();
-                            responseData.HiredLab = dataReader["HiredDLab"].ToString();
-                            responseData.Attitude = dataReader["Attitude"].ToString();
-                            responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
-                            responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
-                            responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
-                            responseData.Status = dataReader["Status"].ToString();
-                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
-                        }
-                        conn.Close();
+                        responseData = new HiredRegistrationResponse();
+                        responseData.CandidateID = Convert.ToInt32(dataReader["ID"].ToString());
+                        responseData.FirstName = dataReader["FirstName"].ToString();
+                        responseData.MiddleName = dataReader["MiddleName"].ToString();
+                        responseData.LastName = dataReader["LastName"].ToString();
+                        responseData.Email = dataReader["Email"].ToString();
+                        responseData.Degree = dataReader["Degree"].ToString();
+                        responseData.MobileNumber = dataReader["MobileNumber"].ToString();
+                        responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
+                        responseData.HiredCity = dataReader["HiredCity"].ToString();
+                        responseData.HiredDate = dataReader["HiredDate"].ToString();
+                        responseData.HiredLab = dataReader["HiredLab"].ToString();
+                        responseData.Attitude = dataReader["Attitude"].ToString();
+                        responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
+                        responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
+                        responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
+                        responseData.Status = dataReader["Status"].ToString();
+                        responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                        responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                        responseData.CreatedDate = dataReader["CreatedDate"].ToString();
+                        responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
                     }
-                }
-                catch
-                {
-                    return null;
+                    conn.Close();
                 }
                 return responseData;
             }
