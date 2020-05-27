@@ -100,7 +100,6 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                var userID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("UserID", StringComparison.InvariantCultureIgnoreCase)).Value);
                 HiredRegistrationResponse data = _hiredBusiness.UpdateHired(candidateID, updateRequest);
                 if (data != null)
                 {
