@@ -103,7 +103,6 @@ namespace LearnerManagementSystem.Controllers
         /// <summary>
         /// It is used to Update User Data
         /// </summary>
-        /// <param name="userID">UserID</param>
         /// <param name="updateRequest">User Update Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPut]

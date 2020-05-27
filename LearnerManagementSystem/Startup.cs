@@ -45,6 +45,9 @@ namespace LearnerManagementSystem
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserBusiness, UserBusiness>();
+
+            services.AddTransient<IHiredRepository, HiredRepository>();
+            services.AddTransient<IHiredBusiness, HiredBusiness>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
