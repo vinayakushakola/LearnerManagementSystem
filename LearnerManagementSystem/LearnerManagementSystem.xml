@@ -88,6 +88,12 @@
             <param name="updateRequest">Hired Data</param>
             <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllFellowshipCandidates">
+            <summary>
+            It is used to Show All Fellowship Candidates Data
+            </summary>
+            <returns>If Data Found return ok else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.FellowshipController.UpdateFellowshipCandidate(System.Int32,LMSCommonLayer.RequestModels.FellowshipUpdateRequest)">
             <summary>
             It is used to Add Selected Fellowship Candidate additional details

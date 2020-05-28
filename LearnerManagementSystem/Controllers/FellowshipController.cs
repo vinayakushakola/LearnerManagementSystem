@@ -118,6 +118,37 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
+        /// It is used to Show All Fellowship Candidates Data
+        /// </summary>
+        /// <returns>If Data Found return ok else null or BadRequest</returns>
+        [HttpGet]
+        [Route("FellowshipCandidates")]
+        public IActionResult GetAllFellowshipCandidates()
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _hiredBusiness.GetAllFellowshipCandidates().ToList();
+                if (data != null)
+                {
+                    success = true;
+                    message = "Fellowship Candidates Data Fetched Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "No data Found!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
         /// It is used to Add Selected Fellowship Candidate additional details
         /// </summary>
         /// <param name="candidateID">Candidate ID</param>

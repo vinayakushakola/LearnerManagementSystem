@@ -210,11 +210,11 @@ namespace LMSRepositoryLayer.Services
                     var isAddedToFellowship = AddSelectedFellowshipCandidate(responseData);
                     if (isAddedToFellowship != null)
                     {
-                        responseData.responseModel = isAddedToFellowship;
+                        responseData.FellowshipResponseModel = isAddedToFellowship;
                     }
                     else
                     {
-                        responseData.responseModel = null;
+                        responseData.FellowshipResponseModel = null;
                     }
                 }
                 return responseData;
@@ -226,7 +226,7 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
-        /// It is used to Add Selected Candidate into the Fellowship Program
+        /// It is used to Add Selected Candidate into the Database
         /// </summary>
         /// <param name="acceptedCandidate"></param>
         /// <returns>If Data Adding Successfull it return ResponseData else null or Exception</returns>
@@ -312,6 +312,71 @@ namespace LMSRepositoryLayer.Services
                 {
                     return null;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<FellowshipResponseModel> GetAllFellowshipCandidates()
+        {
+            try
+            {
+                List<FellowshipResponseModel> fellowshipCandidates = null;
+
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    fellowshipCandidates = new List<FellowshipResponseModel>();
+                    SqlCommand cmd = new SqlCommand("SP_GetAllFellowshipCandidates", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        FellowshipResponseModel responseData = new FellowshipResponseModel();
+                        responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
+                        responseData.FirstName = dataReader["FirstName"].ToString();
+                        responseData.MiddleName = dataReader["MiddleName"].ToString();
+                        responseData.LastName = dataReader["LastName"].ToString();
+                        responseData.Email = dataReader["Email"].ToString();
+                        responseData.Degree = dataReader["Degree"].ToString();
+                        responseData.MobileNumber = dataReader["MobileNumber"].ToString();
+                        responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
+                        responseData.HiredCity = dataReader["HiredCity"].ToString();
+                        responseData.HiredDate = dataReader["HiredDate"].ToString();
+                        responseData.HiredLab = dataReader["HiredLab"].ToString();
+                        responseData.Attitude = dataReader["Attitude"].ToString();
+                        responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
+                        responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
+                        responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
+                        responseData.Status = dataReader["Status"].ToString();
+                        responseData.BirthDate = dataReader["BirthDate"].ToString();
+                        responseData.IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString();
+                        responseData.ParentName = dataReader["ParentName"].ToString();
+                        responseData.ParentOccupation = dataReader["ParentOccupation"].ToString();
+                        responseData.ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString();
+                        responseData.ParentsAnnualSalary = dataReader["ParentsAnnualSalary"].ToString();
+                        responseData.LocalAddress = dataReader["LocalAddress"].ToString();
+                        responseData.PermanentAddress = dataReader["PermanentAddress"].ToString();
+                        responseData.PhotoPath = dataReader["PhotoPath"].ToString();
+                        responseData.JoiningDate = dataReader["JoiningDate"].ToString();
+                        responseData.CandidateStatus = dataReader["CandidateStatus"].ToString();
+                        responseData.PersonalInformation = dataReader["PersonalInformation"].ToString();
+                        responseData.BankInformation = dataReader["BankInformation"].ToString();
+                        responseData.EducationalInformation = dataReader["EducationalInformation"].ToString();
+                        responseData.DocumentStatus = dataReader["DocumentStatus"].ToString();
+                        responseData.Remark = dataReader["Remark"].ToString();
+                        responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                        responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                        responseData.CreatedDate = dataReader["CreatedDate"].ToString();
+                        responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+
+                        fellowshipCandidates.Add(responseData);
+                    }
+                    conn.Close();
+                }
+                return fellowshipCandidates;
             }
             catch (Exception ex)
             {

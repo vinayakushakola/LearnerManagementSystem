@@ -17,6 +17,8 @@ namespace LMSRepositoryLayer.Interface
 
         HiredResponseModel UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate);
 
+        List<FellowshipResponseModel> GetAllFellowshipCandidates();
+
         FellowshipResponseModel UpdateSelectedFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate);
 
         CandidateBankDetailResponse AddCandidateBankDetails(int candidateID, CandidateBankDetailRequest bankDetail);

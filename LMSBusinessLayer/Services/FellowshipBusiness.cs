@@ -38,6 +38,12 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
+        public List<FellowshipResponseModel> GetAllFellowshipCandidates()
+        {
+            var responseData = _hiredRepository.GetAllFellowshipCandidates();
+            return responseData;
+        }
+
         public FellowshipResponseModel UpdateSelectedFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate)
         {
             var responseData = _hiredRepository.UpdateSelectedFellowshipCandidate(candidateID, fellowshipUpdate);
