@@ -8,7 +8,6 @@ using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -23,9 +22,9 @@ namespace LearnerManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AdminController : ControllerBase
     {
-        private readonly IUserBusiness _userBusiness;
+        private readonly IAdminBusiness _adminBusiness;
 
         private readonly IConfiguration _configuration;
 
@@ -33,14 +32,14 @@ namespace LearnerManagementSystem.Controllers
         
         private readonly string _forgotPassword = "ForgotPassword";
 
-        public UserController(IUserBusiness userBusiness, IConfiguration configuration)
+        public AdminController(IAdminBusiness adminBusiness, IConfiguration configuration)
         {
-            _userBusiness = userBusiness;
+            _adminBusiness = adminBusiness;
             _configuration = configuration;
         }
 
         /// <summary>
-        /// It is used to Show all Users Data
+        /// It is used to Show all Admins Registration Data
         /// </summary>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpGet]
@@ -50,11 +49,11 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                var data = _userBusiness.GetAllUsers().ToList();
+                var data = _adminBusiness.GetAllUsers().ToList();
                 if (data != null)
                 {
                     success = true;
-                    message = "Users Data Fetched Successfull";
+                    message = "Admins Data Fetched Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
@@ -70,22 +69,22 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used to Register
+        /// It is used to Create Admin Account
         /// </summary>
-        /// <param name="registration">User Registration Data</param>
+        /// <param name="registration">Admin Registration Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPost]
-        public IActionResult AddUser(RegistrationRequest registration)
+        public IActionResult AddAdmin(RegistrationRequest registration)
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _userBusiness.AddUser(registration);
+                var data = _adminBusiness.AddUser(registration);
                 if (data != null)
                 {
                     success = true;
-                    message = "User Registered Successfully";
+                    message = "Admin Registered Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
@@ -101,24 +100,24 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used to Update User Data
+        /// It is used to Update Admin Account
         /// </summary>
-        /// <param name="updateRequest">User Update Data</param>
+        /// <param name="updateRequest">Admin Update Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPut]
         [Authorize]
-        public IActionResult UpdateUser(UserUpdateRequest updateRequest)
+        public IActionResult UpdateUser(AdminUpdateRequest updateRequest)
         {
             try
             {
                 bool success = false;
                 string message;
-                var userID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("UserID", StringComparison.InvariantCultureIgnoreCase)).Value);
-                var data = _userBusiness.UpdateUser(userID, updateRequest);
+                var adminID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("AdminID", StringComparison.InvariantCultureIgnoreCase)).Value);
+                var data = _adminBusiness.UpdateUser(adminID, updateRequest);
                 if (data != null)
                 {
                     success = true;
-                    message = "User Data Updated Successfully";
+                    message = "Admin Data Updated Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
@@ -134,23 +133,23 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used to Delete Data
+        /// It is used to Delete Admin Account
         /// </summary>
-        /// <param name="userID">UserID</param>
+        /// <param name="adminID">AdminID</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
-        [HttpDelete("{userID}")]
+        [HttpDelete("{adminID}")]
         [Authorize]
-        public IActionResult DeleteUser(int userID)
+        public IActionResult DeleteUser(int adminID)
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _userBusiness.DeleteUser(userID);
+                var data = _adminBusiness.DeleteUser(adminID);
                 if (data)
                 {
                     success = true;
-                    message = "User Data Deleted Successfully";
+                    message = "Admmin Data Deleted Successfully";
                     return Ok(new { success, message });
                 }
                 else
@@ -166,23 +165,23 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used to Login
+        /// It is used to Admin Login
         /// </summary>
-        /// <param name="login">Login Data</param>
+        /// <param name="adminLogin">Admin Login Data</param>
         /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
         [HttpPost]
         [Route("Login")]
-        public IActionResult Login(LoginRequest login)
+        public IActionResult Login(LoginRequest adminLogin)
         {
             try
             {
                 bool success = false;
                 string message, token;
-                var data = _userBusiness.Login(login);
+                var data = _adminBusiness.Login(adminLogin);
                 if (data != null)
                 {
                     success = true;
-                    message = "User Logged In Successfully";
+                    message = "Admin Logged In Successfully";
                     token = GenerateToken(data, _login);
                     return Ok(new { success, message, data, token });
                 }
@@ -199,7 +198,7 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is Forgot Password API
+        /// It is used to send mail to change password
         /// </summary>
         /// <param name="forgot">Forgot Password</param>
         /// <returns>If Data Found return ok else NotFound or Badrequest</returns>
@@ -211,7 +210,7 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false, sentMail;
                 string message, token;
-                var data = _userBusiness.ForgotPassword(forgot);
+                var data = _adminBusiness.ForgotPassword(forgot);
                 if (data != null)
                 {
                     token = GenerateToken(data, _forgotPassword);
@@ -251,8 +250,8 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                var userID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("UserID", StringComparison.InvariantCultureIgnoreCase)).Value);
-                var data = _userBusiness.ResetPassword(userID, reset);
+                var adminID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("AdminID", StringComparison.InvariantCultureIgnoreCase)).Value);
+                var data = _adminBusiness.ResetPassword(adminID, reset);
                 if (data)
                 {
                     success = true;
@@ -277,7 +276,7 @@ namespace LearnerManagementSystem.Controllers
         /// <param name="tokenData">Response Data</param>
         /// <param name="tokenType">Token Type</param>
         /// <returns>It return Token</returns>
-        private string GenerateToken(UserResponseModel tokenData, string tokenType)
+        private string GenerateToken(AdminResponseModel tokenData, string tokenType)
         {
             try
             {
@@ -286,7 +285,7 @@ namespace LearnerManagementSystem.Controllers
 
                 var claims = new[]
                 {
-                    new Claim("UserID", tokenData.UserID.ToString()),
+                    new Claim("AdminID", tokenData.AdminID.ToString()),
                     new Claim("Email", tokenData.Email.ToString()),
                     new Claim("TokenType", tokenType),
                 };
@@ -310,7 +309,7 @@ namespace LearnerManagementSystem.Controllers
         /// </summary>
         /// <param name="data">Response Data</param>
         /// <param name="token">Token</param>
-        private bool SendMail(UserResponseModel data, string token)
+        private bool SendMail(AdminResponseModel data, string token)
         {
             try
             {

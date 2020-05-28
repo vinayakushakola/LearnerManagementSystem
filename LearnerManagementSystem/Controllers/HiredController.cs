@@ -54,9 +54,9 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used to Add Hired UserData
+        /// It is used to Add User Data
         /// </summary>
-        /// <param name="registration">Hired Registration Data</param>
+        /// <param name="registration">User Registration Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPost]
         public IActionResult AddUser(HiredRegistrationRequest registration)
@@ -85,7 +85,7 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used to Update Hired Candidate Details
+        /// It User Selected is used to Add User Data 
         /// </summary>
         /// <param name="candidateID">CandidateID</param>
         /// <param name="updateRequest">Hired Data</param>

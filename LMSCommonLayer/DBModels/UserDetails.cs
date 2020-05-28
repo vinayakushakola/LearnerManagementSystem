@@ -9,7 +9,7 @@ namespace LMSCommonLayer.DBModels
 {
     public class UserDetails
     {
-        public int UserID { get; set; }
+        public int AdminID { get; set; }
 
         [Required]
         public string FirstName { get; set; }

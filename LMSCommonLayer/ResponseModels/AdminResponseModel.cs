@@ -5,9 +5,9 @@
 
 namespace LMSCommonLayer.ResponseModels
 {
-    public class UserResponseModel
+    public class AdminResponseModel
     {
-        public int UserID { get; set; }
+        public int AdminID { get; set; }
 
         public string FirstName { get; set; }
 

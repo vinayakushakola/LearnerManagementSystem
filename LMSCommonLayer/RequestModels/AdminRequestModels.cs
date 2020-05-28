@@ -38,7 +38,7 @@ namespace LMSCommonLayer.RequestModels
         public string CreatorUser { get; set; }
     }
 
-    public class UserUpdateRequest
+    public class AdminUpdateRequest
     {
         [EmailAddress]
         public string Email { get; set; }

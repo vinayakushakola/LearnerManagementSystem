@@ -13,7 +13,7 @@ using System.Data.SqlClient;
 
 namespace LMSRepositoryLayer.Services
 {
-    public class UserRepository : IUserRepository
+    public class AdminRepository : IAdminRepository
     {
         private readonly IConfiguration _configuration;
 
@@ -21,7 +21,7 @@ namespace LMSRepositoryLayer.Services
 
         private readonly string sqlConnectionString;
 
-        public UserRepository(IConfiguration configuration)
+        public AdminRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             sqlConnectionString = _configuration.GetConnectionString("LMSDBConnection");
@@ -31,23 +31,23 @@ namespace LMSRepositoryLayer.Services
         /// It Fetch Data from the Database
         /// </summary>
         /// <returns>If Retrieving Data Successfull return Data else return null or Exception</returns>
-        public List<UserResponseModel> GetAllUsers()
+        public List<AdminResponseModel> GetAllUsers()
         {
             try
             {
-                List<UserResponseModel> userList = null;
+                List<AdminResponseModel> userList = null;
 
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    userList = new List<UserResponseModel>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllUsers", conn);
+                    userList = new List<AdminResponseModel>();
+                    SqlCommand cmd = new SqlCommand("SP_GetAllAdmins", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        UserResponseModel user = new UserResponseModel();
-                        user.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
+                        AdminResponseModel user = new AdminResponseModel();
+                        user.AdminID = Convert.ToInt32(dataReader["AdminID"].ToString());
                         user.FirstName = dataReader["FirstName"].ToString();
                         user.LastName = dataReader["LastName"].ToString();
                         user.Email = dataReader["Email"].ToString();
@@ -75,16 +75,16 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="registrationRequest">User Data</param>
         /// <returns>If Storing Data Successfull it return ResponseData else null or Exception</returns>
-        public UserResponseModel AddUser(RegistrationRequest registrationRequest)
+        public AdminResponseModel AddUser(RegistrationRequest registrationRequest)
         {
             try
             {
-                UserResponseModel responseData = null;
+                AdminResponseModel responseData = null;
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_InsertUser", conn);
+                        SqlCommand cmd = new SqlCommand("SP_InsertAdmin", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                         cmd.Parameters.AddWithValue("@FirstName", registrationRequest.FirstName);
@@ -102,8 +102,8 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new UserResponseModel();
-                            responseData.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
+                            responseData = new AdminResponseModel();
+                            responseData.AdminID = Convert.ToInt32(dataReader["AdminID"].ToString());
                             responseData.FirstName = dataReader["FirstName"].ToString();
                             responseData.LastName = dataReader["LastName"].ToString();
                             responseData.Email = dataReader["Email"].ToString();
@@ -130,22 +130,22 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
-        /// It Updates a Specific User in the Database
+        /// It Updates a Specific Admin Data in the Database
         /// </summary>
-        /// <param name="userID">UserID</param>
+        /// <param name="adminID">AdminID</param>
         /// <param name="updateRequest">Update Data</param>
         /// <returns>If Updating Data Successfull return ResponseData else return null or Exception</returns>
-        public UserResponseModel UpdateUser(int userID, UserUpdateRequest updateRequest)
+        public AdminResponseModel UpdateUser(int adminID, AdminUpdateRequest updateRequest)
         {
             try
             {
-                UserResponseModel responseData = new UserResponseModel();
+                AdminResponseModel responseData = new AdminResponseModel();
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_UpdateUser", conn);
+                    SqlCommand cmd = new SqlCommand("SP_UpdateAdmin", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@UserID", userID);
+                    cmd.Parameters.AddWithValue("@AdminID", adminID);
                     cmd.Parameters.AddWithValue("@Email", updateRequest.Email);
                     cmd.Parameters.AddWithValue("@ContactNumber", updateRequest.ContactNumber);
                     cmd.Parameters.AddWithValue("@Verified", updateRequest.Verified);
@@ -158,7 +158,7 @@ namespace LMSRepositoryLayer.Services
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        responseData.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
+                        responseData.AdminID = Convert.ToInt32(dataReader["AdminID"].ToString());
                         responseData.FirstName = dataReader["FirstName"].ToString();
                         responseData.LastName = dataReader["LastName"].ToString();
                         responseData.Email = dataReader["Email"].ToString();
@@ -180,22 +180,22 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
-        /// It Deletes data from the Database
+        /// It Deletes Admin data from the Database
         /// </summary>
-        /// <param name="userID">UserID</param>
+        /// <param name="adminID">AdminID</param>
         /// <returns>If Deleting Data Successfull return true else false or Exception</returns>
-        public bool DeleteUser(int userID)
+        public bool DeleteUser(int adminID)
         {
             try
             {
-                if (userID > 0)
+                if (adminID > 0)
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_DeleteUser", conn);
+                        SqlCommand cmd = new SqlCommand("SP_DeleteAdmin", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("@UserID", userID);
+                        cmd.Parameters.AddWithValue("@AdminID", adminID);
 
                         conn.Open();
                         count = cmd.ExecuteNonQuery();
@@ -219,11 +219,11 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="login">Login Data</param>
         /// <returns>If Data Found return ResponseData else null or Exception</returns>
-        public UserResponseModel Login(LoginRequest login)
+        public AdminResponseModel Login(LoginRequest login)
         {
             try
             {
-                UserResponseModel responseData = null;
+                AdminResponseModel responseData = null;
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
@@ -238,8 +238,8 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new UserResponseModel();
-                            responseData.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
+                            responseData = new AdminResponseModel();
+                            responseData.AdminID = Convert.ToInt32(dataReader["AdminID"].ToString());
                             responseData.FirstName = dataReader["FirstName"].ToString();
                             responseData.LastName = dataReader["LastName"].ToString();
                             responseData.Email = dataReader["Email"].ToString();
@@ -270,11 +270,11 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="forogotPassword">Forgot Password Data</param>
         /// <returns>If Data Found return ResponseData else null or Exception</returns>
-        public UserResponseModel ForgotPassword(ForgotPasswordRequest forogotPassword)
+        public AdminResponseModel ForgotPassword(ForgotPasswordRequest forogotPassword)
         {
             try
             {
-                UserResponseModel responseData = null;
+                AdminResponseModel responseData = null;
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
@@ -288,8 +288,8 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new UserResponseModel();
-                            responseData.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
+                            responseData = new AdminResponseModel();
+                            responseData.AdminID = Convert.ToInt32(dataReader["AdminID"].ToString());
                             responseData.FirstName = dataReader["FirstName"].ToString();
                             responseData.LastName = dataReader["LastName"].ToString();
                             responseData.Email = dataReader["Email"].ToString();
@@ -316,11 +316,11 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
-        /// It Changes the User Password in the Database
+        /// It Changes the Admin Password in the Database
         /// </summary>
         /// <param name="resetPassword">Reset Password</param>
         /// <returns>If Password Changed it return true else false or Exception</returns>
-        public bool ResetPassword(int userID, ResetPasswordRequest resetPassword)
+        public bool ResetPassword(int adminID, ResetPasswordRequest resetPassword)
         {
             try
             {
@@ -329,7 +329,7 @@ namespace LMSRepositoryLayer.Services
                     SqlCommand cmd = new SqlCommand("SP_ResetPassword", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@UserID", userID);
+                    cmd.Parameters.AddWithValue("@AdminID", adminID);
                     cmd.Parameters.AddWithValue("@Password", resetPassword.Password);
 
                     conn.Open();

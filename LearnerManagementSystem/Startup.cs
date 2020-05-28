@@ -87,8 +87,8 @@ namespace LearnerManagementSystem
             });
 
 
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IUserBusiness, UserBusiness>();
+            services.AddTransient<IAdminRepository, AdminRepository>();
+            services.AddTransient<IAdminBusiness, AdminBusiness>();
 
             services.AddTransient<IHiredRepository, HiredRepository>();
             services.AddTransient<IHiredBusiness, HiredBusiness>();
