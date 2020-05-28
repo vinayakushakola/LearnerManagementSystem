@@ -84,10 +84,11 @@ namespace LearnerManagementSystem.Controllers
             }
         }
 
-        /// It is used to Update Hired UserData
+        /// <summary>
+        /// It is used to Update Hired Candidate Details
         /// </summary>
         /// <param name="candidateID">CandidateID</param>
-        /// <param name="updateRequest">Hired Update Data</param>
+        /// <param name="updateRequest">Hired Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPut]
         [Route("{candidateID}")]

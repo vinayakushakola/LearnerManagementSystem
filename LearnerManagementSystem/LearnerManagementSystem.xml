@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LearnerManagementSystem</name>
+    </assembly>
+    <members>
+        <member name="M:LearnerManagementSystem.Controllers.HiredController.GetAllHired">
+            <summary>
+            It is used to Show all Hired Users Data
+            </summary>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.HiredController.AddUser(LMSCommonLayer.RequestModels.HiredRegistrationRequest)">
+            <summary>
+            It is used to Add Hired UserData
+            </summary>
+            <param name="registration">Hired Registration Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.HiredController.UpdateHired(System.Int32,LMSCommonLayer.RequestModels.HiredUpdateRequest)">
+            <summary>
+            It is used to Update Hired Candidate Details
+            </summary>
+            <param name="candidateID">CandidateID</param>
+            <param name="updateRequest">Hired Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.HiredController.UpdateFellowshipCandidate(System.Int32,LMSCommonLayer.RequestModels.FellowshipUpdateRequest)">
+            <summary>
+            It is used to Update Data
+            </summary>
+            <param name="candidateID">Candidate ID</param>
+            <param name="updateRequest">Update Fellowship Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.HiredController.AddBankDetails(System.Int32,LMSCommonLayer.RequestModels.CandidateBankDetailRequest)">
+            <summary>
+            It is used to Candidate Bank Details
+            </summary>
+            <param name="candidateID">CandidateID</param>
+            <param name="bankDetail">Candidate Bank Detail</param>
+            <returns>If Data Fund return Ok else NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.UserController.GetAllusers">
+            <summary>
+            It is used to Show all Users Data
+            </summary>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.UserController.AddUser(LMSCommonLayer.RequestModels.RegistrationRequest)">
+            <summary>
+            It is used to Register
+            </summary>
+            <param name="registration">User Registration Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.UserController.UpdateUser(LMSCommonLayer.RequestModels.UserUpdateRequest)">
+            <summary>
+            It is used to Update User Data
+            </summary>
+            <param name="updateRequest">User Update Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.UserController.DeleteUser(System.Int32)">
+            <summary>
+            It is used to Delete Data
+            </summary>
+            <param name="userID">UserID</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.UserController.Login(LMSCommonLayer.RequestModels.LoginRequest)">
+            <summary>
+            It is used to Login
+            </summary>
+            <param name="login">Login Data</param>
+            <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.UserController.ForgotPassword(LMSCommonLayer.RequestModels.ForgotPasswordRequest)">
+            <summary>
+            It is Forgot Password API
+            </summary>
+            <param name="forgot">Forgot Password</param>
+            <returns>If Data Found return ok else NotFound or Badrequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.UserController.ResetPassword(LMSCommonLayer.RequestModels.ResetPasswordRequest)">
+            <summary>
+            It is used to Reset Password
+            </summary>
+            <param name="reset">Reset Password</param>
+            <returns>If ResetPassword Successfull return ok else NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.UserController.GenerateToken(LMSCommonLayer.ResponseModels.UserResponseModel,System.String)">
+            <summary>
+            It is used to Generate Token
+            </summary>
+            <param name="tokenData">Response Data</param>
+            <param name="tokenType">Token Type</param>
+            <returns>It return Token</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.UserController.SendMail(LMSCommonLayer.ResponseModels.UserResponseModel,System.String)">
+            <summary>
+            It is used to Send Mails
+            </summary>
+            <param name="data">Response Data</param>
+            <param name="token">Token</param>
+        </member>
+    </members>
+</doc>
