@@ -81,7 +81,7 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                RegistrationResponse data = _userBusiness.AddUser(registration);
+                var data = _userBusiness.AddUser(registration);
                 if (data != null)
                 {
                     success = true;
@@ -114,7 +114,7 @@ namespace LearnerManagementSystem.Controllers
                 bool success = false;
                 string message;
                 var userID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("UserID", StringComparison.InvariantCultureIgnoreCase)).Value);
-                RegistrationResponse data = _userBusiness.UpdateUser(userID, updateRequest);
+                var data = _userBusiness.UpdateUser(userID, updateRequest);
                 if (data != null)
                 {
                     success = true;
@@ -139,13 +139,14 @@ namespace LearnerManagementSystem.Controllers
         /// <param name="userID">UserID</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpDelete("{userID}")]
+        [Authorize]
         public IActionResult DeleteUser(int userID)
         {
             try
             {
                 bool success = false;
                 string message;
-                bool data = _userBusiness.DeleteUser(userID);
+                var data = _userBusiness.DeleteUser(userID);
                 if (data)
                 {
                     success = true;
@@ -177,7 +178,7 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message, token;
-                RegistrationResponse data = _userBusiness.Login(login);
+                var data = _userBusiness.Login(login);
                 if (data != null)
                 {
                     success = true;
@@ -210,7 +211,7 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false, sentMail;
                 string message, token;
-                RegistrationResponse data = _userBusiness.ForgotPassword(forgot);
+                var data = _userBusiness.ForgotPassword(forgot);
                 if (data != null)
                 {
                     token = GenerateToken(data, _forgotPassword);
@@ -251,7 +252,7 @@ namespace LearnerManagementSystem.Controllers
                 bool success = false;
                 string message;
                 var userID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("UserID", StringComparison.InvariantCultureIgnoreCase)).Value);
-                bool data = _userBusiness.ResetPassword(userID, reset);
+                var data = _userBusiness.ResetPassword(userID, reset);
                 if (data)
                 {
                     success = true;
@@ -276,7 +277,7 @@ namespace LearnerManagementSystem.Controllers
         /// <param name="tokenData">Response Data</param>
         /// <param name="tokenType">Token Type</param>
         /// <returns>It return Token</returns>
-        private string GenerateToken(RegistrationResponse tokenData, string tokenType)
+        private string GenerateToken(UserResponseModel tokenData, string tokenType)
         {
             try
             {

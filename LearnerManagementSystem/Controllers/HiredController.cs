@@ -5,7 +5,6 @@
 
 using LMSBusinessLayer.Interface;
 using LMSCommonLayer.RequestModels;
-using LMSCommonLayer.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,8 +18,6 @@ namespace LearnerManagementSystem.Controllers
     public class HiredController : ControllerBase
     {
         private readonly IHiredBusiness _hiredBusiness;
-
-
         public HiredController(IHiredBusiness hiredBusiness)
         {
             _hiredBusiness = hiredBusiness;
@@ -68,7 +65,7 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                HiredRegistrationResponse data = _hiredBusiness.AddHired(registration);
+                var data = _hiredBusiness.AddHired(registration);
                 if (data != null)
                 {
                     success = true;
@@ -100,7 +97,7 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                HiredRegistrationResponse data = _hiredBusiness.UpdateHired(candidateID, updateRequest);
+                var data = _hiredBusiness.UpdateHired(candidateID, updateRequest);
                 if (data != null)
                 {
                     success = true;

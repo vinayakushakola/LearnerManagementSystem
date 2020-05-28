@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Reflection.Metadata.Ecma335;
+using System.Threading;
 
 namespace LMSRepositoryLayer.Services
 {
@@ -29,22 +31,22 @@ namespace LMSRepositoryLayer.Services
         /// It Fetch Data from the Database
         /// </summary>
         /// <returns>If Retrieving Data Successfull return Data else return null or Exception</returns>
-        public List<HiredRegistrationResponse> GetAllHired()
+        public List<HiredResponseModel> GetAllHired()
         {
             try
             {
-                List<HiredRegistrationResponse> userList = null;
+                List<HiredResponseModel> userList = null;
 
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    userList = new List<HiredRegistrationResponse>();
+                    userList = new List<HiredResponseModel>();
                     SqlCommand cmd = new SqlCommand("SP_GetAllHired", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        HiredRegistrationResponse responseData = new HiredRegistrationResponse();
+                        HiredResponseModel responseData = new HiredResponseModel();
                         responseData.CandidateID = Convert.ToInt32(dataReader["ID"].ToString());
                         responseData.FirstName = dataReader["FirstName"].ToString();
                         responseData.MiddleName = dataReader["MiddleName"].ToString();
@@ -83,11 +85,11 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="hiredRegistration">Hired Registration Data</param>
         /// <returns>If Storing Data Successfull it return ResponseData else null or Exception</returns>
-        public HiredRegistrationResponse AddHired(HiredRegistrationRequest hiredRegistration)
+        public HiredResponseModel AddHired(HiredRegistrationRequest hiredRegistration)
         {
             try
             {
-                HiredRegistrationResponse responseData = null;
+                HiredResponseModel responseData = null;
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
@@ -112,7 +114,7 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new HiredRegistrationResponse();
+                            responseData = new HiredResponseModel();
                             responseData.CandidateID = Convert.ToInt32(dataReader["ID"].ToString());
                             responseData.FirstName = dataReader["FirstName"].ToString();
                             responseData.MiddleName = dataReader["MiddleName"].ToString();
@@ -155,11 +157,11 @@ namespace LMSRepositoryLayer.Services
         /// <param name="candidateID">CandidateID</param>
         /// <param name="hiredRegistrationUpdate">Hired Update Data</param>
         /// <returns>If Updating Data Successfull return ResponseData else return null or Exception</returns>
-        public HiredRegistrationResponse UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate)
+        public HiredResponseModel UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate)
         {
             try
             {
-                HiredRegistrationResponse responseData = null;
+                HiredResponseModel responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     SqlCommand cmd = new SqlCommand("SP_HiredUpdate", conn);
@@ -182,7 +184,7 @@ namespace LMSRepositoryLayer.Services
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        responseData = new HiredRegistrationResponse();
+                        responseData = new HiredResponseModel();
                         responseData.CandidateID = Convert.ToInt32(dataReader["ID"].ToString());
                         responseData.FirstName = dataReader["FirstName"].ToString();
                         responseData.MiddleName = dataReader["MiddleName"].ToString();
@@ -206,7 +208,113 @@ namespace LMSRepositoryLayer.Services
                     }
                     conn.Close();
                 }
+                if (responseData.Status.ToLower() == "accepted")
+                {
+                    var isAddedToFellowship = AddSelectedCandidate(responseData);
+                    if (isAddedToFellowship != null)
+                    {
+                        responseData.responseModel = isAddedToFellowship;
+                    }
+                    else
+                    {
+                        responseData.responseModel = null;
+                    }
+                }
                 return responseData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// It is used to Add Selected Candidate into the FellowshipDetails
+        /// </summary>
+        /// <param name="acceptedCandidate"></param>
+        /// <returns>If Data Adding Successfull it return ResponseData else null or Exception</returns>
+        public FellowshipResponseModel AddSelectedCandidate(HiredResponseModel acceptedCandidate)
+        {
+            try
+            {
+                FellowshipResponseModel responseData = null;
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_FellowshipInsert", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@FirstName", acceptedCandidate.FirstName);
+                        cmd.Parameters.AddWithValue("@MiddleName", acceptedCandidate.MiddleName);
+                        cmd.Parameters.AddWithValue("@LastName", acceptedCandidate.LastName);
+                        cmd.Parameters.AddWithValue("@Email", acceptedCandidate.Email);
+                        cmd.Parameters.AddWithValue("@Degree", acceptedCandidate.Degree);
+                        cmd.Parameters.AddWithValue("@MobileNumber", acceptedCandidate.MobileNumber);
+                        cmd.Parameters.AddWithValue("@PermanentPincode", acceptedCandidate.PermanentPincode);
+                        cmd.Parameters.AddWithValue("@HiredCity", acceptedCandidate.HiredCity);
+                        cmd.Parameters.AddWithValue("@HiredDate", acceptedCandidate.HiredDate);
+                        cmd.Parameters.AddWithValue("@HiredLab", acceptedCandidate.HiredLab);
+                        cmd.Parameters.AddWithValue("@Attitude", acceptedCandidate.Attitude);
+                        cmd.Parameters.AddWithValue("@CommunicationRemark", acceptedCandidate.CommunicationRemark);
+                        cmd.Parameters.AddWithValue("@KnowledgeRemark", acceptedCandidate.KnowledgeRemark);
+                        cmd.Parameters.AddWithValue("@AggregateRemark", acceptedCandidate.AggregateRemark);
+                        cmd.Parameters.AddWithValue("@Status", acceptedCandidate.Status);
+                        cmd.Parameters.AddWithValue("@CreatorStamp", acceptedCandidate.CreatorStamp);
+                        cmd.Parameters.AddWithValue("@CreatorUser", acceptedCandidate.CreatorUser);
+                        cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                        conn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            responseData = new FellowshipResponseModel();
+                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
+                            responseData.FirstName = dataReader["FirstName"].ToString();
+                            responseData.MiddleName = dataReader["MiddleName"].ToString();
+                            responseData.LastName = dataReader["LastName"].ToString();
+                            responseData.Email = dataReader["Email"].ToString();
+                            responseData.Degree = dataReader["Degree"].ToString();
+                            responseData.MobileNumber = dataReader["MobileNumber"].ToString();
+                            responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
+                            responseData.HiredCity = dataReader["HiredCity"].ToString();
+                            responseData.HiredDate = dataReader["HiredDate"].ToString();
+                            responseData.HiredLab = dataReader["HiredLab"].ToString();
+                            responseData.Attitude = dataReader["Attitude"].ToString();
+                            responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
+                            responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
+                            responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
+                            responseData.Status = dataReader["Status"].ToString();
+                            responseData.BirthDate = dataReader["BirthDate"].ToString();
+                            responseData.IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString();
+                            responseData.ParentName = dataReader["ParentName"].ToString();
+                            responseData.ParentOccupation = dataReader["ParentOccupation"].ToString();
+                            responseData.ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString();
+                            responseData.ParentsAnnualSalary = dataReader["ParentsAnnualSalary"].ToString();
+                            responseData.LocalAddress = dataReader["LocalAddress"].ToString();
+                            responseData.PermanentAddress = dataReader["PermanentAddress"].ToString();
+                            responseData.PhotoPath = dataReader["PhotoPath"].ToString();
+                            responseData.JoiningDate = dataReader["JoiningDate"].ToString();
+                            responseData.CandidateStatus = dataReader["CandidateStatus"].ToString();
+                            responseData.PersonalInformation = dataReader["PersonalInformation"].ToString();
+                            responseData.BankInformation = dataReader["BankInformation"].ToString();
+                            responseData.EducationalInformation = dataReader["EducationalInformation"].ToString();
+                            responseData.DocumentStatus = dataReader["DocumentStatus"].ToString();
+                            responseData.Remark = dataReader["Remark"].ToString();
+                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
+                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        }
+                        conn.Close();
+                    }
+                    return responseData;
+                }
+                catch
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {

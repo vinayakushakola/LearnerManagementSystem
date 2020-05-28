@@ -3,50 +3,65 @@
 // Date: 25/05/2020
 //
 
-namespace LMSCommonLayer.ResponseModels
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace LMSCommonLayer.RequestModels
 {
-	public class HiredResponseModel
+	public class FellowshipAddRequest
     {
-		public int CandidateID { get; set; }
-
+		[Required]
 		public string FirstName { get; set; }
-		
-		public string MiddleName { get; set; }
-		
-		public string LastName { get; set; }
-		
-		public string Email { get; set; }
-		
-		public string Degree { get; set; }
-		
-		public string MobileNumber { get; set; }
-		
-		public string PermanentPincode { get; set; }
-		
-		public string HiredCity { get; set; }
-		
-		public string HiredDate { get; set; }
-		
-		public string HiredLab { get; set; }
-		
-		public string Attitude { get; set; }
-		
-		public string CommunicationRemark { get; set; }
-		
-		public string KnowledgeRemark { get; set; }
-		
-		public string AggregateRemark { get; set; }
-		
-		public string Status { get; set; }
-		
-		public string CreatorStamp { get; set; }
-		
-		public string CreatorUser { get; set; }
-		
-		public string CreatedDate { get; set; }
-		
-		public string ModifiedDate { get; set; }
 
-		public FellowshipResponseModel responseModel { get; set; }
+		[Required]
+		public string MiddleName { get; set; }
+
+		[Required]
+		public string LastName { get; set; }
+
+		[Required]
+		public string Email { get; set; }
+
+		[Required]
+		public string Degree { get; set; }
+
+		[Required]
+		public string MobileNumber { get; set; }
+
+		[Required]
+		public string PermanentPincode { get; set; }
+
+		[Required]
+		public string HiredCity { get; set; }
+
+		[Required]
+		public DateTime HiredDate { get; set; }
+
+		[Required]
+		public string HiredLab { get; set; }
+
+		[Required]
+		public string Attitude { get; set; }
+
+		[Required]
+		public string CommunicationRemark { get; set; }
+
+		[Required]
+		public string KnowledgeRemark { get; set; }
+
+		[Required]
+		public string AggregateRemark { get; set; }
+
+		[Required]
+		public string Status { get; set; }
+
+		[Required]
+		public string CreatorStamp { get; set; }
+
+		[Required]
+		public DateTime CreatedDate { get; set; }
+
+		[Required]
+		public DateTime ModifiedDate { get; set; }
 	}
 }

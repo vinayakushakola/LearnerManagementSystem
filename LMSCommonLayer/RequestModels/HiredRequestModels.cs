@@ -3,7 +3,6 @@
 // Date: 25/05/2020
 //
 
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace LMSCommonLayer.RequestModels

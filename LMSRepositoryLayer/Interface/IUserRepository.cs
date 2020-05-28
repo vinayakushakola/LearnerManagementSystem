@@ -11,17 +11,17 @@ namespace LMSRepositoryLayer.Interface
 {
     public interface IUserRepository
     {
-        List<RegistrationResponse> GetAllUsers();
+        List<UserResponseModel> GetAllUsers();
 
-        RegistrationResponse AddUser(RegistrationRequest registrationRequest);
+        UserResponseModel AddUser(RegistrationRequest registrationRequest);
 
-        RegistrationResponse UpdateUser(int userID, UserUpdateRequest updateRequest);
+        UserResponseModel UpdateUser(int userID, UserUpdateRequest updateRequest);
 
         bool DeleteUser(int userID);
 
-        RegistrationResponse Login(LoginRequest login);
-        
-        RegistrationResponse ForgotPassword(ForgotPasswordRequest forogotPassword);
+        UserResponseModel Login(LoginRequest login);
+
+        UserResponseModel ForgotPassword(ForgotPasswordRequest forogotPassword);
 
         bool ResetPassword(int userID, ResetPasswordRequest resetPassword);
     }

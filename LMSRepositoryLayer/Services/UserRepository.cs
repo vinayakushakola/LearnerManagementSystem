@@ -31,22 +31,22 @@ namespace LMSRepositoryLayer.Services
         /// It Fetch Data from the Database
         /// </summary>
         /// <returns>If Retrieving Data Successfull return Data else return null or Exception</returns>
-        public List<RegistrationResponse> GetAllUsers()
+        public List<UserResponseModel> GetAllUsers()
         {
             try
             {
-                List<RegistrationResponse> userList = null;
+                List<UserResponseModel> userList = null;
 
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    userList = new List<RegistrationResponse>();
+                    userList = new List<UserResponseModel>();
                     SqlCommand cmd = new SqlCommand("SP_GetAllUsers", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        RegistrationResponse user = new RegistrationResponse();
+                        UserResponseModel user = new UserResponseModel();
                         user.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
                         user.FirstName = dataReader["FirstName"].ToString();
                         user.LastName = dataReader["LastName"].ToString();
@@ -75,11 +75,11 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="registrationRequest">User Data</param>
         /// <returns>If Storing Data Successfull it return ResponseData else null or Exception</returns>
-        public RegistrationResponse AddUser(RegistrationRequest registrationRequest)
+        public UserResponseModel AddUser(RegistrationRequest registrationRequest)
         {
             try
             {
-                RegistrationResponse responseData = null;
+                UserResponseModel responseData = null;
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
@@ -102,7 +102,7 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new RegistrationResponse();
+                            responseData = new UserResponseModel();
                             responseData.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
                             responseData.FirstName = dataReader["FirstName"].ToString();
                             responseData.LastName = dataReader["LastName"].ToString();
@@ -135,11 +135,11 @@ namespace LMSRepositoryLayer.Services
         /// <param name="userID">UserID</param>
         /// <param name="updateRequest">Update Data</param>
         /// <returns>If Updating Data Successfull return ResponseData else return null or Exception</returns>
-        public RegistrationResponse UpdateUser(int userID, UserUpdateRequest updateRequest)
+        public UserResponseModel UpdateUser(int userID, UserUpdateRequest updateRequest)
         {
             try
             {
-                RegistrationResponse responseData = new RegistrationResponse();
+                UserResponseModel responseData = new UserResponseModel();
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     SqlCommand cmd = new SqlCommand("SP_UpdateUser", conn);
@@ -219,11 +219,11 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="login">Login Data</param>
         /// <returns>If Data Found return ResponseData else null or Exception</returns>
-        public RegistrationResponse Login(LoginRequest login)
+        public UserResponseModel Login(LoginRequest login)
         {
             try
             {
-                RegistrationResponse responseData = null;
+                UserResponseModel responseData = null;
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
@@ -238,7 +238,7 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new RegistrationResponse();
+                            responseData = new UserResponseModel();
                             responseData.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
                             responseData.FirstName = dataReader["FirstName"].ToString();
                             responseData.LastName = dataReader["LastName"].ToString();
@@ -270,11 +270,11 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="forogotPassword">Forgot Password Data</param>
         /// <returns>If Data Found return ResponseData else null or Exception</returns>
-        public RegistrationResponse ForgotPassword(ForgotPasswordRequest forogotPassword)
+        public UserResponseModel ForgotPassword(ForgotPasswordRequest forogotPassword)
         {
             try
             {
-                RegistrationResponse responseData = null;
+                UserResponseModel responseData = null;
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
@@ -288,7 +288,7 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new RegistrationResponse();
+                            responseData = new UserResponseModel();
                             responseData.UserID = Convert.ToInt32(dataReader["UserID"].ToString());
                             responseData.FirstName = dataReader["FirstName"].ToString();
                             responseData.LastName = dataReader["LastName"].ToString();
