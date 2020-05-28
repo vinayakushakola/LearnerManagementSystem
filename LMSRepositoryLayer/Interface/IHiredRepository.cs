@@ -11,10 +11,10 @@ namespace LMSRepositoryLayer.Interface
 {
     public interface IHiredRepository
     {
-        List<HiredRegistrationResponse> GetAllHired();
+        List<HiredResponseModel> GetAllHired();
 
-        HiredRegistrationResponse AddHired(HiredRegistrationRequest hiredRegistration);
-        
-        HiredRegistrationResponse UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate);
+        HiredResponseModel AddHired(HiredRegistrationRequest hiredRegistration);
+
+        HiredResponseModel UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate);
     }
 }

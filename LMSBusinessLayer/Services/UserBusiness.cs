@@ -20,19 +20,19 @@ namespace LMSBusinessLayer.Services
             _userRepository = userRepository;
         }
 
-        public List<RegistrationResponse> GetAllUsers()
+        public List<UserResponseModel> GetAllUsers()
         {
             var responseData = _userRepository.GetAllUsers();
             return responseData;
         }
 
-        public RegistrationResponse AddUser(RegistrationRequest registrationRequest)
+        public UserResponseModel AddUser(RegistrationRequest registrationRequest)
         {
             var responseData = _userRepository.AddUser(registrationRequest);
             return responseData;
         }
 
-        public RegistrationResponse UpdateUser(int userID, UserUpdateRequest updateRequest)
+        public UserResponseModel UpdateUser(int userID, UserUpdateRequest updateRequest)
         {
             var responseData = _userRepository.UpdateUser(userID, updateRequest);
             return responseData;
@@ -44,13 +44,13 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
-        public RegistrationResponse Login(LoginRequest login)
+        public UserResponseModel Login(LoginRequest login)
         {
             var responseData = _userRepository.Login(login);
             return responseData;
         }
 
-        public RegistrationResponse ForgotPassword(ForgotPasswordRequest forogotPassword)
+        public UserResponseModel ForgotPassword(ForgotPasswordRequest forogotPassword)
         {
             var responseData = _userRepository.ForgotPassword(forogotPassword);
             return responseData;

@@ -20,19 +20,19 @@ namespace LMSBusinessLayer.Services
             _hiredRepository = hiredRepository;
         }
 
-        public List<HiredRegistrationResponse> GetAllHired()
+        public List<HiredResponseModel> GetAllHired()
         {
             var responseData = _hiredRepository.GetAllHired();
             return responseData;
         }
 
-        public HiredRegistrationResponse AddHired(HiredRegistrationRequest hiredRegistration)
+        public HiredResponseModel AddHired(HiredRegistrationRequest hiredRegistration)
         {
             var responseData = _hiredRepository.AddHired(hiredRegistration);
             return responseData;
         }
 
-        public HiredRegistrationResponse UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate)
+        public HiredResponseModel UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate)
         {
             var responseData = _hiredRepository.UpdateHired(candidateID, hiredRegistrationUpdate);
             return responseData;
