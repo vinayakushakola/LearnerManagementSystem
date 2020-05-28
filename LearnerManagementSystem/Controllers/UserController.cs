@@ -310,7 +310,7 @@ namespace LearnerManagementSystem.Controllers
         /// </summary>
         /// <param name="data">Response Data</param>
         /// <param name="token">Token</param>
-        private bool SendMail(RegistrationResponse data, string token)
+        private bool SendMail(UserResponseModel data, string token)
         {
             try
             {

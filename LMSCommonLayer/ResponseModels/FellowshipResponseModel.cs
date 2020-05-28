@@ -39,4 +39,23 @@
 		public string CreatedDate { get; set; }
 		public string ModifiedDate { get; set; }
 	}
+
+	public class CandidateBankDetailResponse
+	{
+		public int ID { get; set; }
+		public int CandidateID { get; set; }
+		public string Name { get; set; }
+		public string AccountNumber { get; set; }
+		public string IsAccountNumberVerified { get; set; }
+		public string IfscCode { get; set; }
+		public string IsIfscCodeVerified { get; set; }
+		public string PanNumber { get; set; }
+		public string IsPanNumberVerified { get; set; }
+		public string AdhaarNumber { get; set; }
+		public string IsAdhaarNumberVerified { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public string CreatedDate { get; set; }
+		public string ModifiedDate { get; set; }
+	}
 }

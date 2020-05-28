@@ -148,5 +148,38 @@ namespace LearnerManagementSystem.Controllers
                 return BadRequest(new { ex.Message });
             }
         }
+
+        /// <summary>
+        /// It is used to Candidate Bank Details
+        /// </summary>
+        /// <param name="candidateID">CandidateID</param>
+        /// <param name="bankDetail">Candidate Bank Detail</param>
+        /// <returns>If Data Fund return Ok else NotFound or BadRequest</returns>
+        [HttpPut]
+        [Route("{candidateID}/BankDetails")]
+        public IActionResult AddBankDetails(int candidateID, CandidateBankDetailRequest bankDetail)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _hiredBusiness.AddCandidateBankDetails(candidateID, bankDetail);
+                if (data != null)
+                {
+                    success = true;
+                    message = "Fellowship Candidate Bank Details Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
     }
 }

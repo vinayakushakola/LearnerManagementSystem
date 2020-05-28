@@ -416,5 +416,74 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// It Adds Candidate Bank Details in the database
+        /// </summary>
+        /// <param name="candidateID">CandidateID</param>
+        /// <param name="bankDetail">Bank Details</param>
+        /// <returns>If Data Successfully return ResponseData else null or BadRequest</returns>
+        public CandidateBankDetailResponse AddCandidateBankDetails(int candidateID, CandidateBankDetailRequest bankDetail)
+        {
+            try
+            {
+                CandidateBankDetailResponse responseData = null;
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_AddCandidateBankDetails", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@CandidateID", candidateID);
+                        cmd.Parameters.AddWithValue("@Name", bankDetail.Name);
+                        cmd.Parameters.AddWithValue("@AccountNumber", bankDetail.AccountNumber);
+                        cmd.Parameters.AddWithValue("@IsAccountNumberVerified", bankDetail.IsAccountNumberVerified);
+                        cmd.Parameters.AddWithValue("@IfscCode", bankDetail.IfscCode);
+                        cmd.Parameters.AddWithValue("@IsIfscCodeVerified", bankDetail.IsIfscCodeVerified);
+                        cmd.Parameters.AddWithValue("@PanNumber", bankDetail.PanNumber);
+                        cmd.Parameters.AddWithValue("@IsPanNumberVerified", bankDetail.IsPanNumberVerified);
+                        cmd.Parameters.AddWithValue("@AdhaarNumber", bankDetail.AdhaarNumber);
+                        cmd.Parameters.AddWithValue("@IsAdhaarNumberVerified", bankDetail.IsAdhaarNumberVerified);
+                        cmd.Parameters.AddWithValue("@CreatorStamp", bankDetail.CreatorStamp);
+                        cmd.Parameters.AddWithValue("@CreatorUser", bankDetail.CreatorUser);
+                        cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                        conn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            responseData = new CandidateBankDetailResponse();
+                            responseData.ID = Convert.ToInt32(dataReader["ID"].ToString());
+                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
+                            responseData.Name = dataReader["Name"].ToString();
+                            responseData.AccountNumber = dataReader["AccountNumber"].ToString();
+                            responseData.IsAccountNumberVerified= dataReader["IsAccountNumberVerified"].ToString();
+                            responseData.IfscCode = dataReader["IfscCode"].ToString();
+                            responseData.IsIfscCodeVerified = dataReader["IsIfscCodeVerified"].ToString();
+                            responseData.PanNumber = dataReader["PanNumber"].ToString();
+                            responseData.IsPanNumberVerified = dataReader["IsPanNumberVerified"].ToString();
+                            responseData.AdhaarNumber = dataReader["AdhaarNumber"].ToString();
+                            responseData.IsAdhaarNumberVerified = dataReader["IsAdhaarNumberVerified"].ToString();
+                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
+                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        }
+                        conn.Close();
+                    }
+                    return responseData;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
