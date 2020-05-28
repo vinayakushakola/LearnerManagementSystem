@@ -115,5 +115,38 @@ namespace LearnerManagementSystem.Controllers
                 return BadRequest(new { ex.Message });
             }
         }
+
+        /// <summary>
+        /// It is used to Update Data
+        /// </summary>
+        /// <param name="candidateID">Candidate ID</param>
+        /// <param name="updateRequest">Update Fellowship Data</param>
+        /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        [HttpPut]
+        [Route("{candidateID}/FellowshipCandidate")]
+        public IActionResult UpdateFellowshipCandidate(int candidateID, FellowshipUpdateRequest updateRequest)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _hiredBusiness.UpdateFellowshipCandidate(candidateID, updateRequest);
+                if (data != null)
+                {
+                    success = true;
+                    message = "Fellowship Candidate Data Updated Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
     }
 }

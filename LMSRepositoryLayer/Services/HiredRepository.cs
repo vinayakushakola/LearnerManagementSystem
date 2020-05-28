@@ -321,5 +321,100 @@ namespace LMSRepositoryLayer.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// It Update Fellowship Candidate Details
+        /// </summary>
+        /// <param name="candidateID">Candidate ID</param>
+        /// <param name="fellowshipUpdate">UpdateFellowshipCandidate</param>
+        /// <returns>If Data Updated Successfully in the database it return ResponseData else Exception</returns>
+        public FellowshipResponseModel UpdateFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate)
+        {
+            try
+            {
+                FellowshipResponseModel responseData = null;
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_FellowshipUpdate", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("CandidateID", candidateID);
+                        cmd.Parameters.AddWithValue("@BirthDate", fellowshipUpdate.BirthDate);
+                        cmd.Parameters.AddWithValue("@IsBirthDateVerified", fellowshipUpdate.IsBirthDateVerified);
+                        cmd.Parameters.AddWithValue("@ParentName", fellowshipUpdate.ParentName);
+                        cmd.Parameters.AddWithValue("@ParentOccupation", fellowshipUpdate.ParentOccupation);
+                        cmd.Parameters.AddWithValue("@ParentsMobileNumber", fellowshipUpdate.ParentsMobileNumber);
+                        cmd.Parameters.AddWithValue("@ParentsAnnualSalary", fellowshipUpdate.ParentsAnnualSalary);
+                        cmd.Parameters.AddWithValue("@LocalAddress", fellowshipUpdate.LocalAddress);
+                        cmd.Parameters.AddWithValue("@PermanentAddress", fellowshipUpdate.PermanentAddress);
+                        cmd.Parameters.AddWithValue("@PhotoPath", fellowshipUpdate.PhotoPath);
+                        cmd.Parameters.AddWithValue("@JoiningDate", fellowshipUpdate.JoiningDate);
+                        cmd.Parameters.AddWithValue("@CandidateStatus", fellowshipUpdate.CandidateStatus);
+                        cmd.Parameters.AddWithValue("@PersonalInformation", fellowshipUpdate.PersonalInformation);
+                        cmd.Parameters.AddWithValue("@BankInformation", fellowshipUpdate.BankInformation);
+                        cmd.Parameters.AddWithValue("@EducationalInformation", fellowshipUpdate.EducationalInformation);
+                        cmd.Parameters.AddWithValue("@DocumentStatus", fellowshipUpdate.DocumentStatus);
+                        cmd.Parameters.AddWithValue("@Remark", fellowshipUpdate.Remark);
+                        cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                        conn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            responseData = new FellowshipResponseModel();
+                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
+                            responseData.FirstName = dataReader["FirstName"].ToString();
+                            responseData.MiddleName = dataReader["MiddleName"].ToString();
+                            responseData.LastName = dataReader["LastName"].ToString();
+                            responseData.Email = dataReader["Email"].ToString();
+                            responseData.Degree = dataReader["Degree"].ToString();
+                            responseData.MobileNumber = dataReader["MobileNumber"].ToString();
+                            responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
+                            responseData.HiredCity = dataReader["HiredCity"].ToString();
+                            responseData.HiredDate = dataReader["HiredDate"].ToString();
+                            responseData.HiredLab = dataReader["HiredLab"].ToString();
+                            responseData.Attitude = dataReader["Attitude"].ToString();
+                            responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
+                            responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
+                            responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
+                            responseData.Status = dataReader["Status"].ToString();
+                            responseData.BirthDate = dataReader["BirthDate"].ToString();
+                            responseData.IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString();
+                            responseData.ParentName = dataReader["ParentName"].ToString();
+                            responseData.ParentOccupation = dataReader["ParentOccupation"].ToString();
+                            responseData.ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString();
+                            responseData.ParentsAnnualSalary = dataReader["ParentsAnnualSalary"].ToString();
+                            responseData.LocalAddress = dataReader["LocalAddress"].ToString();
+                            responseData.PermanentAddress = dataReader["PermanentAddress"].ToString();
+                            responseData.PhotoPath = dataReader["PhotoPath"].ToString();
+                            responseData.JoiningDate = dataReader["JoiningDate"].ToString();
+                            responseData.CandidateStatus = dataReader["CandidateStatus"].ToString();
+                            responseData.PersonalInformation = dataReader["PersonalInformation"].ToString();
+                            responseData.BankInformation = dataReader["BankInformation"].ToString();
+                            responseData.EducationalInformation = dataReader["EducationalInformation"].ToString();
+                            responseData.DocumentStatus = dataReader["DocumentStatus"].ToString();
+                            responseData.Remark = dataReader["Remark"].ToString();
+                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
+                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        }
+                        conn.Close();
+                    }
+                    return responseData;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

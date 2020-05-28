@@ -64,4 +64,25 @@ namespace LMSCommonLayer.RequestModels
 		[Required]
 		public DateTime ModifiedDate { get; set; }
 	}
+
+	public class FellowshipUpdateRequest
+	{
+		public string BirthDate { get; set; }
+		public string IsBirthDateVerified { get; set; }
+		public string ParentName { get; set; }
+		public string ParentOccupation { get; set; }
+		public string ParentsMobileNumber { get; set; }
+		public string ParentsAnnualSalary { get; set; }
+		public string LocalAddress { get; set; }
+		public string PermanentAddress { get; set; }
+		public string PhotoPath { get; set; }
+		public string JoiningDate { get; set; }
+		public string CandidateStatus { get; set; }
+		public string PersonalInformation { get; set; }
+		public string BankInformation { get; set; }
+		public string EducationalInformation { get; set; }
+		public string DocumentStatus { get; set; }
+		public string Remark { get; set; }
+		public DateTime ModifiedDate { get; set; }
+	}
 }
