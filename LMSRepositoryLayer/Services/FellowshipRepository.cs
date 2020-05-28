@@ -10,28 +10,26 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading;
 
 namespace LMSRepositoryLayer.Services
 {
-    public class HiredRepository : IHiredRepository
+    public class FellowshipRepository : IFellowshipRepository
     {
         private readonly IConfiguration _configuration;
 
         private readonly string sqlConnectionString;
 
-        public HiredRepository(IConfiguration configuration)
+        public FellowshipRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             sqlConnectionString = _configuration.GetConnectionString("LMSDBConnection");
         }
 
         /// <summary>
-        /// It Fetch Data from the Database
+        /// It Fetch All Candidates Data from the Database
         /// </summary>
-        /// <returns>If Retrieving Data Successfull return Data else return null or Exception</returns>
-        public List<HiredResponseModel> GetAllHired()
+        /// <returns>If Retrieving Data Successfull return Candidates Data else return null or Exception</returns>
+        public List<HiredResponseModel> GetAllCandidates()
         {
             try
             {
@@ -47,7 +45,7 @@ namespace LMSRepositoryLayer.Services
                     while (dataReader.Read())
                     {
                         HiredResponseModel responseData = new HiredResponseModel();
-                        responseData.CandidateID = Convert.ToInt32(dataReader["ID"].ToString());
+                        responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
                         responseData.FirstName = dataReader["FirstName"].ToString();
                         responseData.MiddleName = dataReader["MiddleName"].ToString();
                         responseData.LastName = dataReader["LastName"].ToString();
@@ -104,7 +102,6 @@ namespace LMSRepositoryLayer.Services
                         cmd.Parameters.AddWithValue("@Degree", hiredRegistration.Degree);
                         cmd.Parameters.AddWithValue("@MobileNumber", hiredRegistration.MobileNumber);
                         cmd.Parameters.AddWithValue("@PermanentPincode", hiredRegistration.PermanentPincode);
-
                         cmd.Parameters.AddWithValue("@CreatorStamp", hiredRegistration.CreatorStamp);
                         cmd.Parameters.AddWithValue("@CreatorUser", hiredRegistration.CreatorUser);
                         cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
@@ -115,7 +112,7 @@ namespace LMSRepositoryLayer.Services
                         while (dataReader.Read())
                         {
                             responseData = new HiredResponseModel();
-                            responseData.CandidateID = Convert.ToInt32(dataReader["ID"].ToString());
+                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
                             responseData.FirstName = dataReader["FirstName"].ToString();
                             responseData.MiddleName = dataReader["MiddleName"].ToString();
                             responseData.LastName = dataReader["LastName"].ToString();
@@ -152,7 +149,7 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
-        /// It Updates a Specific User in the Database
+        /// It Updates Data in the Database
         /// </summary>
         /// <param name="candidateID">CandidateID</param>
         /// <param name="hiredRegistrationUpdate">Hired Update Data</param>
@@ -185,7 +182,7 @@ namespace LMSRepositoryLayer.Services
                     while (dataReader.Read())
                     {
                         responseData = new HiredResponseModel();
-                        responseData.CandidateID = Convert.ToInt32(dataReader["ID"].ToString());
+                        responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
                         responseData.FirstName = dataReader["FirstName"].ToString();
                         responseData.MiddleName = dataReader["MiddleName"].ToString();
                         responseData.LastName = dataReader["LastName"].ToString();
@@ -210,7 +207,7 @@ namespace LMSRepositoryLayer.Services
                 }
                 if (responseData.Status.ToLower() == "accepted")
                 {
-                    var isAddedToFellowship = AddSelectedCandidate(responseData);
+                    var isAddedToFellowship = AddSelectedFellowshipCandidate(responseData);
                     if (isAddedToFellowship != null)
                     {
                         responseData.responseModel = isAddedToFellowship;
@@ -229,11 +226,11 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
-        /// It is used to Add Selected Candidate into the FellowshipDetails
+        /// It is used to Add Selected Candidate into the Fellowship Program
         /// </summary>
         /// <param name="acceptedCandidate"></param>
         /// <returns>If Data Adding Successfull it return ResponseData else null or Exception</returns>
-        public FellowshipResponseModel AddSelectedCandidate(HiredResponseModel acceptedCandidate)
+        public FellowshipResponseModel AddSelectedFellowshipCandidate(HiredResponseModel acceptedCandidate)
         {
             try
             {
@@ -326,9 +323,9 @@ namespace LMSRepositoryLayer.Services
         /// It Update Fellowship Candidate Details
         /// </summary>
         /// <param name="candidateID">Candidate ID</param>
-        /// <param name="fellowshipUpdate">UpdateFellowshipCandidate</param>
-        /// <returns>If Data Updated Successfully in the database it return ResponseData else Exception</returns>
-        public FellowshipResponseModel UpdateFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate)
+        /// <param name="fellowshipUpdate">Update Fellowship Candidate</param>
+        /// <returns>If Data Updated Successfully, It return ResponseData else null or Exception</returns>
+        public FellowshipResponseModel UpdateSelectedFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate)
         {
             try
             {
@@ -340,7 +337,7 @@ namespace LMSRepositoryLayer.Services
                         SqlCommand cmd = new SqlCommand("SP_FellowshipUpdate", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("CandidateID", candidateID);
+                        cmd.Parameters.AddWithValue("@CandidateID", candidateID);
                         cmd.Parameters.AddWithValue("@BirthDate", fellowshipUpdate.BirthDate);
                         cmd.Parameters.AddWithValue("@IsBirthDateVerified", fellowshipUpdate.IsBirthDateVerified);
                         cmd.Parameters.AddWithValue("@ParentName", fellowshipUpdate.ParentName);
@@ -421,7 +418,7 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="candidateID">CandidateID</param>
         /// <param name="bankDetail">Bank Details</param>
-        /// <returns>If Data Successfully return ResponseData else null or BadRequest</returns>
+        /// <returns>If Data Added Successfully return ResponseData else null or Exception</returns>
         public CandidateBankDetailResponse AddCandidateBankDetails(int candidateID, CandidateBankDetailRequest bankDetail)
         {
             try

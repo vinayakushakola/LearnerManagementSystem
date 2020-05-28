@@ -15,30 +15,30 @@ namespace LearnerManagementSystem.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class HiredController : ControllerBase
+    public class FellowshipController : ControllerBase
     {
-        private readonly IHiredBusiness _hiredBusiness;
-        public HiredController(IHiredBusiness hiredBusiness)
+        private readonly IFellowshipBusiness _hiredBusiness;
+        public FellowshipController(IFellowshipBusiness hiredBusiness)
         {
             _hiredBusiness = hiredBusiness;
         }
 
         /// <summary>
-        /// It is used to Show all Hired Users Data
+        /// It is used to Show all Candidates Data
         /// </summary>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpGet]
-        public IActionResult GetAllHired()
+        public IActionResult GetAllCandidates()
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _hiredBusiness.GetAllHired().ToList();
+                var data = _hiredBusiness.GetAllCandidates().ToList();
                 if (data != null)
                 {
                     success = true;
-                    message = "Hired Users Data Fetched Successfully";
+                    message = "Candidates Data Fetched Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
@@ -54,12 +54,12 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used to Add User Data
+        /// It is used to Add Candidate(Hired) Data
         /// </summary>
-        /// <param name="registration">User Registration Data</param>
+        /// <param name="registration">Candidate Registration Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPost]
-        public IActionResult AddUser(HiredRegistrationRequest registration)
+        public IActionResult AddCandidate(HiredRegistrationRequest registration)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace LearnerManagementSystem.Controllers
                 if (data != null)
                 {
                     success = true;
-                    message = "Hired User Data Added Successfully";
+                    message = "Candidate(Hired) Data Added Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
@@ -85,14 +85,14 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It User Selected is used to Add User Data 
+        /// It is used to Update Candidate(Hired) Data, If Candidate is Selected It aslo adds Candidate Data to FellowshipProgram
         /// </summary>
         /// <param name="candidateID">CandidateID</param>
         /// <param name="updateRequest">Hired Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPut]
         [Route("{candidateID}")]
-        public IActionResult UpdateHired(int candidateID, HiredUpdateRequest updateRequest)
+        public IActionResult UpdateCandidate(int candidateID, HiredUpdateRequest updateRequest)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace LearnerManagementSystem.Controllers
                 if (data != null)
                 {
                     success = true;
-                    message = "Hired User Data Updated Successfully";
+                    message = "Candidate(Hired) Data Updated Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
@@ -118,7 +118,7 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used to Update Data
+        /// It is used to Add Selected Fellowship Candidate additional details
         /// </summary>
         /// <param name="candidateID">Candidate ID</param>
         /// <param name="updateRequest">Update Fellowship Data</param>
@@ -131,11 +131,11 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                var data = _hiredBusiness.UpdateFellowshipCandidate(candidateID, updateRequest);
+                var data = _hiredBusiness.UpdateSelectedFellowshipCandidate(candidateID, updateRequest);
                 if (data != null)
                 {
                     success = true;
-                    message = "Fellowship Candidate Data Updated Successfully";
+                    message = "Fellowship Candidate Data Added Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
@@ -151,11 +151,11 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used to Candidate Bank Details
+        /// It is used to Add Candidate Bank Details
         /// </summary>
         /// <param name="candidateID">CandidateID</param>
         /// <param name="bankDetail">Candidate Bank Detail</param>
-        /// <returns>If Data Fund return Ok else NotFound or BadRequest</returns>
+        /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
         [HttpPut]
         [Route("{candidateID}/BankDetails")]
         public IActionResult AddBankDetails(int candidateID, CandidateBankDetailRequest bankDetail)

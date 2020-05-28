@@ -11,18 +11,18 @@ using System.Collections.Generic;
 
 namespace LMSBusinessLayer.Services
 {
-    public class HiredBusiness : IHiredBusiness
+    public class FellowshipBusiness : IFellowshipBusiness
     {
-        private readonly IHiredRepository _hiredRepository;
+        private readonly IFellowshipRepository _hiredRepository;
 
-        public HiredBusiness(IHiredRepository hiredRepository)
+        public FellowshipBusiness(IFellowshipRepository hiredRepository)
         {
             _hiredRepository = hiredRepository;
         }
 
-        public List<HiredResponseModel> GetAllHired()
+        public List<HiredResponseModel> GetAllCandidates()
         {
-            var responseData = _hiredRepository.GetAllHired();
+            var responseData = _hiredRepository.GetAllCandidates();
             return responseData;
         }
 
@@ -38,9 +38,9 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
-        public FellowshipResponseModel UpdateFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate)
+        public FellowshipResponseModel UpdateSelectedFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate)
         {
-            var responseData = _hiredRepository.UpdateFellowshipCandidate(candidateID, fellowshipUpdate);
+            var responseData = _hiredRepository.UpdateSelectedFellowshipCandidate(candidateID, fellowshipUpdate);
             return responseData;
         }
 
@@ -49,6 +49,5 @@ namespace LMSBusinessLayer.Services
             var responseData = _hiredRepository.AddCandidateBankDetails(candidateID, bankDetail);
             return responseData;
         }
-
     }
 }

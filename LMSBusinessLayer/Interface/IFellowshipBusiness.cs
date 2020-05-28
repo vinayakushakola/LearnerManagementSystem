@@ -7,17 +7,17 @@ using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
 using System.Collections.Generic;
 
-namespace LMSRepositoryLayer.Interface
+namespace LMSBusinessLayer.Interface
 {
-    public interface IHiredRepository
+    public interface IFellowshipBusiness
     {
-        List<HiredResponseModel> GetAllHired();
+        List<HiredResponseModel> GetAllCandidates();
 
         HiredResponseModel AddHired(HiredRegistrationRequest hiredRegistration);
 
         HiredResponseModel UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate);
 
-        FellowshipResponseModel UpdateFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate);
+        FellowshipResponseModel UpdateSelectedFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate);
 
         CandidateBankDetailResponse AddCandidateBankDetails(int candidateID, CandidateBankDetailRequest bankDetail);
     }

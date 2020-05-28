@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LMSCommonLayer.DBModels
 {
-    public class UserDetails
+    public class AdminDetails
     {
         public int AdminID { get; set; }
 

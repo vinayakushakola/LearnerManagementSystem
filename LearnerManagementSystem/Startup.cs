@@ -90,8 +90,8 @@ namespace LearnerManagementSystem
             services.AddTransient<IAdminRepository, AdminRepository>();
             services.AddTransient<IAdminBusiness, AdminBusiness>();
 
-            services.AddTransient<IHiredRepository, HiredRepository>();
-            services.AddTransient<IHiredBusiness, HiredBusiness>();
+            services.AddTransient<IFellowshipRepository, FellowshipRepository>();
+            services.AddTransient<IFellowshipBusiness, FellowshipBusiness>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

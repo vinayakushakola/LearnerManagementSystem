@@ -67,42 +67,42 @@
             <param name="data">Response Data</param>
             <param name="token">Token</param>
         </member>
-        <member name="M:LearnerManagementSystem.Controllers.HiredController.GetAllHired">
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllCandidates">
             <summary>
-            It is used to Show all Hired Users Data
+            It is used to Show all Candidates Data
             </summary>
             <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         </member>
-        <member name="M:LearnerManagementSystem.Controllers.HiredController.AddUser(LMSCommonLayer.RequestModels.HiredRegistrationRequest)">
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.AddCandidate(LMSCommonLayer.RequestModels.HiredRegistrationRequest)">
             <summary>
-            It is used to Add User Data
+            It is used to Add Candidate(Hired) Data
             </summary>
-            <param name="registration">User Registration Data</param>
+            <param name="registration">Candidate Registration Data</param>
             <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         </member>
-        <member name="M:LearnerManagementSystem.Controllers.HiredController.UpdateHired(System.Int32,LMSCommonLayer.RequestModels.HiredUpdateRequest)">
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.UpdateCandidate(System.Int32,LMSCommonLayer.RequestModels.HiredUpdateRequest)">
             <summary>
-            It User Selected is used to Add User Data 
+            It is used to Update Candidate(Hired) Data, If Candidate is Selected It aslo adds Candidate Data to FellowshipProgram
             </summary>
             <param name="candidateID">CandidateID</param>
             <param name="updateRequest">Hired Data</param>
             <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         </member>
-        <member name="M:LearnerManagementSystem.Controllers.HiredController.UpdateFellowshipCandidate(System.Int32,LMSCommonLayer.RequestModels.FellowshipUpdateRequest)">
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.UpdateFellowshipCandidate(System.Int32,LMSCommonLayer.RequestModels.FellowshipUpdateRequest)">
             <summary>
-            It is used to Update Data
+            It is used to Add Selected Fellowship Candidate additional details
             </summary>
             <param name="candidateID">Candidate ID</param>
             <param name="updateRequest">Update Fellowship Data</param>
             <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         </member>
-        <member name="M:LearnerManagementSystem.Controllers.HiredController.AddBankDetails(System.Int32,LMSCommonLayer.RequestModels.CandidateBankDetailRequest)">
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.AddBankDetails(System.Int32,LMSCommonLayer.RequestModels.CandidateBankDetailRequest)">
             <summary>
-            It is used to Candidate Bank Details
+            It is used to Add Candidate Bank Details
             </summary>
             <param name="candidateID">CandidateID</param>
             <param name="bankDetail">Candidate Bank Detail</param>
-            <returns>If Data Fund return Ok else NotFound or BadRequest</returns>
+            <returns>If Data Found return Ok else NotFound or BadRequest</returns>
         </member>
     </members>
 </doc>
