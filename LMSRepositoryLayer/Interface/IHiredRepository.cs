@@ -16,5 +16,7 @@ namespace LMSRepositoryLayer.Interface
         HiredResponseModel AddHired(HiredRegistrationRequest hiredRegistration);
 
         HiredResponseModel UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate);
+
+        FellowshipResponseModel UpdateFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate);
     }
 }
