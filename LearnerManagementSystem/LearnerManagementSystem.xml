@@ -110,5 +110,13 @@
             <param name="bankDetail">Candidate Bank Detail</param>
             <returns>If Data Found return Ok else NotFound or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.AddQualification(System.Int32,LMSCommonLayer.RequestModels.CandidateQualificationRequest)">
+            <summary>
+            It is used to Add Candidate Qualification 
+            </summary>
+            <param name="candidateID">CandidateID</param>
+            <param name="qualification">Candidate Qualification Data</param>
+            <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        </member>
     </members>
 </doc>

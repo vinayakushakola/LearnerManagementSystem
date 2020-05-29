@@ -22,5 +22,7 @@ namespace LMSRepositoryLayer.Interface
         FellowshipResponseModel UpdateSelectedFellowshipCandidate(int candidateID, FellowshipUpdateRequest fellowshipUpdate);
 
         CandidateBankDetailResponse AddCandidateBankDetails(int candidateID, CandidateBankDetailRequest bankDetail);
+
+        CandidateQualificationResponse AddCandidateQualification(int candidateID, CandidateQualificationRequest qualification);
     }
 }

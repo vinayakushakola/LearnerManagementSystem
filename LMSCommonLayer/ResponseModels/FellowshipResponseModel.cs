@@ -58,4 +58,31 @@
 		public string CreatedDate { get; set; }
 		public string ModifiedDate { get; set; }
 	}
+
+	public class CandidateQualificationResponse
+	{
+		public int ID { get; set; }
+		public int CandidateID { get; set; }
+		public string Diploma { get; set; }
+		public string DegreeName { get; set; }
+		public string IsDegreeNameVerified { get; set; }
+		public string EmployeeDiscipline { get; set; }
+		public string IsEmployeeDisciplined { get; set; }
+		public string PassingYear { get; set; }
+		public string IsPassingYearVerified { get; set; }
+		public string AggregatePer { get; set; }
+		public string IsAggregatePerVerified { get; set; }
+		public string FinalYearPer { get; set; }
+		public string IsFinalYearPerVerified { get; set; }
+		public string TrainingInstitute { get; set; }
+		public string IsTrainingInstituteVerified { get; set; }
+		public string TrainingDurationMon { get; set; }
+		public string IsTrainingDurationMonVerified { get; set; }
+		public string OtherTraining { get; set; }
+		public string IsOtherTrainingVerified { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public string CreatedDate { get; set; }
+		public string ModifiedDate { get; set; }
+	}
 }

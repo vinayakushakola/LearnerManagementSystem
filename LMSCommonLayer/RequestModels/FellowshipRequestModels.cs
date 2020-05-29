@@ -102,4 +102,27 @@ namespace LMSCommonLayer.RequestModels
 		public DateTime CreatedDate { get; set; }
 		public DateTime ModifiedDate { get; set; }
 	}
+
+	public class CandidateQualificationRequest
+	{
+		public string Diploma { get; set; }
+		public string DegreeName { get; set; }
+		public bool IsDegreeNameVerified { get; set; }
+		public string EmployeeDiscipline { get; set; }
+		public bool IsEmployeeDisciplined { get; set; }
+		public string PassingYear { get; set; }
+		public bool IsPassingYearVerified { get; set; }
+		public string AggregatePer { get; set; }
+		public bool IsAggregatePerVerified { get; set; }
+		public string FinalYearPer { get; set; }
+		public bool IsFinalYearPerVerified { get; set; }
+		public string TrainingInstitute { get; set; }
+		public bool IsTrainingInstituteVerified { get; set; }
+		public string TrainingDurationMon { get; set; }
+		public bool IsTrainingDurationMonVerified { get; set; }
+		public string OtherTraining { get; set; }
+		public bool IsOtherTrainingVerified { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+	}
 }

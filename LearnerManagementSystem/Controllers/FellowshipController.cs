@@ -213,5 +213,38 @@ namespace LearnerManagementSystem.Controllers
                 return BadRequest(new { ex.Message });
             }
         }
+
+        /// <summary>
+        /// It is used to Add Candidate Qualification 
+        /// </summary>
+        /// <param name="candidateID">CandidateID</param>
+        /// <param name="qualification">Candidate Qualification Data</param>
+        /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        [HttpPut]
+        [Route("{candidateID}/Qualification")]
+        public IActionResult AddQualification(int candidateID, CandidateQualificationRequest qualification)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _hiredBusiness.AddCandidateQualification(candidateID, qualification);
+                if (data != null)
+                {
+                    success = true;
+                    message = "Fellowship Candidate Qualification Details Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
     }
 }

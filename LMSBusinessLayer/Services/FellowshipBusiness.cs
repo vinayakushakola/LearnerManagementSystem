@@ -55,5 +55,12 @@ namespace LMSBusinessLayer.Services
             var responseData = _hiredRepository.AddCandidateBankDetails(candidateID, bankDetail);
             return responseData;
         }
+
+        public CandidateQualificationResponse AddCandidateQualification(int candidateID, CandidateQualificationRequest qualification)
+        {
+            var responseData = _hiredRepository.AddCandidateQualification(candidateID, qualification);
+            return responseData;
+        }
+
     }
 }

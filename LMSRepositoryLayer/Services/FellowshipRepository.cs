@@ -547,5 +547,87 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// It Stores Candidate Qualification Details in the Database
+        /// </summary>
+        /// <param name="candidateID">CandidateID</param>
+        /// <param name="qualification">Candidate Qualification Data</param>
+        /// <returns>If Data Added Successfully return ResponseData else null or Exception</returns>
+        public CandidateQualificationResponse AddCandidateQualification(int candidateID, CandidateQualificationRequest qualification)
+        {
+            try
+            {
+                CandidateQualificationResponse responseData = null;
+                try
+                {
+                    using(SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_AddCandidateQualification", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@CandidateID", candidateID);
+                        cmd.Parameters.AddWithValue("@Diploma", qualification.Diploma);
+                        cmd.Parameters.AddWithValue("@DegreeName", qualification.DegreeName);
+                        cmd.Parameters.AddWithValue("@IsDegreeNameVerified", qualification.IsDegreeNameVerified);
+                        cmd.Parameters.AddWithValue("@EmployeeDiscipline", qualification.EmployeeDiscipline);
+                        cmd.Parameters.AddWithValue("@IsEmployeeDisciplined", qualification.IsEmployeeDisciplined);
+                        cmd.Parameters.AddWithValue("@PassingYear", qualification.PassingYear);
+                        cmd.Parameters.AddWithValue("@IsPassingYearVerified", qualification.IsPassingYearVerified);
+                        cmd.Parameters.AddWithValue("@AggregatePer", qualification.AggregatePer);
+                        cmd.Parameters.AddWithValue("@IsAggregatePerVerified", qualification.IsAggregatePerVerified);
+                        cmd.Parameters.AddWithValue("@FinalYearPer", qualification.FinalYearPer);
+                        cmd.Parameters.AddWithValue("@IsFinalYearPerVerified", qualification.IsFinalYearPerVerified);
+                        cmd.Parameters.AddWithValue("@TrainingInstitute", qualification.TrainingInstitute);
+                        cmd.Parameters.AddWithValue("@IsTrainingInstituteVerified", qualification.IsTrainingInstituteVerified);
+                        cmd.Parameters.AddWithValue("@TrainingDurationMon", qualification.TrainingDurationMon);
+                        cmd.Parameters.AddWithValue("@IsTrainingDurationMonVerified", qualification.IsTrainingDurationMonVerified);
+                        cmd.Parameters.AddWithValue("@OtherTraining", qualification.OtherTraining);
+                        cmd.Parameters.AddWithValue("@IsOtherTrainingVerified", qualification.IsOtherTrainingVerified);
+                        cmd.Parameters.AddWithValue("@CreatorStamp", qualification.CreatorStamp);
+                        cmd.Parameters.AddWithValue("@CreatorUser", qualification.CreatorUser);
+                        cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                        conn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            responseData = new CandidateQualificationResponse();
+                            responseData.ID = Convert.ToInt32(dataReader["ID"].ToString());
+                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
+                            responseData.Diploma = dataReader["Diploma"].ToString();
+                            responseData.DegreeName = dataReader["DegreeName"].ToString();
+                            responseData.IsDegreeNameVerified = dataReader["IsDegreeNameVerified"].ToString();
+                            responseData.EmployeeDiscipline = dataReader["EmployeeDiscipline"].ToString();
+                            responseData.IsEmployeeDisciplined = dataReader["IsEmployeeDisciplined"].ToString();
+                            responseData.PassingYear = dataReader["PassingYear"].ToString();
+                            responseData.IsPassingYearVerified= dataReader["IsPassingYearVerified"].ToString();
+                            responseData.AggregatePer = dataReader["AggregatePer"].ToString();
+                            responseData.IsAggregatePerVerified = dataReader["IsAggregatePerVerified"].ToString();
+                            responseData.FinalYearPer = dataReader["FinalYearPer"].ToString();
+                            responseData.IsFinalYearPerVerified = dataReader["IsFinalYearPerVerified"].ToString();
+                            responseData.TrainingInstitute = dataReader["TrainingInstitute"].ToString();
+                            responseData.IsTrainingInstituteVerified = dataReader["IsTrainingInstituteVerified"].ToString();
+                            responseData.TrainingDurationMon = dataReader["TrainingDurationMon"].ToString();
+                            responseData.IsTrainingDurationMonVerified = dataReader["IsTrainingDurationMonVerified"].ToString();
+                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
+                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        }
+                        conn.Close();
+                    }
+                    return responseData;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
