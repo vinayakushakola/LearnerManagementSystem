@@ -118,5 +118,13 @@
             <param name="qualification">Candidate Qualification Data</param>
             <returns>If Data Found return Ok else NotFound or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.AddDocuments(System.Int32,LMSCommonLayer.RequestModels.CandidateDocumentsRequest)">
+            <summary>
+            It is used to Add Candidate Documents
+            </summary>
+            <param name="candidateID">CandidateID</param>
+            <param name="documents">Candidate Documents</param>
+            <returns>If Data Found return Ok else NotFound or Badrequest</returns>
+        </member>
     </members>
 </doc>

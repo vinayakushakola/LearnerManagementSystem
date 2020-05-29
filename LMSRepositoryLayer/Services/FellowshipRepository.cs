@@ -319,6 +319,10 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// It Fetch All the Fellowship Candidates from the Database
+        /// </summary>
+        /// <returns>If Data Fetech Successfully return ResponseData else null or BadRequest</returns>
         public List<FellowshipResponseModel> GetAllFellowshipCandidates()
         {
             try
@@ -629,5 +633,63 @@ namespace LMSRepositoryLayer.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// It Stores Candidate Documents into the Database
+        /// </summary>
+        /// <param name="candidateID">CandidateID</param>
+        /// <param name="documents">Candidate Documents</param>
+        /// <returns>If Data Added Successully return ResponseData else null or BadRequest</returns>
+        public CandidateDocumentsResponse AddCanndidateDocuments(int candidateID, CandidateDocumentsRequest documents)
+        {
+            try
+            {
+                CandidateDocumentsResponse responseData = null;
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_AddCandidateDocuments", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@CandidateID", candidateID);
+                        cmd.Parameters.AddWithValue("@DocType", documents.DocType);
+                        cmd.Parameters.AddWithValue("@DocPath", documents.DocPath);
+                        cmd.Parameters.AddWithValue("@Status", documents.Status);
+                        cmd.Parameters.AddWithValue("@CreatorStamp", documents.CreatorStamp);
+                        cmd.Parameters.AddWithValue("@CreatorUser", documents.CreatorUser);
+                        cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                        conn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            responseData = new CandidateDocumentsResponse();
+                            responseData.ID = Convert.ToInt32(dataReader["ID"].ToString());
+                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
+                            responseData.DocType = dataReader["DocType"].ToString();
+                            responseData.DocPath = dataReader["DocPath"].ToString();
+                            responseData.Status = dataReader["Status"].ToString();
+                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
+                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        }
+                        conn.Close();
+                    }
+                    return responseData;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

@@ -85,4 +85,17 @@
 		public string CreatedDate { get; set; }
 		public string ModifiedDate { get; set; }
 	}
+
+	public class CandidateDocumentsResponse
+	{
+		public int ID { get; set; }
+		public int CandidateID { get; set; }
+		public string DocType { get; set; }
+		public string DocPath { get; set; }
+		public string Status { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public string CreatedDate { get; set; }
+		public string ModifiedDate { get; set; }
+	}
 }

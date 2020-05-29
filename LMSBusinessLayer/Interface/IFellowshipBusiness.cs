@@ -24,5 +24,7 @@ namespace LMSBusinessLayer.Interface
         CandidateBankDetailResponse AddCandidateBankDetails(int candidateID, CandidateBankDetailRequest bankDetail);
 
         CandidateQualificationResponse AddCandidateQualification(int candidateID, CandidateQualificationRequest qualification);
+    
+        CandidateDocumentsResponse AddCanndidateDocuments(int candidateID, CandidateDocumentsRequest documents);
     }
 }

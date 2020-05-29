@@ -246,5 +246,38 @@ namespace LearnerManagementSystem.Controllers
                 return BadRequest(new { ex.Message });
             }
         }
+
+        /// <summary>
+        /// It is used to Add Candidate Documents
+        /// </summary>
+        /// <param name="candidateID">CandidateID</param>
+        /// <param name="documents">Candidate Documents</param>
+        /// <returns>If Data Found return Ok else NotFound or Badrequest</returns>
+        [HttpPut]
+        [Route("{candidateID}/Documents")]
+        public IActionResult AddDocuments(int candidateID, CandidateDocumentsRequest documents)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _hiredBusiness.AddCanndidateDocuments(candidateID, documents);
+                if (data != null)
+                {
+                    success = true;
+                    message = "Fellowship Candidate Documents Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
     }
 }

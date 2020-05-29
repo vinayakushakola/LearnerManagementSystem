@@ -62,5 +62,10 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
+        public CandidateDocumentsResponse AddCanndidateDocuments(int candidateID, CandidateDocumentsRequest documents)
+        {
+            var responseData = _hiredRepository.AddCanndidateDocuments(candidateID, documents);
+            return responseData;
+        }
     }
 }

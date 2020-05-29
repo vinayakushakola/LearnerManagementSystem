@@ -122,7 +122,18 @@ namespace LMSCommonLayer.RequestModels
 		public bool IsTrainingDurationMonVerified { get; set; }
 		public string OtherTraining { get; set; }
 		public bool IsOtherTrainingVerified { get; set; }
+		public DateTime CreatorStamp { get; set; }
+		public DateTime CreatorUser { get; set; }
+	}
+
+	public class CandidateDocumentsRequest
+	{
+		public string DocType { get; set; }
+		public string DocPath { get; set; }
+		public string Status { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
+		public DateTime CreatedDate { get; set; }
+		public DateTime ModifiedDate { get; set; }
 	}
 }
