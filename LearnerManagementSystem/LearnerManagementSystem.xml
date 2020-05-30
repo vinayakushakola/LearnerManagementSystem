@@ -136,6 +136,13 @@
             <param name="labThreshold">Lab Threshold</param>
             <returns>If Data Found return Ok else null or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddCompanyRequirement(LMSCommonLayer.RequestModels.CompanyRequirementRequest)">
+            <summary>
+            It is used to Add Company Requirements
+            </summary>
+            <param name="company">Company Requirement Information</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllCandidates">
             <summary>
             It is used to Show all Candidates Data

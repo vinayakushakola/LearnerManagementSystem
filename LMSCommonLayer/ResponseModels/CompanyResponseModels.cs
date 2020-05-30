@@ -119,4 +119,40 @@ namespace LMSCommonLayer.ResponseModels
 		public string CreatedDate { get; set; }
 		public string ModifiedDate { get; set; }
 	}
+
+	public class CompanyRequirementResponse
+	{
+		public int ID { get; set; }
+		public int CompanyID { get; set; }
+		public string RequestedMonth { get; set; }
+		public string City { get; set; }
+		public string IsDocVerified { get; set; }
+		public string RequirementDocPath { get; set; }
+		public string NumOfEngg { get; set; }
+		public int TechStackID { get; set; }
+		public int TechTypeID { get; set; }
+		public int MakerProgramID { get; set; }
+		public int LeadID { get; set; }
+		public int IdeationEnggID { get; set; }
+		public int BuddyEnggID { get; set; }
+		public string SpecialRemark { get; set; }
+		public string Status { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public string CreatedDate { get; set; }
+		public string ModifiedDate { get; set; }
+	}
+
+	public class CandidateTechStackAssignResponse
+	{
+		public int ID  {get; set; }
+		public int RequirementID { get; set; }
+		public int CandidateID { get; set; }
+		public string AssignDate { get; set; }
+		public string Status { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public string CreatedDate { get; set; }
+		public string ModifiedDate { get; set; }
+	}
 }

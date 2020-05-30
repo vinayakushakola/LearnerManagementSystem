@@ -339,5 +339,64 @@ namespace LearnerManagementSystem.Controllers
                 return BadRequest(new { ex.Message });
             }
         }
+
+        /// <summary>
+        /// It is used to Add Company Requirements
+        /// </summary>
+        /// <param name="company">Company Requirement Information</param>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
+        [HttpPost]
+        [Route("CompanyRequirement")]
+        public IActionResult AddCompanyRequirement(CompanyRequirementRequest company)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _companyBusiness.AddCompanyRequirement(company);
+                if (data != null)
+                {
+                    success = true;
+                    message = "Company Requirement Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("CandidateTechStackAssignment")]
+        public IActionResult AddCandidateTecStackAssign(CandidateTechStackAssignRequest candidateTech)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _companyBusiness.AddCandidateTechStackAssign(candidateTech);
+                if (data != null)
+                {
+                    success = true;
+                    message = "Candidate tech Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
     }
 }

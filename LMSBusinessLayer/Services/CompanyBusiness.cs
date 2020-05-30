@@ -80,5 +80,18 @@ namespace LMSBusinessLayer.Services
             var responseData = _companyRepository.AddLabThreshold(labThreshold);
             return responseData;
         }
+
+        public CompanyRequirementResponse AddCompanyRequirement(CompanyRequirementRequest companyRequirement)
+        {
+            var responseData = _companyRepository.AddCompanyRequirement(companyRequirement);
+            return responseData;
+        }
+
+        public CandidateTechStackAssignResponse AddCandidateTechStackAssign(CandidateTechStackAssignRequest candidateTech)
+        {
+            var responseData = _companyRepository.AddCandidateTechStackAssign(candidateTech);
+            return responseData;
+        }
+
     }
 }

@@ -30,5 +30,9 @@ namespace LMSBusinessLayer.Interface
         LabRegistrationResponse AddLab(LabRegistrationRequest lab);
 
         LabThresholdResponse AddLabThreshold(LabThresholdRequest labThreshold);
+
+        CompanyRequirementResponse AddCompanyRequirement(CompanyRequirementRequest companyRequirement);
+
+        CandidateTechStackAssignResponse AddCandidateTechStackAssign(CandidateTechStackAssignRequest candidateTech);
     }
 }

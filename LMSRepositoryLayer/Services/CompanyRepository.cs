@@ -494,6 +494,11 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// It Stores Data in the Database
+        /// </summary>
+        /// <param name="labThreshold"></param>
+        /// <returns>If Data Added Successfully return ResponseData else null or Exception</returns>
         public LabThresholdResponse AddLabThreshold(LabThresholdRequest labThreshold)
         {
             try
@@ -544,5 +549,126 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// It Stores data in the Database
+        /// </summary>
+        /// <param name="companyRequirement"></param>
+        /// <returns>If Data Added Successfully return ResponseData else null or Exception</returns>
+        public CompanyRequirementResponse AddCompanyRequirement(CompanyRequirementRequest companyRequirement)
+        {
+            try
+            {
+                CompanyRequirementResponse responseData = null;
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_CompanyRequirement", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@CompanyID", companyRequirement.CompanyID);
+                    cmd.Parameters.AddWithValue("@RequestedMonth", companyRequirement.RequestedMonth);
+                    cmd.Parameters.AddWithValue("@City", companyRequirement.City);
+                    cmd.Parameters.AddWithValue("@IsDocVerified", companyRequirement.IsDocVerified);
+                    cmd.Parameters.AddWithValue("@RequirementDocPath", companyRequirement.RequirementDocPath);
+                    cmd.Parameters.AddWithValue("@NumOfEngg", companyRequirement.NumOfEngg);
+                    cmd.Parameters.AddWithValue("@TechStackID", companyRequirement.TechStackID);
+                    cmd.Parameters.AddWithValue("@TechTypeID", companyRequirement.TechTypeID);
+                    cmd.Parameters.AddWithValue("@MakerProgramID", companyRequirement.MakerProgramID);
+                    cmd.Parameters.AddWithValue("@LeadID", companyRequirement.LeadID);
+                    cmd.Parameters.AddWithValue("@IdeationEnggID", companyRequirement.IdeationEnggID);
+                    cmd.Parameters.AddWithValue("@BuddyEnggID", companyRequirement.BuddyEnggID);
+                    cmd.Parameters.AddWithValue("@SpecialRemark", companyRequirement.SpecialRemark);
+                    cmd.Parameters.AddWithValue("@Status", companyRequirement.Status);
+                    cmd.Parameters.AddWithValue("@CreatorStamp", companyRequirement.CreatorStamp);
+                    cmd.Parameters.AddWithValue("@CreatorUser", companyRequirement.CreatorUser);
+                    cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        responseData = new CompanyRequirementResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            CompanyID = Convert.ToInt32(dataReader["CompanyID"]),
+                            RequestedMonth = dataReader["RequestedMonth"].ToString(),
+                            City = dataReader["City"].ToString(),
+                            IsDocVerified = dataReader["IsDocVerified"].ToString(),
+                            RequirementDocPath = dataReader["RequirementDocPath"].ToString(),
+                            NumOfEngg = dataReader["NumOfEngg"].ToString(),
+                            TechStackID = Convert.ToInt32(dataReader["TechStackID"]),
+                            TechTypeID = Convert.ToInt32(dataReader["TechTypeID"]),
+                            MakerProgramID = Convert.ToInt32(dataReader["MakerProgramID"]),
+                            LeadID = Convert.ToInt32(dataReader["LeadID"]),
+                            IdeationEnggID = Convert.ToInt32(dataReader["IdeationEnggID"]),
+                            BuddyEnggID = Convert.ToInt32(dataReader["BuddyEnggID"]),
+                            SpecialRemark = dataReader["SpecialRemark"].ToString(),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
+                    }
+                    conn.Close();
+                }
+                return responseData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// It is used to Add Candidate tech Stack in the Database
+        /// </summary>
+        /// <param name="candidateTech"></param>
+        /// <returns>If Data Added Successfully return ResponseData else null or Exception</returns>
+        public CandidateTechStackAssignResponse AddCandidateTechStackAssign(CandidateTechStackAssignRequest candidateTech)
+        {
+            try
+            {
+                CandidateTechStackAssignResponse responseData = null;
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_CandidateTechStackAssignment", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@RequirementID", candidateTech.RequirementID);
+                    cmd.Parameters.AddWithValue("@CandidateID", candidateTech.CandidateID);
+                    cmd.Parameters.AddWithValue("@AssignDate", candidateTech.AssignDate);
+                    cmd.Parameters.AddWithValue("@Status", candidateTech.Status);
+                    cmd.Parameters.AddWithValue("@CreatorStamp", candidateTech.CreatorStamp);
+                    cmd.Parameters.AddWithValue("@CreatorUser", candidateTech.CreatorUser);
+                    cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        responseData = new CandidateTechStackAssignResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            RequirementID = Convert.ToInt32(dataReader["RequirementID"]),
+                            CandidateID = Convert.ToInt32(dataReader["CandidateID"]),
+                            AssignDate = dataReader["AssignDate"].ToString(),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
+                    }
+                    conn.Close();
+                }
+                return responseData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
