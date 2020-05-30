@@ -16,5 +16,7 @@ namespace LMSRepositoryLayer.Interface
         CompanyAddResponse AddCompany(CompanyAddRequest companyAddRequest);
 
         MakerProgramResponse AddMakerProgram(MakerProgramRequest makerProgram);
+
+        MentorRegistrationResponse AddMentor(MentorRegistrationRequest mentorRegistration);
     }
 }

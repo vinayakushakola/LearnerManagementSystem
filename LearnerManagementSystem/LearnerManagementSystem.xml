@@ -87,6 +87,13 @@
             <param name="makerProgram">Maker Program</param>
             <returns>If Data Found return Ok else null or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddMentor(LMSCommonLayer.RequestModels.MentorRegistrationRequest)">
+            <summary>
+            It is used for Mentor Registration
+            </summary>
+            <param name="mentor">Mentor Registration Data</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllCandidates">
             <summary>
             It is used to Show all Candidates Data

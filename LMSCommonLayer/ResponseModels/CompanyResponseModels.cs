@@ -30,4 +30,17 @@ namespace LMSCommonLayer.ResponseModels
 		public string CreatedDate { get; set; }
 		public string ModifiedDate { get; set; }
 	}
+
+	public class MentorRegistrationResponse
+	{
+		public int ID { get; set; }
+		public string Name { get; set; }
+		public string MentorType { get; set; }
+		public int LabID { get; set; }
+		public string Status { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public string CreatedDate { get; set; }
+		public string ModifiedDate { get; set; }
+	}
 }

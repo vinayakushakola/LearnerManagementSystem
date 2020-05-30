@@ -115,5 +115,37 @@ namespace LearnerManagementSystem.Controllers
                 return BadRequest(new { ex.Message });
             }
         }
+
+        /// <summary>
+        /// It is used for Mentor Registration
+        /// </summary>
+        /// <param name="mentor">Mentor Registration Data</param>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
+        [HttpPost]
+        [Route("Mentor")]
+        public IActionResult AddMentor(MentorRegistrationRequest mentor)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _companyBusiness.AddMentor(mentor);
+                if (data != null)
+                {
+                    success = true;
+                    message = "Mentor Data Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
     }
 }

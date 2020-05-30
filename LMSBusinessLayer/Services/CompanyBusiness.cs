@@ -39,5 +39,10 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
+        public MentorRegistrationResponse AddMentor(MentorRegistrationRequest mentorRegistration)
+        {
+            var responseData = _companyRepository.AddMentor(mentorRegistration);
+            return responseData;
+        }
     }
 }

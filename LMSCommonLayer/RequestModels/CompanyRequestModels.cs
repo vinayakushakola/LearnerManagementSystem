@@ -33,4 +33,16 @@ namespace LMSCommonLayer.RequestModels
 		public DateTime CreatedDate { get; set; }
 		public DateTime ModifiedDate { get; set; }
 	}
+
+	public class MentorRegistrationRequest
+	{
+		public string Name { get; set; }
+		public string MentorType { get; set; }
+		public int LabID { get; set; }
+		public string Status { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public DateTime CreatedDate { get; set; }
+		public DateTime ModifiedDate { get; set; }
+	}
 }

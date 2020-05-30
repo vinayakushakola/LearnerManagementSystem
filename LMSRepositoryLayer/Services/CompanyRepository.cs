@@ -190,5 +190,62 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// It Stores Mentor Data in the Database
+        /// </summary>
+        /// <param name="mentorRegistration">Mentor Registration</param>
+        /// <returns>If Data Added Successfully it returns ResponseData else null or Exception</returns>
+        public MentorRegistrationResponse AddMentor(MentorRegistrationRequest mentorRegistration)
+        {
+            try
+            {
+                MentorRegistrationResponse responseData = null;
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_InsertMentor", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@Name", mentorRegistration.Name);
+                        cmd.Parameters.AddWithValue("@MentorType", mentorRegistration.MentorType);
+                        cmd.Parameters.AddWithValue("@LabID", mentorRegistration.LabID);
+                        cmd.Parameters.AddWithValue("@Status", mentorRegistration.Status);
+                        cmd.Parameters.AddWithValue("@CreatorStamp", mentorRegistration.CreatorStamp);
+                        cmd.Parameters.AddWithValue("@CreatorUser", mentorRegistration.CreatorUser);
+                        cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                        conn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            responseData = new MentorRegistrationResponse()
+                            {
+                                ID = Convert.ToInt32(dataReader["ID"]),
+                                Name = dataReader["Name"].ToString(),
+                                MentorType = dataReader["MentorType"].ToString(),
+                                LabID = Convert.ToInt32(dataReader["LabID"]),
+                                Status = dataReader["Status"].ToString(),
+                                CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                                CreatorUser = dataReader["CreatorUser"].ToString(),
+                                CreatedDate = dataReader["CreatedDate"].ToString(),
+                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            };
+                        }
+                        conn.Close();
+                    }
+                    return responseData;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
