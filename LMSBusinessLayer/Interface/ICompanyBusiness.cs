@@ -18,5 +18,7 @@ namespace LMSBusinessLayer.Interface
         MakerProgramResponse AddMakerProgram(MakerProgramRequest makerProgram);
 
         MentorRegistrationResponse AddMentor(MentorRegistrationRequest mentorRegistration);
+
+        MentorIdeationResponse AddMentorIdeation(MentorIdeationRequest mentorIdeation);
     }
 }

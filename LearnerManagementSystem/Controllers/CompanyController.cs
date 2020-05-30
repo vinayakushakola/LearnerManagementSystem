@@ -147,5 +147,37 @@ namespace LearnerManagementSystem.Controllers
                 return BadRequest(new { ex.Message });
             }
         }
+
+        /// <summary>
+        /// It is used to Map Lead to Mentors
+        /// </summary>
+        /// <param name="mentor"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("MentorIdeation")]
+        public IActionResult AddMentorIdeation(MentorIdeationRequest mentor)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _companyBusiness.AddMentorIdeation(mentor);
+                if (data != null)
+                {
+                    success = true;
+                    message = "MentorIdeation Data Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
     }
 }

@@ -94,6 +94,13 @@
             <param name="mentor">Mentor Registration Data</param>
             <returns>If Data Found return Ok else null or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddMentorIdeation(LMSCommonLayer.RequestModels.MentorIdeationRequest)">
+            <summary>
+            It is used to Map Lead to Mentors
+            </summary>
+            <param name="mentor"></param>
+            <returns></returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllCandidates">
             <summary>
             It is used to Show all Candidates Data
