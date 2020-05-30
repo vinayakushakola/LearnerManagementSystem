@@ -442,5 +442,107 @@ namespace LMSRepositoryLayer.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// It Stores Lab Data in the Database
+        /// </summary>
+        /// <param name="lab">Lab Data</param>
+        /// <returns>If Data Added Successfully return ResponseData else null or Exception</returns>
+        public LabRegistrationResponse AddLab(LabRegistrationRequest lab)
+        {
+            try
+            {
+                LabRegistrationResponse responseData = null;
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_InsertLab", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Name", lab.Name);
+                    cmd.Parameters.AddWithValue("@Location", lab.Location);
+                    cmd.Parameters.AddWithValue("@Address", lab.Address);
+                    cmd.Parameters.AddWithValue("@Status", lab.Status);
+                    cmd.Parameters.AddWithValue("@CreatorStamp", lab.CreatorStamp);
+                    cmd.Parameters.AddWithValue("@CreatorUser", lab.CreatorUser);
+                    cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        responseData = new LabRegistrationResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            Name = dataReader["Name"].ToString(),
+                            Location = dataReader["Location"].ToString(),
+                            Address = dataReader["Address"].ToString(),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
+                    }
+                    conn.Close();
+                }
+                return responseData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public LabThresholdResponse AddLabThreshold(LabThresholdRequest labThreshold)
+        {
+            try
+            {
+                LabThresholdResponse responseData = null;
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_LabThreshold", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@LabID", labThreshold.LabID);
+                    cmd.Parameters.AddWithValue("@LabCapacity", labThreshold.LabCapacity);
+                    cmd.Parameters.AddWithValue("@LeadThreshold", labThreshold.LeadThreshold);
+                    cmd.Parameters.AddWithValue("@IdeationEnggThreshold", labThreshold.IdeationEnggThreshold);
+                    cmd.Parameters.AddWithValue("@BuddyEnggThreshold", labThreshold.BuddyEnggThreshold);
+                    cmd.Parameters.AddWithValue("@Status", labThreshold.Status);
+                    cmd.Parameters.AddWithValue("@CreatorStamp", labThreshold.CreatorStamp);
+                    cmd.Parameters.AddWithValue("@CreatorUser", labThreshold.CreatorUser);
+                    cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        responseData = new LabThresholdResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            LabID = Convert.ToInt32(dataReader["LabID"]),
+                            LabCapacity = dataReader["LabCapacity"].ToString(),
+                            LeadThreshold = dataReader["LeadThreshold"].ToString(),
+                            IdeationEnggThreshold = dataReader["IdeationEnggThreshold"].ToString(),
+                            BuddyEnggThreshold = dataReader["BuddyEnggThreshold"].ToString(),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
+                    }
+                    conn.Close();
+                }
+                return responseData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

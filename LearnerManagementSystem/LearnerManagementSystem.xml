@@ -122,6 +122,20 @@
             <param name="techType">Tech Type</param>
             <returns>If Data Found return Ok else null or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddLab(LMSCommonLayer.RequestModels.LabRegistrationRequest)">
+            <summary>
+            It is used to Add Lab
+            </summary>
+            <param name="lab">Lab Data</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddLabThreshold(LMSCommonLayer.RequestModels.LabThresholdRequest)">
+            <summary>
+            It is used to add LabThreshold
+            </summary>
+            <param name="labThreshold">Lab Threshold</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllCandidates">
             <summary>
             It is used to Show all Candidates Data

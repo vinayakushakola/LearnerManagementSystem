@@ -68,5 +68,17 @@ namespace LMSBusinessLayer.Services
             var responseData = _companyRepository.AddTechType(techType);
             return responseData;
         }
+
+        public LabRegistrationResponse AddLab(LabRegistrationRequest lab)
+        {
+            var responseData = _companyRepository.AddLab(lab);
+            return responseData;
+        }
+
+        public LabThresholdResponse AddLabThreshold(LabThresholdRequest labThreshold)
+        {
+            var responseData = _companyRepository.AddLabThreshold(labThreshold);
+            return responseData;
+        }
     }
 }

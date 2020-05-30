@@ -275,5 +275,69 @@ namespace LearnerManagementSystem.Controllers
                 return BadRequest(new { ex.Message });
             }
         }
+
+        /// <summary>
+        /// It is used to Add Lab
+        /// </summary>
+        /// <param name="lab">Lab Data</param>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
+        [HttpPost]
+        [Route("Lab")]
+        public IActionResult AddLab(LabRegistrationRequest lab)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _companyBusiness.AddLab(lab);
+                if (data != null)
+                {
+                    success = true;
+                    message = "Lab Data Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// It is used to add LabThreshold
+        /// </summary>
+        /// <param name="labThreshold">Lab Threshold</param>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
+        [HttpPost]
+        [Route("LabThreshold")]
+        public IActionResult AddLabThreshold(LabThresholdRequest labThreshold)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _companyBusiness.AddLabThreshold(labThreshold);
+                if (data != null)
+                {
+                    success = true;
+                    message = "LabThreshold Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
     }
 }
