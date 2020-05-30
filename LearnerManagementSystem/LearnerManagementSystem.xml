@@ -101,6 +101,13 @@
             <param name="mentor"></param>
             <returns></returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddMentorTechStack(LMSCommonLayer.RequestModels.MentorTechStackRequest)">
+            <summary>
+            It is used to Add Mentor Tech Stack
+            </summary>
+            <param name="mentor">Mentor TEch Stack</param>
+            <returns>IF Data Found return Ok Else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllCandidates">
             <summary>
             It is used to Show all Candidates Data

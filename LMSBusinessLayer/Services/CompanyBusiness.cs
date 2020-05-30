@@ -44,10 +44,18 @@ namespace LMSBusinessLayer.Services
             var responseData = _companyRepository.AddMentor(mentorRegistration);
             return responseData;
         }
+
         public MentorIdeationResponse AddMentorIdeation(MentorIdeationRequest mentorIdeation)
         {
             var responseData = _companyRepository.AddMentorIdeation(mentorIdeation);
             return responseData;
         }
+
+        public MentorTechStackResponse AddMentorTechStack(MentorTechStackRequest techStack)
+        {
+            var responseData = _companyRepository.AddMentorTechStack(techStack);
+            return responseData;
+        }
+
     }
 }

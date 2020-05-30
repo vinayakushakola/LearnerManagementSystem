@@ -20,5 +20,7 @@ namespace LMSRepositoryLayer.Interface
         MentorRegistrationResponse AddMentor(MentorRegistrationRequest mentorRegistration);
         
         MentorIdeationResponse AddMentorIdeation(MentorIdeationRequest mentorIdeation);
+
+        MentorTechStackResponse AddMentorTechStack(MentorTechStackRequest techStack);
     }
 }

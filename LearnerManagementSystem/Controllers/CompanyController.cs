@@ -179,5 +179,37 @@ namespace LearnerManagementSystem.Controllers
                 return BadRequest(new { ex.Message });
             }
         }
+
+        /// <summary>
+        /// It is used to Add Mentor Tech Stack
+        /// </summary>
+        /// <param name="mentor">Mentor TEch Stack</param>
+        /// <returns>IF Data Found return Ok Else null or BadRequest</returns>
+        [HttpPost]
+        [Route("MentorTechStack")]
+        public IActionResult AddMentorTechStack(MentorTechStackRequest mentor)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _companyBusiness.AddMentorTechStack(mentor);
+                if (data != null)
+                {
+                    success = true;
+                    message = "MentorTechStack Data Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
     }
 }

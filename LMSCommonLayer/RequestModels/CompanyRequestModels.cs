@@ -56,4 +56,15 @@ namespace LMSCommonLayer.RequestModels
 		public DateTime CreatedDate { get; set; }
 		public DateTime ModifiedDate { get; set; }
 	}
+
+	public class MentorTechStackRequest
+	{
+		public int MentorID { get; set; }
+		public int TechStackID { get; set; }
+		public string Status { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public DateTime CreatedDate { get; set; }
+		public DateTime ModifiedDate { get; set; }
+	}
 }

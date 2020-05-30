@@ -55,4 +55,16 @@ namespace LMSCommonLayer.ResponseModels
 		public string CreatedDate { get; set; }
 		public string ModifiedDate { get; set; }
 	}
+
+	public class MentorTechStackResponse
+	{
+		public int ID { get; set; }
+		public int MentorID { get; set; }
+		public int TechStackID { get; set; }
+		public string Status { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public string CreatedDate { get; set; }
+		public string ModifiedDate { get; set; }
+	}
 }

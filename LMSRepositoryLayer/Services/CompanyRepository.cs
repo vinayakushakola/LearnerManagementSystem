@@ -297,5 +297,53 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// It Stored Mentor Tech Stack in the Database
+        /// </summary>
+        /// <param name="techStack">Tech Stack</param>
+        /// <returns>If Data Added Successfully return ResponseData else null or Exception</returns>
+        public MentorTechStackResponse AddMentorTechStack(MentorTechStackRequest techStack)
+        {
+            try
+            {
+                MentorTechStackResponse responseData = null;
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_MentorTechStack", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@MentorID", techStack.MentorID);
+                    cmd.Parameters.AddWithValue("@TechStackID", techStack.TechStackID);
+                    cmd.Parameters.AddWithValue("@Status", techStack.Status);
+                    cmd.Parameters.AddWithValue("@CreatorStamp", techStack.CreatorStamp);
+                    cmd.Parameters.AddWithValue("@CreatorUser", techStack.CreatorUser);
+                    cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        responseData = new MentorTechStackResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            MentorID = Convert.ToInt32(dataReader["MentorID"]),
+                            TechStackID = Convert.ToInt32(dataReader["TechStackID"]),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
+                    }
+                    conn.Close();
+                }
+                return responseData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
