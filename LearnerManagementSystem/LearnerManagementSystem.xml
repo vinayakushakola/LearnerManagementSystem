@@ -108,6 +108,20 @@
             <param name="mentor">Mentor TEch Stack</param>
             <returns>IF Data Found return Ok Else null or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddTechStack(LMSCommonLayer.RequestModels.TechStackRequest)">
+            <summary>
+            It is used to Add Tech Stack
+            </summary>
+            <param name="techStack">Tech Stack</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddTechType(LMSCommonLayer.RequestModels.TechTypeRequest)">
+            <summary>
+            It is used to Add Tech Type
+            </summary>
+            <param name="techType">Tech Type</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllCandidates">
             <summary>
             It is used to Show all Candidates Data

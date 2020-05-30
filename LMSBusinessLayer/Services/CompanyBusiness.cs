@@ -57,5 +57,16 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
+        public TechStackResponse AddTechStack(TechStackRequest techStack)
+        {
+            var responseData = _companyRepository.AddTechStack(techStack);
+            return responseData;
+        }
+
+        public TechTypeResponse AddTechType(TechTypeRequest techType)
+        {
+            var responseData = _companyRepository.AddTechType(techType);
+            return responseData;
+        }
     }
 }

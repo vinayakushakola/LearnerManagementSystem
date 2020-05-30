@@ -22,5 +22,9 @@ namespace LMSBusinessLayer.Interface
         MentorIdeationResponse AddMentorIdeation(MentorIdeationRequest mentorIdeation);
 
         MentorTechStackResponse AddMentorTechStack(MentorTechStackRequest techStack);
+
+        TechStackResponse AddTechStack(TechStackRequest techStack);
+
+        TechTypeResponse AddTechType(TechTypeRequest techType);
     }
 }

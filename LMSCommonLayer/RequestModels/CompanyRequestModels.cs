@@ -67,4 +67,24 @@ namespace LMSCommonLayer.RequestModels
 		public DateTime CreatedDate { get; set; }
 		public DateTime ModifiedDate { get; set; }
 	}
+
+	public class TechStackRequest
+	{
+		public string TechName { get; set; }
+		public string ImagePath { get; set; }
+		public string Framework { get; set; }
+		public string CurrentStatus { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+		public DateTime CreatedDate { get; set; }
+		public DateTime ModifiedDate { get; set; }
+	}
+
+	public class TechTypeRequest
+	{
+		public string TypeName { get; set; }
+		public string CurrentStatus { get; set; }
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
+	}
 }
