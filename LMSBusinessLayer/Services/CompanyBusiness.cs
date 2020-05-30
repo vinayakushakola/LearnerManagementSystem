@@ -32,5 +32,12 @@ namespace LMSBusinessLayer.Services
             var responseData = _companyRepository.AddCompany(companyAddRequest);
             return responseData;
         }
+
+        public MakerProgramResponse AddMakerProgram(MakerProgramRequest makerProgram)
+        {
+            var responseData = _companyRepository.AddMakerProgram(makerProgram);
+            return responseData;
+        }
+
     }
 }

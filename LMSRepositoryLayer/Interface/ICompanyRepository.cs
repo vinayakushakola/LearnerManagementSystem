@@ -14,5 +14,7 @@ namespace LMSRepositoryLayer.Interface
         List<CompanyAddResponse> GetAllCompanies();
 
         CompanyAddResponse AddCompany(CompanyAddRequest companyAddRequest);
+
+        MakerProgramResponse AddMakerProgram(MakerProgramRequest makerProgram);
     }
 }

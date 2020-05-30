@@ -80,6 +80,13 @@
             <param name="company">Company Info</param>
             <returns>If Data Found return Ok else NotFound or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.MakerProgram(LMSCommonLayer.RequestModels.MakerProgramRequest)">
+            <summary>
+            It is used to Add Maker Program
+            </summary>
+            <param name="makerProgram">Maker Program</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllCandidates">
             <summary>
             It is used to Show all Candidates Data
