@@ -191,6 +191,51 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
+        /// It Fetch Data from the Database
+        /// </summary>
+        /// <returns>If Data Retrieved Successfully return ResponseData else null or Exception</returns>
+        public List<MentorRegistrationResponse> ListOfMentors()
+        {
+            try
+            {
+                List<MentorRegistrationResponse> mentorsList = null;
+
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    mentorsList = new List<MentorRegistrationResponse>();
+                    SqlCommand cmd = new SqlCommand("SP_GetAllMentors", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        MentorRegistrationResponse responseData = new MentorRegistrationResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            Name = dataReader["Name"].ToString(),
+                            MentorType = dataReader["MentorType"].ToString(),
+                            LabID = Convert.ToInt32(dataReader["LabID"]),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
+                        mentorsList.Add(responseData);
+                    }
+                    conn.Close();
+                }
+                return mentorsList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// It Stores Mentor Data in the Database
         /// </summary>
         /// <param name="mentorRegistration">Mentor Registration</param>

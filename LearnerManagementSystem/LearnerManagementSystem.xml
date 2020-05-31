@@ -75,7 +75,7 @@
         </member>
         <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddCompany(LMSCommonLayer.RequestModels.CompanyAddRequest)">
             <summary>
-            It is used Add Company
+            It is used to Add a Company
             </summary>
             <param name="company">Company Info</param>
             <returns>If Data Found return Ok else NotFound or BadRequest</returns>
@@ -86,6 +86,12 @@
             </summary>
             <param name="makerProgram">Maker Program</param>
             <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.GetAllMentors">
+            <summary>
+            It is used to Show all Mentors Information
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddMentor(LMSCommonLayer.RequestModels.MentorRegistrationRequest)">
             <summary>
