@@ -30,6 +30,8 @@ namespace LMSBusinessLayer.Interface
         TechTypeResponse AddTechType(TechTypeRequest techType);
 
         LabRegistrationResponse AddLab(LabRegistrationRequest lab);
+        
+        List<LabRegistrationResponse> ListOfLabs();
 
         LabThresholdResponse AddLabThreshold(LabThresholdRequest labThreshold);
 

@@ -75,6 +75,12 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
+        public List<LabRegistrationResponse> ListOfLabs()
+        {
+            var responseData = _companyRepository.ListOfLabs();
+            return responseData;
+        }
+
         public LabRegistrationResponse AddLab(LabRegistrationRequest lab)
         {
             var responseData = _companyRepository.AddLab(lab);

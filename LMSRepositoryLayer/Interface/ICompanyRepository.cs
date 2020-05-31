@@ -29,6 +29,8 @@ namespace LMSRepositoryLayer.Interface
         
         TechTypeResponse AddTechType(TechTypeRequest techType);
 
+        List<LabRegistrationResponse> ListOfLabs();
+
         LabRegistrationResponse AddLab(LabRegistrationRequest lab);
         
         LabThresholdResponse AddLabThreshold(LabThresholdRequest labThreshold);

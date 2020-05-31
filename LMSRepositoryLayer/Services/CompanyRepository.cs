@@ -70,7 +70,7 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
-        /// It Stores Data in the Datbase
+        /// It Stores Data in the Database
         /// </summary>
         /// <param name="companyAdd">Caompany Data</param>
         /// <returns>If Data Found return ResponseData else nul or Exception</returns>
@@ -487,6 +487,51 @@ namespace LMSRepositoryLayer.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// It Fetch Data from the Database
+        /// </summary>
+        /// <returns>If Data Fetched Successfully return ResponseData else null or Excception</returns>
+        public List<LabRegistrationResponse> ListOfLabs()
+        {
+            try
+            {
+                List<LabRegistrationResponse> labsList = null;
+
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    labsList = new List<LabRegistrationResponse>();
+                    SqlCommand cmd = new SqlCommand("SP_GetAllLabs", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        LabRegistrationResponse responseData = new LabRegistrationResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            Name = dataReader["Name"].ToString(),
+                            Location = dataReader["Location"].ToString(),
+                            Address = dataReader["Address"].ToString(),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
+                        labsList.Add(responseData);
+                    }
+                    conn.Close();
+                }
+                return labsList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// It Stores Lab Data in the Database
