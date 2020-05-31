@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnerManagementSystem", "LearnerManagementSystem\LearnerManagementSystem.csproj", "{32BF5118-9C5A-49B5-B5B4-7D00CBDBA99D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnerManagementSystem", "LearnerManagementSystem\LearnerManagementSystem.csproj", "{32BF5118-9C5A-49B5-B5B4-7D00CBDBA99D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSBusinessLayer", "LMSBusinessLayer\LMSBusinessLayer.csproj", "{10931B96-8A3E-4686-892E-B386BB0B017E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSBusinessLayer", "LMSBusinessLayer\LMSBusinessLayer.csproj", "{10931B96-8A3E-4686-892E-B386BB0B017E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSCommonLayer", "LMSCommonLayer\LMSCommonLayer.csproj", "{2A406651-B765-471F-A227-74EBEA325A1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSCommonLayer", "LMSCommonLayer\LMSCommonLayer.csproj", "{2A406651-B765-471F-A227-74EBEA325A1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSRepositoryLayer", "LMSRepositoryLayer\LMSRepositoryLayer.csproj", "{7B25EE2C-CCCC-4FF4-814C-B1810C082670}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSRepositoryLayer", "LMSRepositoryLayer\LMSRepositoryLayer.csproj", "{7B25EE2C-CCCC-4FF4-814C-B1810C082670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSUnitTesting", "LMSUnitTesting\LMSUnitTesting.csproj", "{B66DE1B4-EEE4-457D-8473-18FE184CFD16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7B25EE2C-CCCC-4FF4-814C-B1810C082670}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B25EE2C-CCCC-4FF4-814C-B1810C082670}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B25EE2C-CCCC-4FF4-814C-B1810C082670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B66DE1B4-EEE4-457D-8473-18FE184CFD16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B66DE1B4-EEE4-457D-8473-18FE184CFD16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B66DE1B4-EEE4-457D-8473-18FE184CFD16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B66DE1B4-EEE4-457D-8473-18FE184CFD16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
