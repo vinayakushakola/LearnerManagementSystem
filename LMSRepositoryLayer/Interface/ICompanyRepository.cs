@@ -17,6 +17,8 @@ namespace LMSRepositoryLayer.Interface
 
         MakerProgramResponse AddMakerProgram(MakerProgramRequest makerProgram);
 
+        List<MentorRegistrationResponse> ListOfMentors();
+        
         MentorRegistrationResponse AddMentor(MentorRegistrationRequest mentorRegistration);
         
         MentorIdeationResponse AddMentorIdeation(MentorIdeationRequest mentorIdeation);

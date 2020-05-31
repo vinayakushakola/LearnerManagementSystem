@@ -54,7 +54,7 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
-        /// It is used Add Company
+        /// It is used to Add a Company
         /// </summary>
         /// <param name="company">Company Info</param>
         /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
@@ -107,6 +107,37 @@ namespace LearnerManagementSystem.Controllers
                 else
                 {
                     message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// It is used to Show all Mentors Information
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Mentors")]
+        public IActionResult GetAllMentors()
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _companyBusiness.ListOfMentors();
+                if (data != null)
+                {
+                    success = true;
+                    message = "Mentors Data Fetched Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "No Data Found";
                     return NotFound(new { success, message });
                 }
             }
