@@ -3,6 +3,7 @@
 // Date: 25/05/2020
 //
 
+using LMSCommonLayer.DBModels;
 using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
 using LMSRepositoryLayer.Interface;
@@ -90,7 +91,7 @@ namespace LMSRepositoryLayer.Services
                         cmd.Parameters.AddWithValue("@FirstName", registrationRequest.FirstName);
                         cmd.Parameters.AddWithValue("@LastName", registrationRequest.LastName);
                         cmd.Parameters.AddWithValue("@Email", registrationRequest.Email);
-                        cmd.Parameters.AddWithValue("@Password", registrationRequest.Password);
+                        cmd.Parameters.AddWithValue("@Password", EncodeDecode.EncodePasswordToBase64(registrationRequest.Password));
                         cmd.Parameters.AddWithValue("@ContactNumber", registrationRequest.ContactNumber);
                         cmd.Parameters.AddWithValue("@Verified", registrationRequest.Verified);
                         cmd.Parameters.AddWithValue("@CreatorStamp", registrationRequest.CreatorStamp);
@@ -232,7 +233,7 @@ namespace LMSRepositoryLayer.Services
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                         cmd.Parameters.AddWithValue("@Email", login.Email);
-                        cmd.Parameters.AddWithValue("@Password", login.Password);
+                        cmd.Parameters.AddWithValue("@Password", EncodeDecode.EncodePasswordToBase64(login.Password));
 
                         conn.Open();
                         SqlDataReader dataReader = cmd.ExecuteReader();
