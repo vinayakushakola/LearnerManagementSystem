@@ -90,7 +90,7 @@ namespace LearnerManagementSystem.Controllers
                 else
                 {
                     message = "Email Already Exists!";
-                    return NotFound(new { success, message });
+                    return Ok(new { success, message });
                 }
             }
             catch (Exception ex)
@@ -188,7 +188,7 @@ namespace LearnerManagementSystem.Controllers
                 else
                 {
                     message = "Enter Valid Email & Password!";
-                    return Ok(new { success, message });
+                    return NotFound(new { success, message });
                 }
             }
             catch(Exception ex)
