@@ -3,6 +3,8 @@
 // Date: 25/05/2020
 //
 
+using System;
+
 namespace LMSCommonLayer.ResponseModels
 {
     public class AdminResponseModel
@@ -17,14 +19,14 @@ namespace LMSCommonLayer.ResponseModels
 
         public string ContactNumber { get; set; }
 
-        public string Verified { get; set; }
+        public bool IsVerified { get; set; }
 
         public string CreatorStamp { get; set; }
 
         public string CreatorUser { get; set; }
 
-        public string CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public string ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
     }
 }

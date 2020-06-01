@@ -43,7 +43,7 @@ namespace LMSUnitTesting
                 Email = "abcd123455@gmail.com",
                 Password = "Abcd1234",
                 ContactNumber =  "1234567890",
-                Verified = "yes",
+                IsVerified = true,
                 CreatorStamp = "Vin",
                 CreatorUser = "Vinayak"
             };

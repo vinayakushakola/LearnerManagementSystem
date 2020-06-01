@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace LMSCommonLayer.RequestModels
 {
@@ -29,7 +30,8 @@ namespace LMSCommonLayer.RequestModels
         public string ContactNumber { get; set; }
 
         [Required]
-        public string Verified { get; set; }
+        [DefaultValue("false")]
+        public bool IsVerified { get; set; }
 
         [Required]
         public string CreatorStamp { get; set; }

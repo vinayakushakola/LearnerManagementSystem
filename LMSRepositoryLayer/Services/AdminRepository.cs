@@ -53,11 +53,11 @@ namespace LMSRepositoryLayer.Services
                         user.LastName = dataReader["LastName"].ToString();
                         user.Email = dataReader["Email"].ToString();
                         user.ContactNumber = dataReader["ContactNumber"].ToString();
-                        user.Verified = dataReader["Verified"].ToString();
+                        user.IsVerified = Convert.ToBoolean(dataReader["IsVerified"]);
                         user.CreatorStamp = dataReader["CreatorStamp"].ToString();
                         user.CreatorUser = dataReader["CreatorUser"].ToString();
-                        user.CreatedDate = dataReader["CreatedDate"].ToString();
-                        user.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        user.CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]);
+                        user.ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"]);
                         
                         userList.Add(user);
                     }
@@ -81,46 +81,51 @@ namespace LMSRepositoryLayer.Services
             try
             {
                 AdminResponseModel responseData = null;
-                try
+                var registrationData = new AdminDetails
                 {
-                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    FirstName = registrationRequest.FirstName,
+                    LastName = registrationRequest.LastName,
+                    Email = registrationRequest.Email,
+                    Password = EncodeDecode.EncodePasswordToBase64(registrationRequest.Password),
+                    ContactNumber = registrationRequest.ContactNumber,
+                    IsVerified = registrationRequest.IsVerified,
+                    CreatorStamp = registrationRequest.CreatorStamp,
+                    CreatorUser = registrationRequest.CreatorUser,
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now
+                };
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_InsertAdmin", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@FirstName", registrationData.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", registrationData.LastName);
+                    cmd.Parameters.AddWithValue("@Email", registrationRequest.Email);
+                    cmd.Parameters.AddWithValue("@Password", registrationData.Password);
+                    cmd.Parameters.AddWithValue("@ContactNumber", registrationData.ContactNumber);
+                    cmd.Parameters.AddWithValue("@IsVerified", registrationData.IsVerified);
+                    cmd.Parameters.AddWithValue("@CreatorStamp", registrationData.CreatorStamp);
+                    cmd.Parameters.AddWithValue("@CreatorUser", registrationData.CreatorUser);
+                    cmd.Parameters.AddWithValue("@CreatedDate", registrationData.CreatedDate);
+                    cmd.Parameters.AddWithValue("@ModifiedDate", registrationData.ModifiedDate);
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
                     {
-                        SqlCommand cmd = new SqlCommand("SP_InsertAdmin", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                        cmd.Parameters.AddWithValue("@FirstName", registrationRequest.FirstName);
-                        cmd.Parameters.AddWithValue("@LastName", registrationRequest.LastName);
-                        cmd.Parameters.AddWithValue("@Email", registrationRequest.Email);
-                        cmd.Parameters.AddWithValue("@Password", EncodeDecode.EncodePasswordToBase64(registrationRequest.Password));
-                        cmd.Parameters.AddWithValue("@ContactNumber", registrationRequest.ContactNumber);
-                        cmd.Parameters.AddWithValue("@Verified", registrationRequest.Verified);
-                        cmd.Parameters.AddWithValue("@CreatorStamp", registrationRequest.CreatorStamp);
-                        cmd.Parameters.AddWithValue("@CreatorUser", registrationRequest.CreatorUser);
-                        cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
-                        cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
-
-                        conn.Open();
-                        SqlDataReader dataReader = cmd.ExecuteReader();
-                        while (dataReader.Read())
-                        {
-                            responseData = new AdminResponseModel();
-                            responseData.AdminID = Convert.ToInt32(dataReader["AdminID"].ToString());
-                            responseData.FirstName = dataReader["FirstName"].ToString();
-                            responseData.LastName = dataReader["LastName"].ToString();
-                            responseData.Email = dataReader["Email"].ToString();
-                            responseData.ContactNumber = dataReader["ContactNumber"].ToString();
-                            responseData.Verified = dataReader["Verified"].ToString();
-                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
-                        }
-                        conn.Close();
+                        responseData = new AdminResponseModel();
+                        responseData.AdminID = Convert.ToInt32(dataReader["AdminID"].ToString());
+                        responseData.FirstName = dataReader["FirstName"].ToString();
+                        responseData.LastName = dataReader["LastName"].ToString();
+                        responseData.Email = dataReader["Email"].ToString();
+                        responseData.ContactNumber = dataReader["ContactNumber"].ToString();
+                        responseData.IsVerified = Convert.ToBoolean(dataReader["IsVerified"]);
+                        responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
+                        responseData.CreatorUser = dataReader["CreatorUser"].ToString();
+                        responseData.CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]);
+                        responseData.ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"]);
                     }
-                }
-                catch
-                {
-                    return null;
+                    conn.Close();
                 }
                 return responseData;
             }
@@ -149,7 +154,7 @@ namespace LMSRepositoryLayer.Services
                     cmd.Parameters.AddWithValue("@AdminID", adminID);
                     cmd.Parameters.AddWithValue("@Email", updateRequest.Email);
                     cmd.Parameters.AddWithValue("@ContactNumber", updateRequest.ContactNumber);
-                    cmd.Parameters.AddWithValue("@Verified", updateRequest.Verified);
+                    cmd.Parameters.AddWithValue("@IsVerified", updateRequest.Verified);
                     cmd.Parameters.AddWithValue("@CreatorStamp", updateRequest.CreatorStamp);
                     cmd.Parameters.AddWithValue("@CreatorUser", updateRequest.CreatorUser);
                     cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
@@ -164,11 +169,11 @@ namespace LMSRepositoryLayer.Services
                         responseData.LastName = dataReader["LastName"].ToString();
                         responseData.Email = dataReader["Email"].ToString();
                         responseData.ContactNumber = dataReader["ContactNumber"].ToString();
-                        responseData.Verified = dataReader["Verified"].ToString();
+                        responseData.IsVerified = Convert.ToBoolean(dataReader["IsVerified"]);
                         responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
                         responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                        responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                        responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        responseData.CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]);
+                        responseData.ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"]);
                     }
                     conn.Close();
                 }
@@ -245,11 +250,11 @@ namespace LMSRepositoryLayer.Services
                             responseData.LastName = dataReader["LastName"].ToString();
                             responseData.Email = dataReader["Email"].ToString();
                             responseData.ContactNumber = dataReader["ContactNumber"].ToString();
-                            responseData.Verified = dataReader["Verified"].ToString();
+                            responseData.IsVerified = Convert.ToBoolean(dataReader["IsVerified"]);
                             responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
                             responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                            responseData.CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]);
+                            responseData.ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"]);
                         }
                         conn.Close();
                     }
@@ -295,11 +300,11 @@ namespace LMSRepositoryLayer.Services
                             responseData.LastName = dataReader["LastName"].ToString();
                             responseData.Email = dataReader["Email"].ToString();
                             responseData.ContactNumber = dataReader["ContactNumber"].ToString();
-                            responseData.Verified = dataReader["Verified"].ToString();
+                            responseData.IsVerified = Convert.ToBoolean(dataReader["IsVerified"]);
                             responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
                             responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                            responseData.CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]);
+                            responseData.ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"]);
                         }
                         conn.Close();
                     }

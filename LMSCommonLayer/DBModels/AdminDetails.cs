@@ -3,14 +3,14 @@
 // Date: 25/05/2020
 //
 
+using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace LMSCommonLayer.DBModels
 {
     public class AdminDetails
     {
-        public int AdminID { get; set; }
-
         [Required]
         public string FirstName { get; set; }
 
@@ -27,7 +27,8 @@ namespace LMSCommonLayer.DBModels
         public string ContactNumber { get; set; }
 
         [Required]
-        public string Verified { get; set; }
+        [DefaultValue("false")]
+        public bool IsVerified { get; set; }
 
         [Required]
         public string CreatorStamp { get; set; }
@@ -36,9 +37,9 @@ namespace LMSCommonLayer.DBModels
         public string CreatorUser { get; set; }
 
         [Required]
-        public string CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         [Required]
-        public string ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
     }
 }
