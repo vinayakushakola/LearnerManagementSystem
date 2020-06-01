@@ -38,33 +38,37 @@ namespace LMSRepositoryLayer.Services
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     userList = new List<HiredResponseModel>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllHired", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_GetAllHired", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        HiredResponseModel responseData = new HiredResponseModel();
-                        responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
-                        responseData.FirstName = dataReader["FirstName"].ToString();
-                        responseData.MiddleName = dataReader["MiddleName"].ToString();
-                        responseData.LastName = dataReader["LastName"].ToString();
-                        responseData.Email = dataReader["Email"].ToString();
-                        responseData.Degree = dataReader["Degree"].ToString();
-                        responseData.MobileNumber = dataReader["MobileNumber"].ToString();
-                        responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
-                        responseData.HiredCity = dataReader["HiredCity"].ToString();
-                        responseData.HiredDate = dataReader["HiredDate"].ToString();
-                        responseData.HiredLab = dataReader["HiredLab"].ToString();
-                        responseData.Attitude = dataReader["Attitude"].ToString();
-                        responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
-                        responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
-                        responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
-                        responseData.Status = dataReader["Status"].ToString();
-                        responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                        responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                        responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                        responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        HiredResponseModel responseData = new HiredResponseModel()
+                        {
+                            CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                            FirstName = dataReader["FirstName"].ToString(),
+                            MiddleName = dataReader["MiddleName"].ToString(),
+                            LastName = dataReader["LastName"].ToString(),
+                            Email = dataReader["Email"].ToString(),
+                            Degree = dataReader["Degree"].ToString(),
+                            MobileNumber = dataReader["MobileNumber"].ToString(),
+                            PermanentPincode = dataReader["PermanentPincode"].ToString(),
+                            HiredCity = dataReader["HiredCity"].ToString(),
+                            HiredDate = dataReader["HiredDate"].ToString(),
+                            HiredLab = dataReader["HiredLab"].ToString(),
+                            Attitude = dataReader["Attitude"].ToString(),
+                            CommunicationRemark = dataReader["CommunicationRemark"].ToString(),
+                            KnowledgeRemark = dataReader["KnowledgeRemark"].ToString(),
+                            AggregateRemark = dataReader["AggregateRemark"].ToString(),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
 
                         userList.Add(responseData);
                     }
@@ -92,9 +96,10 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_HiredInsert", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
+                        SqlCommand cmd = new SqlCommand("SP_HiredInsert", conn)
+                        {
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
                         cmd.Parameters.AddWithValue("@FirstName", hiredRegistration.FirstName);
                         cmd.Parameters.AddWithValue("@MiddleName", hiredRegistration.MiddleName);
                         cmd.Parameters.AddWithValue("@LastName", hiredRegistration.LastName);
@@ -111,27 +116,29 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new HiredResponseModel();
-                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
-                            responseData.FirstName = dataReader["FirstName"].ToString();
-                            responseData.MiddleName = dataReader["MiddleName"].ToString();
-                            responseData.LastName = dataReader["LastName"].ToString();
-                            responseData.Email = dataReader["Email"].ToString();
-                            responseData.Degree = dataReader["Degree"].ToString();
-                            responseData.MobileNumber = dataReader["MobileNumber"].ToString();
-                            responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
-                            responseData.HiredCity = dataReader["HiredCity"].ToString();
-                            responseData.HiredDate = dataReader["HiredDate"].ToString();
-                            responseData.HiredLab = dataReader["HiredLab"].ToString();
-                            responseData.Attitude = dataReader["Attitude"].ToString();
-                            responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
-                            responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
-                            responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
-                            responseData.Status = dataReader["Status"].ToString();
-                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                            responseData = new HiredResponseModel()
+                            {
+                                CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                                FirstName = dataReader["FirstName"].ToString(),
+                                MiddleName = dataReader["MiddleName"].ToString(),
+                                LastName = dataReader["LastName"].ToString(),
+                                Email = dataReader["Email"].ToString(),
+                                Degree = dataReader["Degree"].ToString(),
+                                MobileNumber = dataReader["MobileNumber"].ToString(),
+                                PermanentPincode = dataReader["PermanentPincode"].ToString(),
+                                HiredCity = dataReader["HiredCity"].ToString(),
+                                HiredDate = dataReader["HiredDate"].ToString(),
+                                HiredLab = dataReader["HiredLab"].ToString(),
+                                Attitude = dataReader["Attitude"].ToString(),
+                                CommunicationRemark = dataReader["CommunicationRemark"].ToString(),
+                                KnowledgeRemark = dataReader["KnowledgeRemark"].ToString(),
+                                AggregateRemark = dataReader["AggregateRemark"].ToString(),
+                                Status = dataReader["Status"].ToString(),
+                                CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                                CreatorUser = dataReader["CreatorUser"].ToString(),
+                                CreatedDate = dataReader["CreatedDate"].ToString(),
+                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            };
                         }
                         conn.Close();
                     }
@@ -161,9 +168,10 @@ namespace LMSRepositoryLayer.Services
                 HiredResponseModel responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_HiredUpdate", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
+                    SqlCommand cmd = new SqlCommand("SP_HiredUpdate", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
                     cmd.Parameters.AddWithValue("@CandidateID", candidateID);
                     cmd.Parameters.AddWithValue("@HiredCity", hiredRegistrationUpdate.HiredCity);
                     cmd.Parameters.AddWithValue("@HiredDate", DateTime.Now);
@@ -181,27 +189,29 @@ namespace LMSRepositoryLayer.Services
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        responseData = new HiredResponseModel();
-                        responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
-                        responseData.FirstName = dataReader["FirstName"].ToString();
-                        responseData.MiddleName = dataReader["MiddleName"].ToString();
-                        responseData.LastName = dataReader["LastName"].ToString();
-                        responseData.Email = dataReader["Email"].ToString();
-                        responseData.Degree = dataReader["Degree"].ToString();
-                        responseData.MobileNumber = dataReader["MobileNumber"].ToString();
-                        responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
-                        responseData.HiredCity = dataReader["HiredCity"].ToString();
-                        responseData.HiredDate = dataReader["HiredDate"].ToString();
-                        responseData.HiredLab = dataReader["HiredLab"].ToString();
-                        responseData.Attitude = dataReader["Attitude"].ToString();
-                        responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
-                        responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
-                        responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
-                        responseData.Status = dataReader["Status"].ToString();
-                        responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                        responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                        responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                        responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                        responseData = new HiredResponseModel
+                        {
+                            CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                            FirstName = dataReader["FirstName"].ToString(),
+                            MiddleName = dataReader["MiddleName"].ToString(),
+                            LastName = dataReader["LastName"].ToString(),
+                            Email = dataReader["Email"].ToString(),
+                            Degree = dataReader["Degree"].ToString(),
+                            MobileNumber = dataReader["MobileNumber"].ToString(),
+                            PermanentPincode = dataReader["PermanentPincode"].ToString(),
+                            HiredCity = dataReader["HiredCity"].ToString(),
+                            HiredDate = dataReader["HiredDate"].ToString(),
+                            HiredLab = dataReader["HiredLab"].ToString(),
+                            Attitude = dataReader["Attitude"].ToString(),
+                            CommunicationRemark = dataReader["CommunicationRemark"].ToString(),
+                            KnowledgeRemark = dataReader["KnowledgeRemark"].ToString(),
+                            AggregateRemark = dataReader["AggregateRemark"].ToString(),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
                     }
                     conn.Close();
                 }
@@ -239,8 +249,10 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_FellowshipInsert", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlCommand cmd = new SqlCommand("SP_FellowshipInsert", conn)
+                        {
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
 
                         cmd.Parameters.AddWithValue("@FirstName", acceptedCandidate.FirstName);
                         cmd.Parameters.AddWithValue("@MiddleName", acceptedCandidate.MiddleName);
@@ -266,43 +278,45 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new FellowshipResponseModel();
-                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
-                            responseData.FirstName = dataReader["FirstName"].ToString();
-                            responseData.MiddleName = dataReader["MiddleName"].ToString();
-                            responseData.LastName = dataReader["LastName"].ToString();
-                            responseData.Email = dataReader["Email"].ToString();
-                            responseData.Degree = dataReader["Degree"].ToString();
-                            responseData.MobileNumber = dataReader["MobileNumber"].ToString();
-                            responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
-                            responseData.HiredCity = dataReader["HiredCity"].ToString();
-                            responseData.HiredDate = dataReader["HiredDate"].ToString();
-                            responseData.HiredLab = dataReader["HiredLab"].ToString();
-                            responseData.Attitude = dataReader["Attitude"].ToString();
-                            responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
-                            responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
-                            responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
-                            responseData.Status = dataReader["Status"].ToString();
-                            responseData.BirthDate = dataReader["BirthDate"].ToString();
-                            responseData.IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString();
-                            responseData.ParentName = dataReader["ParentName"].ToString();
-                            responseData.ParentOccupation = dataReader["ParentOccupation"].ToString();
-                            responseData.ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString();
-                            responseData.ParentsAnnualSalary = dataReader["ParentsAnnualSalary"].ToString();
-                            responseData.LocalAddress = dataReader["LocalAddress"].ToString();
-                            responseData.PermanentAddress = dataReader["PermanentAddress"].ToString();
-                            responseData.PhotoPath = dataReader["PhotoPath"].ToString();
-                            responseData.JoiningDate = dataReader["JoiningDate"].ToString();
-                            responseData.CandidateStatus = dataReader["CandidateStatus"].ToString();
-                            responseData.PersonalInformation = dataReader["PersonalInformation"].ToString();
-                            responseData.BankInformation = dataReader["BankInformation"].ToString();
-                            responseData.EducationalInformation = dataReader["EducationalInformation"].ToString();
-                            responseData.DocumentStatus = dataReader["DocumentStatus"].ToString();
-                            responseData.Remark = dataReader["Remark"].ToString();
-                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                            responseData = new FellowshipResponseModel()
+                            {
+                                CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                                FirstName = dataReader["FirstName"].ToString(),
+                                MiddleName = dataReader["MiddleName"].ToString(),
+                                LastName = dataReader["LastName"].ToString(),
+                                Email = dataReader["Email"].ToString(),
+                                Degree = dataReader["Degree"].ToString(),
+                                MobileNumber = dataReader["MobileNumber"].ToString(),
+                                PermanentPincode = dataReader["PermanentPincode"].ToString(),
+                                HiredCity = dataReader["HiredCity"].ToString(),
+                                HiredDate = dataReader["HiredDate"].ToString(),
+                                HiredLab = dataReader["HiredLab"].ToString(),
+                                Attitude = dataReader["Attitude"].ToString(),
+                                CommunicationRemark = dataReader["CommunicationRemark"].ToString(),
+                                KnowledgeRemark = dataReader["KnowledgeRemark"].ToString(),
+                                AggregateRemark = dataReader["AggregateRemark"].ToString(),
+                                Status = dataReader["Status"].ToString(),
+                                BirthDate = dataReader["BirthDate"].ToString(),
+                                IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString(),
+                                ParentName = dataReader["ParentName"].ToString(),
+                                ParentOccupation = dataReader["ParentOccupation"].ToString(),
+                                ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString(),
+                                ParentsAnnualSalary = dataReader["ParentsAnnualSalary"].ToString(),
+                                LocalAddress = dataReader["LocalAddress"].ToString(),
+                                PermanentAddress = dataReader["PermanentAddress"].ToString(),
+                                PhotoPath = dataReader["PhotoPath"].ToString(),
+                                JoiningDate = dataReader["JoiningDate"].ToString(),
+                                CandidateStatus = dataReader["CandidateStatus"].ToString(),
+                                PersonalInformation = dataReader["PersonalInformation"].ToString(),
+                                BankInformation = dataReader["BankInformation"].ToString(),
+                                EducationalInformation = dataReader["EducationalInformation"].ToString(),
+                                DocumentStatus = dataReader["DocumentStatus"].ToString(),
+                                Remark = dataReader["Remark"].ToString(),
+                                CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                                CreatorUser = dataReader["CreatorUser"].ToString(),
+                                CreatedDate = dataReader["CreatedDate"].ToString(),
+                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            };
                         }
                         conn.Close();
                     }

@@ -38,8 +38,10 @@ namespace LMSRepositoryLayer.Services
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     mentorsList = new List<MentorRegistrationResponse>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllMentors", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_GetAllMentors", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
@@ -84,8 +86,10 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_InsertMentor", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlCommand cmd = new SqlCommand("SP_InsertMentor", conn)
+                        {
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
 
                         cmd.Parameters.AddWithValue("@Name", mentorRegistration.Name);
                         cmd.Parameters.AddWithValue("@MentorType", mentorRegistration.MentorType);
@@ -140,8 +144,10 @@ namespace LMSRepositoryLayer.Services
                 MentorIdeationResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_MentorIdeationMap", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_MentorIdeationMap", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     cmd.Parameters.AddWithValue("@LeadID", mentorIdeation.LeadID);
                     cmd.Parameters.AddWithValue("@MentorID", mentorIdeation.MentorID);
@@ -189,8 +195,10 @@ namespace LMSRepositoryLayer.Services
                 MentorTechStackResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_MentorTechStack", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_MentorTechStack", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     cmd.Parameters.AddWithValue("@MentorID", techStack.MentorID);
                     cmd.Parameters.AddWithValue("@TechStackID", techStack.TechStackID);

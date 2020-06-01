@@ -38,8 +38,10 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_MakerProgram", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlCommand cmd = new SqlCommand("SP_MakerProgram", conn)
+                        {
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
 
                         cmd.Parameters.AddWithValue("@ProgramName", makerProgram.ProgramName);
                         cmd.Parameters.AddWithValue("@ProgramType", makerProgram.ProgramType);

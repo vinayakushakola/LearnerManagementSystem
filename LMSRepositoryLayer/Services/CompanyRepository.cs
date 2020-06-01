@@ -38,9 +38,10 @@ namespace LMSRepositoryLayer.Services
                 using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     companiesList = new List<CompanyAddResponse>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllCompanies", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
+                    SqlCommand cmd = new SqlCommand("SP_GetAllCompanies", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
@@ -83,9 +84,10 @@ namespace LMSRepositoryLayer.Services
                 {
                     using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_AddCompanies", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
+                        SqlCommand cmd = new SqlCommand("SP_AddCompanies", conn)
+                        {
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
                         cmd.Parameters.AddWithValue("@Name", companyAddRequest.Name);
                         cmd.Parameters.AddWithValue("@Address", companyAddRequest.Address);
                         cmd.Parameters.AddWithValue("@Location", companyAddRequest.Location);
@@ -139,8 +141,10 @@ namespace LMSRepositoryLayer.Services
                 CompanyRequirementResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_CompanyRequirement", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_CompanyRequirement", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     cmd.Parameters.AddWithValue("@CompanyID", companyRequirement.CompanyID);
                     cmd.Parameters.AddWithValue("@RequestedMonth", companyRequirement.RequestedMonth);

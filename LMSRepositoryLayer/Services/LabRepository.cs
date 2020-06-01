@@ -38,9 +38,10 @@ namespace LMSRepositoryLayer.Services
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     labsList = new List<LabRegistrationResponse>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllLabs", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
+                    SqlCommand cmd = new SqlCommand("SP_GetAllLabs", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
@@ -82,8 +83,10 @@ namespace LMSRepositoryLayer.Services
                 LabRegistrationResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_InsertLab", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_InsertLab", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     cmd.Parameters.AddWithValue("@Name", lab.Name);
                     cmd.Parameters.AddWithValue("@Location", lab.Location);
@@ -133,8 +136,10 @@ namespace LMSRepositoryLayer.Services
                 LabThresholdResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_LabThreshold", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_LabThreshold", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     cmd.Parameters.AddWithValue("@LabID", labThreshold.LabID);
                     cmd.Parameters.AddWithValue("@LabCapacity", labThreshold.LabCapacity);

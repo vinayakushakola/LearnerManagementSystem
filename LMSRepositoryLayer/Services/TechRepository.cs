@@ -36,8 +36,10 @@ namespace LMSRepositoryLayer.Services
                 TechStackResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_TechStack", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_TechStack", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     cmd.Parameters.AddWithValue("@TechName", techStack.TechName);
                     cmd.Parameters.AddWithValue("@ImagePath", techStack.ImagePath);
@@ -86,8 +88,10 @@ namespace LMSRepositoryLayer.Services
                 TechTypeResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_TechType", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_TechType", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     cmd.Parameters.AddWithValue("@TypeName", techType.TypeName);
                     cmd.Parameters.AddWithValue("@CurrentStatus", techType.CurrentStatus);

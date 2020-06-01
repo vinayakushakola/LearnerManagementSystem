@@ -39,50 +39,53 @@ namespace LMSRepositoryLayer.Services
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     fellowshipCandidates = new List<FellowshipResponseModel>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllFellowshipCandidates", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("SP_GetAllFellowshipCandidates", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        FellowshipResponseModel responseData = new FellowshipResponseModel();
-                        responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
-                        responseData.FirstName = dataReader["FirstName"].ToString();
-                        responseData.MiddleName = dataReader["MiddleName"].ToString();
-                        responseData.LastName = dataReader["LastName"].ToString();
-                        responseData.Email = dataReader["Email"].ToString();
-                        responseData.Degree = dataReader["Degree"].ToString();
-                        responseData.MobileNumber = dataReader["MobileNumber"].ToString();
-                        responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
-                        responseData.HiredCity = dataReader["HiredCity"].ToString();
-                        responseData.HiredDate = dataReader["HiredDate"].ToString();
-                        responseData.HiredLab = dataReader["HiredLab"].ToString();
-                        responseData.Attitude = dataReader["Attitude"].ToString();
-                        responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
-                        responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
-                        responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
-                        responseData.Status = dataReader["Status"].ToString();
-                        responseData.BirthDate = dataReader["BirthDate"].ToString();
-                        responseData.IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString();
-                        responseData.ParentName = dataReader["ParentName"].ToString();
-                        responseData.ParentOccupation = dataReader["ParentOccupation"].ToString();
-                        responseData.ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString();
-                        responseData.ParentsAnnualSalary = dataReader["ParentsAnnualSalary"].ToString();
-                        responseData.LocalAddress = dataReader["LocalAddress"].ToString();
-                        responseData.PermanentAddress = dataReader["PermanentAddress"].ToString();
-                        responseData.PhotoPath = dataReader["PhotoPath"].ToString();
-                        responseData.JoiningDate = dataReader["JoiningDate"].ToString();
-                        responseData.CandidateStatus = dataReader["CandidateStatus"].ToString();
-                        responseData.PersonalInformation = dataReader["PersonalInformation"].ToString();
-                        responseData.BankInformation = dataReader["BankInformation"].ToString();
-                        responseData.EducationalInformation = dataReader["EducationalInformation"].ToString();
-                        responseData.DocumentStatus = dataReader["DocumentStatus"].ToString();
-                        responseData.Remark = dataReader["Remark"].ToString();
-                        responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                        responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                        responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                        responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
-
+                        FellowshipResponseModel responseData = new FellowshipResponseModel()
+                        {
+                            CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                            FirstName = dataReader["FirstName"].ToString(),
+                            MiddleName = dataReader["MiddleName"].ToString(),
+                            LastName = dataReader["LastName"].ToString(),
+                            Email = dataReader["Email"].ToString(),
+                            Degree = dataReader["Degree"].ToString(),
+                            MobileNumber = dataReader["MobileNumber"].ToString(),
+                            PermanentPincode = dataReader["PermanentPincode"].ToString(),
+                            HiredCity = dataReader["HiredCity"].ToString(),
+                            HiredDate = dataReader["HiredDate"].ToString(),
+                            HiredLab = dataReader["HiredLab"].ToString(),
+                            Attitude = dataReader["Attitude"].ToString(),
+                            CommunicationRemark = dataReader["CommunicationRemark"].ToString(),
+                            KnowledgeRemark = dataReader["KnowledgeRemark"].ToString(),
+                            AggregateRemark = dataReader["AggregateRemark"].ToString(),
+                            Status = dataReader["Status"].ToString(),
+                            BirthDate = dataReader["BirthDate"].ToString(),
+                            IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString(),
+                            ParentName = dataReader["ParentName"].ToString(),
+                            ParentOccupation = dataReader["ParentOccupation"].ToString(),
+                            ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString(),
+                            ParentsAnnualSalary = dataReader["ParentsAnnualSalary"].ToString(),
+                            LocalAddress = dataReader["LocalAddress"].ToString(),
+                            PermanentAddress = dataReader["PermanentAddress"].ToString(),
+                            PhotoPath = dataReader["PhotoPath"].ToString(),
+                            JoiningDate = dataReader["JoiningDate"].ToString(),
+                            CandidateStatus = dataReader["CandidateStatus"].ToString(),
+                            PersonalInformation = dataReader["PersonalInformation"].ToString(),
+                            BankInformation = dataReader["BankInformation"].ToString(),
+                            EducationalInformation = dataReader["EducationalInformation"].ToString(),
+                            DocumentStatus = dataReader["DocumentStatus"].ToString(),
+                            Remark = dataReader["Remark"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = dataReader["CreatedDate"].ToString(),
+                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                        };
                         fellowshipCandidates.Add(responseData);
                     }
                     conn.Close();
@@ -110,9 +113,10 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_FellowshipUpdate", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
+                        SqlCommand cmd = new SqlCommand("SP_FellowshipUpdate", conn)
+                        {
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
                         cmd.Parameters.AddWithValue("@CandidateID", candidateID);
                         cmd.Parameters.AddWithValue("@BirthDate", fellowshipUpdate.BirthDate);
                         cmd.Parameters.AddWithValue("@IsBirthDateVerified", fellowshipUpdate.IsBirthDateVerified);
@@ -136,44 +140,46 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new FellowshipResponseModel();
-                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
-                            responseData.FirstName = dataReader["FirstName"].ToString();
-                            responseData.MiddleName = dataReader["MiddleName"].ToString();
-                            responseData.LastName = dataReader["LastName"].ToString();
-                            responseData.Email = dataReader["Email"].ToString();
-                            responseData.Degree = dataReader["Degree"].ToString();
-                            responseData.MobileNumber = dataReader["MobileNumber"].ToString();
-                            responseData.PermanentPincode = dataReader["PermanentPincode"].ToString();
-                            responseData.HiredCity = dataReader["HiredCity"].ToString();
-                            responseData.HiredDate = dataReader["HiredDate"].ToString();
-                            responseData.HiredLab = dataReader["HiredLab"].ToString();
-                            responseData.Attitude = dataReader["Attitude"].ToString();
-                            responseData.CommunicationRemark = dataReader["CommunicationRemark"].ToString();
-                            responseData.KnowledgeRemark = dataReader["KnowledgeRemark"].ToString();
-                            responseData.AggregateRemark = dataReader["AggregateRemark"].ToString();
-                            responseData.Status = dataReader["Status"].ToString();
-                            responseData.BirthDate = dataReader["BirthDate"].ToString();
-                            responseData.IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString();
-                            responseData.ParentName = dataReader["ParentName"].ToString();
-                            responseData.ParentOccupation = dataReader["ParentOccupation"].ToString();
-                            responseData.ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString();
-                            responseData.ParentsAnnualSalary = dataReader["ParentsAnnualSalary"].ToString();
-                            responseData.LocalAddress = dataReader["LocalAddress"].ToString();
-                            responseData.PermanentAddress = dataReader["PermanentAddress"].ToString();
-                            responseData.PhotoPath = dataReader["PhotoPath"].ToString();
-                            responseData.JoiningDate = dataReader["JoiningDate"].ToString();
-                            responseData.CandidateStatus = dataReader["CandidateStatus"].ToString();
-                            responseData.PersonalInformation = dataReader["PersonalInformation"].ToString();
-                            responseData.BankInformation = dataReader["BankInformation"].ToString();
-                            responseData.EducationalInformation = dataReader["EducationalInformation"].ToString();
-                            responseData.DocumentStatus = dataReader["DocumentStatus"].ToString();
-                            responseData.Remark = dataReader["Remark"].ToString();
-                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
-                        }
+                            responseData = new FellowshipResponseModel()
+                            {
+                                CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                                FirstName = dataReader["FirstName"].ToString(),
+                                MiddleName = dataReader["MiddleName"].ToString(),
+                                LastName = dataReader["LastName"].ToString(),
+                                Email = dataReader["Email"].ToString(),
+                                Degree = dataReader["Degree"].ToString(),
+                                MobileNumber = dataReader["MobileNumber"].ToString(),
+                                PermanentPincode = dataReader["PermanentPincode"].ToString(),
+                                HiredCity = dataReader["HiredCity"].ToString(),
+                                HiredDate = dataReader["HiredDate"].ToString(),
+                                HiredLab = dataReader["HiredLab"].ToString(),
+                                Attitude = dataReader["Attitude"].ToString(),
+                                CommunicationRemark = dataReader["CommunicationRemark"].ToString(),
+                                KnowledgeRemark = dataReader["KnowledgeRemark"].ToString(),
+                                AggregateRemark = dataReader["AggregateRemark"].ToString(),
+                                Status = dataReader["Status"].ToString(),
+                                BirthDate = dataReader["BirthDate"].ToString(),
+                                IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString(),
+                                ParentName = dataReader["ParentName"].ToString(),
+                                ParentOccupation = dataReader["ParentOccupation"].ToString(),
+                                ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString(),
+                                ParentsAnnualSalary = dataReader["ParentsAnnualSalary"].ToString(),
+                                LocalAddress = dataReader["LocalAddress"].ToString(),
+                                PermanentAddress = dataReader["PermanentAddress"].ToString(),
+                                PhotoPath = dataReader["PhotoPath"].ToString(),
+                                JoiningDate = dataReader["JoiningDate"].ToString(),
+                                CandidateStatus = dataReader["CandidateStatus"].ToString(),
+                                PersonalInformation = dataReader["PersonalInformation"].ToString(),
+                                BankInformation = dataReader["BankInformation"].ToString(),
+                                EducationalInformation = dataReader["EducationalInformation"].ToString(),
+                                DocumentStatus = dataReader["DocumentStatus"].ToString(),
+                                Remark = dataReader["Remark"].ToString(),
+                                CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                                CreatorUser = dataReader["CreatorUser"].ToString(),
+                                CreatedDate = dataReader["CreatedDate"].ToString(),
+                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            };
+                            }
                         conn.Close();
                     }
                     return responseData;
@@ -204,9 +210,10 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_AddCandidateBankDetails", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
+                        SqlCommand cmd = new SqlCommand("SP_AddCandidateBankDetails", conn)
+                        {
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
                         cmd.Parameters.AddWithValue("@CandidateID", candidateID);
                         cmd.Parameters.AddWithValue("@Name", bankDetail.Name);
                         cmd.Parameters.AddWithValue("@AccountNumber", bankDetail.AccountNumber);
@@ -226,22 +233,24 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new CandidateBankDetailResponse();
-                            responseData.ID = Convert.ToInt32(dataReader["ID"].ToString());
-                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
-                            responseData.Name = dataReader["Name"].ToString();
-                            responseData.AccountNumber = dataReader["AccountNumber"].ToString();
-                            responseData.IsAccountNumberVerified= dataReader["IsAccountNumberVerified"].ToString();
-                            responseData.IfscCode = dataReader["IfscCode"].ToString();
-                            responseData.IsIfscCodeVerified = dataReader["IsIfscCodeVerified"].ToString();
-                            responseData.PanNumber = dataReader["PanNumber"].ToString();
-                            responseData.IsPanNumberVerified = dataReader["IsPanNumberVerified"].ToString();
-                            responseData.AdhaarNumber = dataReader["AdhaarNumber"].ToString();
-                            responseData.IsAdhaarNumberVerified = dataReader["IsAdhaarNumberVerified"].ToString();
-                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                            responseData = new CandidateBankDetailResponse()
+                            {
+                                ID = Convert.ToInt32(dataReader["ID"].ToString()),
+                                CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                                Name = dataReader["Name"].ToString(),
+                                AccountNumber = dataReader["AccountNumber"].ToString(),
+                                IsAccountNumberVerified = dataReader["IsAccountNumberVerified"].ToString(),
+                                IfscCode = dataReader["IfscCode"].ToString(),
+                                IsIfscCodeVerified = dataReader["IsIfscCodeVerified"].ToString(),
+                                PanNumber = dataReader["PanNumber"].ToString(),
+                                IsPanNumberVerified = dataReader["IsPanNumberVerified"].ToString(),
+                                AdhaarNumber = dataReader["AdhaarNumber"].ToString(),
+                                IsAdhaarNumberVerified = dataReader["IsAdhaarNumberVerified"].ToString(),
+                                CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                                CreatorUser = dataReader["CreatorUser"].ToString(),
+                                CreatedDate = dataReader["CreatedDate"].ToString(),
+                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            };
                         }
                         conn.Close();
                     }
@@ -273,8 +282,10 @@ namespace LMSRepositoryLayer.Services
                 {
                     using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_AddCandidateQualification", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlCommand cmd = new SqlCommand("SP_AddCandidateQualification", conn)
+                        {
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
 
                         cmd.Parameters.AddWithValue("@CandidateID", candidateID);
                         cmd.Parameters.AddWithValue("@Diploma", qualification.Diploma);
@@ -303,28 +314,30 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new CandidateQualificationResponse();
-                            responseData.ID = Convert.ToInt32(dataReader["ID"].ToString());
-                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
-                            responseData.Diploma = dataReader["Diploma"].ToString();
-                            responseData.DegreeName = dataReader["DegreeName"].ToString();
-                            responseData.IsDegreeNameVerified = dataReader["IsDegreeNameVerified"].ToString();
-                            responseData.EmployeeDiscipline = dataReader["EmployeeDiscipline"].ToString();
-                            responseData.IsEmployeeDisciplined = dataReader["IsEmployeeDisciplined"].ToString();
-                            responseData.PassingYear = dataReader["PassingYear"].ToString();
-                            responseData.IsPassingYearVerified= dataReader["IsPassingYearVerified"].ToString();
-                            responseData.AggregatePer = dataReader["AggregatePer"].ToString();
-                            responseData.IsAggregatePerVerified = dataReader["IsAggregatePerVerified"].ToString();
-                            responseData.FinalYearPer = dataReader["FinalYearPer"].ToString();
-                            responseData.IsFinalYearPerVerified = dataReader["IsFinalYearPerVerified"].ToString();
-                            responseData.TrainingInstitute = dataReader["TrainingInstitute"].ToString();
-                            responseData.IsTrainingInstituteVerified = dataReader["IsTrainingInstituteVerified"].ToString();
-                            responseData.TrainingDurationMon = dataReader["TrainingDurationMon"].ToString();
-                            responseData.IsTrainingDurationMonVerified = dataReader["IsTrainingDurationMonVerified"].ToString();
-                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                            responseData = new CandidateQualificationResponse()
+                            {
+                                ID = Convert.ToInt32(dataReader["ID"].ToString()),
+                                CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                                Diploma = dataReader["Diploma"].ToString(),
+                                DegreeName = dataReader["DegreeName"].ToString(),
+                                IsDegreeNameVerified = dataReader["IsDegreeNameVerified"].ToString(),
+                                EmployeeDiscipline = dataReader["EmployeeDiscipline"].ToString(),
+                                IsEmployeeDisciplined = dataReader["IsEmployeeDisciplined"].ToString(),
+                                PassingYear = dataReader["PassingYear"].ToString(),
+                                IsPassingYearVerified = dataReader["IsPassingYearVerified"].ToString(),
+                                AggregatePer = dataReader["AggregatePer"].ToString(),
+                                IsAggregatePerVerified = dataReader["IsAggregatePerVerified"].ToString(),
+                                FinalYearPer = dataReader["FinalYearPer"].ToString(),
+                                IsFinalYearPerVerified = dataReader["IsFinalYearPerVerified"].ToString(),
+                                TrainingInstitute = dataReader["TrainingInstitute"].ToString(),
+                                IsTrainingInstituteVerified = dataReader["IsTrainingInstituteVerified"].ToString(),
+                                TrainingDurationMon = dataReader["TrainingDurationMon"].ToString(),
+                                IsTrainingDurationMonVerified = dataReader["IsTrainingDurationMonVerified"].ToString(),
+                                CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                                CreatorUser = dataReader["CreatorUser"].ToString(),
+                                CreatedDate = dataReader["CreatedDate"].ToString(),
+                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            };
                         }
                         conn.Close();
                     }
@@ -356,8 +369,10 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_AddCandidateDocuments", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlCommand cmd = new SqlCommand("SP_AddCandidateDocuments", conn)
+                        {
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
 
                         cmd.Parameters.AddWithValue("@CandidateID", candidateID);
                         cmd.Parameters.AddWithValue("@DocType", documents.DocType);
@@ -372,16 +387,18 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new CandidateDocumentsResponse();
-                            responseData.ID = Convert.ToInt32(dataReader["ID"].ToString());
-                            responseData.CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString());
-                            responseData.DocType = dataReader["DocType"].ToString();
-                            responseData.DocPath = dataReader["DocPath"].ToString();
-                            responseData.Status = dataReader["Status"].ToString();
-                            responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                            responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                            responseData.CreatedDate = dataReader["CreatedDate"].ToString();
-                            responseData.ModifiedDate = dataReader["ModifiedDate"].ToString();
+                            responseData = new CandidateDocumentsResponse()
+                            {
+                                ID = Convert.ToInt32(dataReader["ID"].ToString()),
+                                CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                                DocType = dataReader["DocType"].ToString(),
+                                DocPath = dataReader["DocPath"].ToString(),
+                                Status = dataReader["Status"].ToString(),
+                                CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                                CreatorUser = dataReader["CreatorUser"].ToString(),
+                                CreatedDate = dataReader["CreatedDate"].ToString(),
+                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            };
                         }
                         conn.Close();
                     }
@@ -411,9 +428,10 @@ namespace LMSRepositoryLayer.Services
                 CandidateTechStackAssignResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_CandidateTechStackAssignment", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
+                    SqlCommand cmd = new SqlCommand("SP_CandidateTechStackAssignment", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
                     cmd.Parameters.AddWithValue("@RequirementID", candidateTech.RequirementID);
                     cmd.Parameters.AddWithValue("@CandidateID", candidateTech.CandidateID);
                     cmd.Parameters.AddWithValue("@AssignDate", candidateTech.AssignDate);
