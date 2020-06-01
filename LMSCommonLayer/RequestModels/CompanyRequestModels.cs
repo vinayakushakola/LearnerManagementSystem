@@ -15,8 +15,6 @@ namespace LMSCommonLayer.RequestModels
 		public string Status { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class MakerProgramRequest
@@ -30,8 +28,6 @@ namespace LMSCommonLayer.RequestModels
 		public string DescriptionStatus { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class MentorRegistrationRequest
@@ -42,8 +38,6 @@ namespace LMSCommonLayer.RequestModels
 		public string Status { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class MentorIdeationRequest
@@ -53,8 +47,6 @@ namespace LMSCommonLayer.RequestModels
 		public string Status { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class MentorTechStackRequest
@@ -64,8 +56,6 @@ namespace LMSCommonLayer.RequestModels
 		public string Status { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class TechStackRequest
@@ -76,8 +66,6 @@ namespace LMSCommonLayer.RequestModels
 		public string CurrentStatus { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class TechTypeRequest
@@ -138,7 +126,5 @@ namespace LMSCommonLayer.RequestModels
 		public string Status { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
 	}
 }

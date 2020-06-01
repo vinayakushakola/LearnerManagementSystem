@@ -32,38 +32,39 @@ namespace LMSRepositoryLayer.Services
         /// It Fetch Data from the Database
         /// </summary>
         /// <returns>If Retrieving Data Successfull return Data else return null or Exception</returns>
-        public List<AdminResponseModel> GetAllUsers()
+        public List<AdminResponseModel> GetAllAdmins()
         {
             try
             {
-                List<AdminResponseModel> userList = null;
+                List<AdminResponseModel> adminList = null;
 
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    userList = new List<AdminResponseModel>();
+                    adminList = new List<AdminResponseModel>();
                     SqlCommand cmd = new SqlCommand("SP_GetAllAdmins", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        AdminResponseModel user = new AdminResponseModel();
-                        user.AdminID = Convert.ToInt32(dataReader["AdminID"].ToString());
-                        user.FirstName = dataReader["FirstName"].ToString();
-                        user.LastName = dataReader["LastName"].ToString();
-                        user.Email = dataReader["Email"].ToString();
-                        user.ContactNumber = dataReader["ContactNumber"].ToString();
-                        user.IsVerified = Convert.ToBoolean(dataReader["IsVerified"]);
-                        user.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                        user.CreatorUser = dataReader["CreatorUser"].ToString();
-                        user.CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]);
-                        user.ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"]);
-                        
-                        userList.Add(user);
+                        AdminResponseModel adminData = new AdminResponseModel
+                        {
+                            AdminID = Convert.ToInt32(dataReader["AdminID"].ToString()),
+                            FirstName = dataReader["FirstName"].ToString(),
+                            LastName = dataReader["LastName"].ToString(),
+                            Email = dataReader["Email"].ToString(),
+                            ContactNumber = dataReader["ContactNumber"].ToString(),
+                            IsVerified = Convert.ToBoolean(dataReader["IsVerified"]),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
+                        };   
+                        adminList.Add(adminData);
                     }
                     conn.Close();
                 }
-                return userList;
+                return adminList;
             }
             catch(Exception ex)
             {
@@ -76,54 +77,44 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="registrationRequest">User Data</param>
         /// <returns>If Storing Data Successfull it return ResponseData else null or Exception</returns>
-        public AdminResponseModel AddUser(RegistrationRequest registrationRequest)
+        public AdminResponseModel Registration(RegistrationRequest registrationRequest)
         {
             try
             {
                 AdminResponseModel responseData = null;
-                var registrationData = new AdminDetails
-                {
-                    FirstName = registrationRequest.FirstName,
-                    LastName = registrationRequest.LastName,
-                    Email = registrationRequest.Email,
-                    Password = EncodeDecode.EncodePasswordToBase64(registrationRequest.Password),
-                    ContactNumber = registrationRequest.ContactNumber,
-                    IsVerified = registrationRequest.IsVerified,
-                    CreatorStamp = registrationRequest.CreatorStamp,
-                    CreatorUser = registrationRequest.CreatorUser,
-                    CreatedDate = DateTime.Now,
-                    ModifiedDate = DateTime.Now
-                };
+                
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     SqlCommand cmd = new SqlCommand("SP_InsertAdmin", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@FirstName", registrationData.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", registrationData.LastName);
+                    cmd.Parameters.AddWithValue("@FirstName", registrationRequest.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", registrationRequest.LastName);
                     cmd.Parameters.AddWithValue("@Email", registrationRequest.Email);
-                    cmd.Parameters.AddWithValue("@Password", registrationData.Password);
-                    cmd.Parameters.AddWithValue("@ContactNumber", registrationData.ContactNumber);
-                    cmd.Parameters.AddWithValue("@IsVerified", registrationData.IsVerified);
-                    cmd.Parameters.AddWithValue("@CreatorStamp", registrationData.CreatorStamp);
-                    cmd.Parameters.AddWithValue("@CreatorUser", registrationData.CreatorUser);
-                    cmd.Parameters.AddWithValue("@CreatedDate", registrationData.CreatedDate);
-                    cmd.Parameters.AddWithValue("@ModifiedDate", registrationData.ModifiedDate);
+                    cmd.Parameters.AddWithValue("@Password", EncodeDecode.EncodePasswordToBase64(registrationRequest.Password));
+                    cmd.Parameters.AddWithValue("@ContactNumber", registrationRequest.ContactNumber);
+                    cmd.Parameters.AddWithValue("@IsVerified", registrationRequest.IsVerified);
+                    cmd.Parameters.AddWithValue("@CreatorStamp", registrationRequest.CreatorStamp);
+                    cmd.Parameters.AddWithValue("@CreatorUser", registrationRequest.CreatorUser);
+                    cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
 
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        responseData = new AdminResponseModel();
-                        responseData.AdminID = Convert.ToInt32(dataReader["AdminID"].ToString());
-                        responseData.FirstName = dataReader["FirstName"].ToString();
-                        responseData.LastName = dataReader["LastName"].ToString();
-                        responseData.Email = dataReader["Email"].ToString();
-                        responseData.ContactNumber = dataReader["ContactNumber"].ToString();
-                        responseData.IsVerified = Convert.ToBoolean(dataReader["IsVerified"]);
-                        responseData.CreatorStamp = dataReader["CreatorStamp"].ToString();
-                        responseData.CreatorUser = dataReader["CreatorUser"].ToString();
-                        responseData.CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]);
-                        responseData.ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"]);
+                        responseData = new AdminResponseModel
+                        {
+                            AdminID = Convert.ToInt32(dataReader["AdminID"].ToString()),
+                            FirstName = dataReader["FirstName"].ToString(),
+                            LastName = dataReader["LastName"].ToString(),
+                            Email = dataReader["Email"].ToString(),
+                            ContactNumber = dataReader["ContactNumber"].ToString(),
+                            IsVerified = Convert.ToBoolean(dataReader["IsVerified"]),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
+                        };
                     }
                     conn.Close();
                 }
@@ -141,7 +132,7 @@ namespace LMSRepositoryLayer.Services
         /// <param name="adminID">AdminID</param>
         /// <param name="updateRequest">Update Data</param>
         /// <returns>If Updating Data Successfull return ResponseData else return null or Exception</returns>
-        public AdminResponseModel UpdateUser(int adminID, AdminUpdateRequest updateRequest)
+        public AdminResponseModel UpdateAdmin(int adminID, AdminUpdateRequest updateRequest)
         {
             try
             {
@@ -190,7 +181,7 @@ namespace LMSRepositoryLayer.Services
         /// </summary>
         /// <param name="adminID">AdminID</param>
         /// <returns>If Deleting Data Successfull return true else false or Exception</returns>
-        public bool DeleteUser(int adminID)
+        public bool DeleteAdmin(int adminID)
         {
             try
             {

@@ -48,7 +48,7 @@ namespace LMSUnitTesting
                 CreatorUser = "Vinayak"
             };
 
-            var data = controller.AddAdmin(adminData);
+            var data = controller.Registration(adminData);
 
             Assert.IsType<OkObjectResult>(data);
         }

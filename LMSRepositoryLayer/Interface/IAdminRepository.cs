@@ -11,18 +11,18 @@ namespace LMSRepositoryLayer.Interface
 {
     public interface IAdminRepository
     {
-        List<AdminResponseModel> GetAllUsers();
+        List<AdminResponseModel> GetAllAdmins();
 
-        AdminResponseModel AddUser(RegistrationRequest registrationRequest);
+        AdminResponseModel Registration(RegistrationRequest registrationRequest);
 
-        AdminResponseModel UpdateUser(int userID, AdminUpdateRequest updateRequest);
+        AdminResponseModel UpdateAdmin(int adminID, AdminUpdateRequest updateRequest);
 
-        bool DeleteUser(int userID);
+        bool DeleteAdmin(int adminID);
 
         AdminResponseModel Login(LoginRequest login);
 
         AdminResponseModel ForgotPassword(ForgotPasswordRequest forogotPassword);
 
-        bool ResetPassword(int userID, ResetPasswordRequest resetPassword);
+        bool ResetPassword(int adminID, ResetPasswordRequest resetPassword);
     }
 }

@@ -8,100 +8,101 @@ using LMSCommonLayer.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace LearnerManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class CompanyController : ControllerBase
+    public class HiredController : ControllerBase
     {
-        private readonly ICompanyBusiness _companyBusiness;
-
-        public CompanyController(ICompanyBusiness companyBusiness)
+        private readonly IHiredBusiness _hiredBusiness;
+        public HiredController(IHiredBusiness hiredBusiness)
         {
-            _companyBusiness = companyBusiness;
+            _hiredBusiness = hiredBusiness;
         }
 
         /// <summary>
-        /// It is used to Show all Companies Information
+        /// It is used to Show all Candidates Data
         /// </summary>
-        /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpGet]
-        public IActionResult GetAllCompanies()
+        public IActionResult GetAllCandidates()
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _companyBusiness.GetAllCompanies();
+                var data = _hiredBusiness.GetAllCandidates().ToList();
                 if (data != null)
                 {
                     success = true;
-                    message = "Companies Data Fetched Successfully";
+                    message = "Candidates Data Fetched Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
                 {
-                    message = "No Data Found";
+                    message = "No data Found!";
                     return NotFound(new { success, message });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new { ex.Message });
             }
         }
 
         /// <summary>
-        /// It is used to Add a Company
+        /// It is used to Add Candidate(Hired) Data
         /// </summary>
-        /// <param name="company">Company Info</param>
-        /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        /// <param name="registration">Candidate Registration Data</param>
+        /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPost]
-        public IActionResult AddCompany(CompanyAddRequest company)
+        public IActionResult AddCandidate(HiredRegistrationRequest registration)
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _companyBusiness.AddCompany(company);
+                var data = _hiredBusiness.AddHired(registration);
                 if (data != null)
                 {
                     success = true;
-                    message = "Company Data Added Successfully";
+                    message = "Candidate(Hired) Data Added Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
                 {
-                    message = "Try Again!";
+                    message = "Email Already Exists!";
                     return NotFound(new { success, message });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new { ex.Message });
             }
         }
 
         /// <summary>
-        /// It is used to Add Company Requirements
+        /// It is used to Update Candidate(Hired) Data, If Candidate is Selected It aslo adds Candidate Data to FellowshipProgram
         /// </summary>
-        /// <param name="company">Company Requirement Information</param>
-        /// <returns>If Data Found return Ok else null or BadRequest</returns>
-        [HttpPost]
-        [Route("CompanyRequirement")]
-        public IActionResult AddCompanyRequirement(CompanyRequirementRequest company)
+        /// <param name="candidateID">CandidateID</param>
+        /// <param name="updateRequest">Hired Data</param>
+        /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        [HttpPut]
+        [Route("{candidateID}")]
+        public IActionResult UpdateCandidate(int candidateID, HiredUpdateRequest updateRequest)
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _companyBusiness.AddCompanyRequirement(company);
+                var data = _hiredBusiness.UpdateHired(candidateID, updateRequest);
                 if (data != null)
                 {
                     success = true;
-                    message = "Company Requirement Added Successfully";
+                    message = "Candidate(Hired) Data Updated Successfully";
                     return Ok(new { success, message, data });
                 }
                 else

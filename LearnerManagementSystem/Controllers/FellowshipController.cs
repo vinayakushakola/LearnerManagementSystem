@@ -17,104 +17,10 @@ namespace LearnerManagementSystem.Controllers
     [Authorize]
     public class FellowshipController : ControllerBase
     {
-        private readonly IFellowshipBusiness _hiredBusiness;
-        public FellowshipController(IFellowshipBusiness hiredBusiness)
+        private readonly IFellowshipBusiness _fellowshipBusiness;
+        public FellowshipController(IFellowshipBusiness fellowshipBusiness)
         {
-            _hiredBusiness = hiredBusiness;
-        }
-
-        /// <summary>
-        /// It is used to Show all Candidates Data
-        /// </summary>
-        /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
-        [HttpGet]
-        public IActionResult GetAllCandidates()
-        {
-            try
-            {
-                bool success = false;
-                string message;
-                var data = _hiredBusiness.GetAllCandidates().ToList();
-                if (data != null)
-                {
-                    success = true;
-                    message = "Candidates Data Fetched Successfully";
-                    return Ok(new { success, message, data });
-                }
-                else
-                {
-                    message = "No data Found!";
-                    return NotFound(new { success, message });
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { ex.Message });
-            }
-        }
-
-        /// <summary>
-        /// It is used to Add Candidate(Hired) Data
-        /// </summary>
-        /// <param name="registration">Candidate Registration Data</param>
-        /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
-        [HttpPost]
-        public IActionResult AddCandidate(HiredRegistrationRequest registration)
-        {
-            try
-            {
-                bool success = false;
-                string message;
-                var data = _hiredBusiness.AddHired(registration);
-                if (data != null)
-                {
-                    success = true;
-                    message = "Candidate(Hired) Data Added Successfully";
-                    return Ok(new { success, message, data });
-                }
-                else
-                {
-                    message = "Email Already Exists!";
-                    return NotFound(new { success, message });
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { ex.Message });
-            }
-        }
-
-        /// <summary>
-        /// It is used to Update Candidate(Hired) Data, If Candidate is Selected It aslo adds Candidate Data to FellowshipProgram
-        /// </summary>
-        /// <param name="candidateID">CandidateID</param>
-        /// <param name="updateRequest">Hired Data</param>
-        /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
-        [HttpPut]
-        [Route("{candidateID}")]
-        public IActionResult UpdateCandidate(int candidateID, HiredUpdateRequest updateRequest)
-        {
-            try
-            {
-                bool success = false;
-                string message;
-                var data = _hiredBusiness.UpdateHired(candidateID, updateRequest);
-                if (data != null)
-                {
-                    success = true;
-                    message = "Candidate(Hired) Data Updated Successfully";
-                    return Ok(new { success, message, data });
-                }
-                else
-                {
-                    message = "Try Again!";
-                    return NotFound(new { success, message });
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { ex.Message });
-            }
+            _fellowshipBusiness = fellowshipBusiness;
         }
 
         /// <summary>
@@ -122,14 +28,13 @@ namespace LearnerManagementSystem.Controllers
         /// </summary>
         /// <returns>If Data Found return ok else null or BadRequest</returns>
         [HttpGet]
-        [Route("FellowshipCandidates")]
         public IActionResult GetAllFellowshipCandidates()
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _hiredBusiness.GetAllFellowshipCandidates().ToList();
+                var data = _fellowshipBusiness.GetAllFellowshipCandidates().ToList();
                 if (data != null)
                 {
                     success = true;
@@ -162,7 +67,7 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                var data = _hiredBusiness.UpdateSelectedFellowshipCandidate(candidateID, updateRequest);
+                var data = _fellowshipBusiness.UpdateSelectedFellowshipCandidate(candidateID, updateRequest);
                 if (data != null)
                 {
                     success = true;
@@ -195,7 +100,7 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                var data = _hiredBusiness.AddCandidateBankDetails(candidateID, bankDetail);
+                var data = _fellowshipBusiness.AddCandidateBankDetails(candidateID, bankDetail);
                 if (data != null)
                 {
                     success = true;
@@ -228,7 +133,7 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                var data = _hiredBusiness.AddCandidateQualification(candidateID, qualification);
+                var data = _fellowshipBusiness.AddCandidateQualification(candidateID, qualification);
                 if (data != null)
                 {
                     success = true;
@@ -261,11 +166,38 @@ namespace LearnerManagementSystem.Controllers
             {
                 bool success = false;
                 string message;
-                var data = _hiredBusiness.AddCanndidateDocuments(candidateID, documents);
+                var data = _fellowshipBusiness.AddCanndidateDocuments(candidateID, documents);
                 if (data != null)
                 {
                     success = true;
                     message = "Fellowship Candidate Documents Added Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("TechAssignment")]
+        public IActionResult AddCandidateTecStackAssign(CandidateTechStackAssignRequest candidateTech)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _fellowshipBusiness.AddCandidateTechStackAssign(candidateTech);
+                if (data != null)
+                {
+                    success = true;
+                    message = "Candidate tech Added Successfully";
                     return Ok(new { success, message, data });
                 }
                 else

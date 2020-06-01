@@ -20,24 +20,7 @@ namespace LMSBusinessLayer.Services
             _hiredRepository = hiredRepository;
         }
 
-        public List<HiredResponseModel> GetAllCandidates()
-        {
-            var responseData = _hiredRepository.GetAllCandidates();
-            return responseData;
-        }
-
-        public HiredResponseModel AddHired(HiredRegistrationRequest hiredRegistration)
-        {
-            var responseData = _hiredRepository.AddHired(hiredRegistration);
-            return responseData;
-        }
-
-        public HiredResponseModel UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate)
-        {
-            var responseData = _hiredRepository.UpdateHired(candidateID, hiredRegistrationUpdate);
-            return responseData;
-        }
-
+        
         public List<FellowshipResponseModel> GetAllFellowshipCandidates()
         {
             var responseData = _hiredRepository.GetAllFellowshipCandidates();
@@ -65,6 +48,12 @@ namespace LMSBusinessLayer.Services
         public CandidateDocumentsResponse AddCanndidateDocuments(int candidateID, CandidateDocumentsRequest documents)
         {
             var responseData = _hiredRepository.AddCanndidateDocuments(candidateID, documents);
+            return responseData;
+        }
+
+        public CandidateTechStackAssignResponse AddCandidateTechStackAssign(CandidateTechStackAssignRequest candidateTech)
+        {
+            var responseData = _hiredRepository.AddCandidateTechStackAssign(candidateTech);
             return responseData;
         }
     }

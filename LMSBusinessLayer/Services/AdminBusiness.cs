@@ -20,27 +20,27 @@ namespace LMSBusinessLayer.Services
             _adminRepository = adminRepository;
         }
 
-        public List<AdminResponseModel> GetAllUsers()
+        public List<AdminResponseModel> GetAllAdmins()
         {
-            var responseData = _adminRepository.GetAllUsers();
+            var responseData = _adminRepository.GetAllAdmins();
             return responseData;
         }
 
-        public AdminResponseModel AddUser(RegistrationRequest registrationRequest)
+        public AdminResponseModel Registration(RegistrationRequest registrationRequest)
         {
-            var responseData = _adminRepository.AddUser(registrationRequest);
+            var responseData = _adminRepository.Registration(registrationRequest);
             return responseData;
         }
 
-        public AdminResponseModel UpdateUser(int userID, AdminUpdateRequest updateRequest)
+        public AdminResponseModel UpdateAdmin(int userID, AdminUpdateRequest updateRequest)
         {
-            var responseData = _adminRepository.UpdateUser(userID, updateRequest);
+            var responseData = _adminRepository.UpdateAdmin(userID, updateRequest);
             return responseData;
         }
 
-        public bool DeleteUser(int userID)
+        public bool DeleteAdmin(int userID)
         {
-            var responseData = _adminRepository.DeleteUser(userID);
+            var responseData = _adminRepository.DeleteAdmin(userID);
             return responseData;
         }
 

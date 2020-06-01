@@ -11,13 +11,13 @@ namespace LMSBusinessLayer.Interface
 {
     public interface IAdminBusiness
     {
-        List<AdminResponseModel> GetAllUsers();
+        List<AdminResponseModel> GetAllAdmins();
 
-        AdminResponseModel AddUser(RegistrationRequest registrationRequest);
+        AdminResponseModel Registration(RegistrationRequest registrationRequest);
 
-        AdminResponseModel UpdateUser(int adminID, AdminUpdateRequest updateRequest);
+        AdminResponseModel UpdateAdmin(int adminID, AdminUpdateRequest updateRequest);
 
-        bool DeleteUser(int adminID);
+        bool DeleteAdmin(int adminID);
 
         AdminResponseModel Login(LoginRequest login);
 

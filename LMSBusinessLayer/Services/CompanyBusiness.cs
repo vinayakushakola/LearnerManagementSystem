@@ -33,65 +33,10 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
-        public MakerProgramResponse AddMakerProgram(MakerProgramRequest makerProgram)
-        {
-            var responseData = _companyRepository.AddMakerProgram(makerProgram);
-            return responseData;
-        }
+        
 
-        public List<MentorRegistrationResponse> ListOfMentors()
-        {
-            var responseData = _companyRepository.ListOfMentors();
-            return responseData;
-        }
 
-        public MentorRegistrationResponse AddMentor(MentorRegistrationRequest mentorRegistration)
-        {
-            var responseData = _companyRepository.AddMentor(mentorRegistration);
-            return responseData;
-        }
-
-        public MentorIdeationResponse AddMentorIdeation(MentorIdeationRequest mentorIdeation)
-        {
-            var responseData = _companyRepository.AddMentorIdeation(mentorIdeation);
-            return responseData;
-        }
-
-        public MentorTechStackResponse AddMentorTechStack(MentorTechStackRequest techStack)
-        {
-            var responseData = _companyRepository.AddMentorTechStack(techStack);
-            return responseData;
-        }
-
-        public TechStackResponse AddTechStack(TechStackRequest techStack)
-        {
-            var responseData = _companyRepository.AddTechStack(techStack);
-            return responseData;
-        }
-
-        public TechTypeResponse AddTechType(TechTypeRequest techType)
-        {
-            var responseData = _companyRepository.AddTechType(techType);
-            return responseData;
-        }
-
-        public List<LabRegistrationResponse> ListOfLabs()
-        {
-            var responseData = _companyRepository.ListOfLabs();
-            return responseData;
-        }
-
-        public LabRegistrationResponse AddLab(LabRegistrationRequest lab)
-        {
-            var responseData = _companyRepository.AddLab(lab);
-            return responseData;
-        }
-
-        public LabThresholdResponse AddLabThreshold(LabThresholdRequest labThreshold)
-        {
-            var responseData = _companyRepository.AddLabThreshold(labThreshold);
-            return responseData;
-        }
+        
 
         public CompanyRequirementResponse AddCompanyRequirement(CompanyRequirementRequest companyRequirement)
         {
@@ -99,11 +44,7 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
-        public CandidateTechStackAssignResponse AddCandidateTechStackAssign(CandidateTechStackAssignRequest candidateTech)
-        {
-            var responseData = _companyRepository.AddCandidateTechStackAssign(candidateTech);
-            return responseData;
-        }
+      
 
     }
 }

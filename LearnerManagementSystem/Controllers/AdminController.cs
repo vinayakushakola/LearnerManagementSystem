@@ -43,13 +43,13 @@ namespace LearnerManagementSystem.Controllers
         /// </summary>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpGet]
-        public IActionResult GetAllusers()
+        public IActionResult GetAllAdmins()
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _adminBusiness.GetAllUsers().ToList();
+                var data = _adminBusiness.GetAllAdmins().ToList();
                 if (data != null)
                 {
                     success = true;
@@ -74,13 +74,13 @@ namespace LearnerManagementSystem.Controllers
         /// <param name="registration">Admin Registration Data</param>
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPost]
-        public IActionResult AddAdmin(RegistrationRequest registration)
+        public IActionResult Registration(RegistrationRequest registration)
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _adminBusiness.AddUser(registration);
+                var data = _adminBusiness.Registration(registration);
                 if (data != null)
                 {
                     success = true;
@@ -106,14 +106,14 @@ namespace LearnerManagementSystem.Controllers
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpPut]
         [Authorize]
-        public IActionResult UpdateUser(AdminUpdateRequest updateRequest)
+        public IActionResult UpdateAdmin(AdminUpdateRequest updateRequest)
         {
             try
             {
                 bool success = false;
                 string message;
                 var adminID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("AdminID", StringComparison.InvariantCultureIgnoreCase)).Value);
-                var data = _adminBusiness.UpdateUser(adminID, updateRequest);
+                var data = _adminBusiness.UpdateAdmin(adminID, updateRequest);
                 if (data != null)
                 {
                     success = true;
@@ -139,13 +139,13 @@ namespace LearnerManagementSystem.Controllers
         /// <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         [HttpDelete("{adminID}")]
         [Authorize]
-        public IActionResult DeleteUser(int adminID)
+        public IActionResult DeleteAdmin(int adminID)
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _adminBusiness.DeleteUser(adminID);
+                var data = _adminBusiness.DeleteAdmin(adminID);
                 if (data)
                 {
                     success = true;

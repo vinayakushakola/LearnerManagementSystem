@@ -57,12 +57,6 @@ namespace LMSCommonLayer.RequestModels
 
 		[Required]
 		public string CreatorStamp { get; set; }
-
-		[Required]
-		public DateTime CreatedDate { get; set; }
-
-		[Required]
-		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class FellowshipUpdateRequest
@@ -83,7 +77,6 @@ namespace LMSCommonLayer.RequestModels
 		public string EducationalInformation { get; set; }
 		public string DocumentStatus { get; set; }
 		public string Remark { get; set; }
-		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class CandidateBankDetailRequest
@@ -99,8 +92,6 @@ namespace LMSCommonLayer.RequestModels
 		public bool IsAdhaarNumberVerified { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class CandidateQualificationRequest
@@ -122,8 +113,9 @@ namespace LMSCommonLayer.RequestModels
 		public bool IsTrainingDurationMonVerified { get; set; }
 		public string OtherTraining { get; set; }
 		public bool IsOtherTrainingVerified { get; set; }
-		public DateTime CreatorStamp { get; set; }
-		public DateTime CreatorUser { get; set; }
+
+		public string CreatorStamp { get; set; }
+		public string CreatorUser { get; set; }
 	}
 
 	public class CandidateDocumentsRequest
@@ -133,7 +125,5 @@ namespace LMSCommonLayer.RequestModels
 		public string Status { get; set; }
 		public string CreatorStamp { get; set; }
 		public string CreatorUser { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public DateTime ModifiedDate { get; set; }
 	}
 }

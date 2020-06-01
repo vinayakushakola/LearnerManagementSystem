@@ -5,18 +5,16 @@ using LMSRepositoryLayer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
-using System.Collections.Generic;
-using System.Reflection;
-using System.IO;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace LearnerManagementSystem
 {
@@ -95,6 +93,21 @@ namespace LearnerManagementSystem
 
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ICompanyBusiness, CompanyBusiness>();
+
+            services.AddScoped<ILabRepository, LabRepository>();
+            services.AddScoped<ILabBusiness, LabBusiness>();
+
+            services.AddScoped<IHiredRepository, HiredRepository>();
+            services.AddScoped<IHiredBusiness, HiredBusiness>();
+
+            services.AddScoped<IMakerRepository, MakerRepository>();
+            services.AddScoped<IMakerBusiness, MakerBusiness>();
+
+            services.AddScoped<IMentorRepository, MentorRepository>();
+            services.AddScoped<IMentorBusiness, MentorBusiness>();
+
+            services.AddScoped<ITechRepository, TechRepository>();
+            services.AddScoped<ITechBusiness, TechBusiness>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

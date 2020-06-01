@@ -14,31 +14,31 @@ namespace LearnerManagementSystem.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class CompanyController : ControllerBase
+    public class LabController : ControllerBase
     {
-        private readonly ICompanyBusiness _companyBusiness;
+        private readonly ILabBusiness _labBusiness;
 
-        public CompanyController(ICompanyBusiness companyBusiness)
+        public LabController(ILabBusiness labBusiness)
         {
-            _companyBusiness = companyBusiness;
+            _labBusiness = labBusiness;
         }
 
         /// <summary>
-        /// It is used to Show all Companies Information
+        /// It is used to show All Labs
         /// </summary>
-        /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
         [HttpGet]
-        public IActionResult GetAllCompanies()
+        public IActionResult GetAllLabs()
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _companyBusiness.GetAllCompanies();
+                var data = _labBusiness.ListOfLabs();
                 if (data != null)
                 {
                     success = true;
-                    message = "Companies Data Fetched Successfully";
+                    message = "Labs Data Fetched Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
@@ -47,29 +47,29 @@ namespace LearnerManagementSystem.Controllers
                     return NotFound(new { success, message });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new { ex.Message });
             }
         }
 
         /// <summary>
-        /// It is used to Add a Company
+        /// It is used to Add Lab
         /// </summary>
-        /// <param name="company">Company Info</param>
-        /// <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        /// <param name="lab">Lab Data</param>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
         [HttpPost]
-        public IActionResult AddCompany(CompanyAddRequest company)
+        public IActionResult AddLab(LabRegistrationRequest lab)
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _companyBusiness.AddCompany(company);
+                var data = _labBusiness.AddLab(lab);
                 if (data != null)
                 {
                     success = true;
-                    message = "Company Data Added Successfully";
+                    message = "Lab Data Added Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
@@ -78,30 +78,30 @@ namespace LearnerManagementSystem.Controllers
                     return NotFound(new { success, message });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new { ex.Message });
             }
         }
 
         /// <summary>
-        /// It is used to Add Company Requirements
+        /// It is used to add LabThreshold
         /// </summary>
-        /// <param name="company">Company Requirement Information</param>
+        /// <param name="labThreshold">Lab Threshold</param>
         /// <returns>If Data Found return Ok else null or BadRequest</returns>
         [HttpPost]
-        [Route("CompanyRequirement")]
-        public IActionResult AddCompanyRequirement(CompanyRequirementRequest company)
+        [Route("LabThreshold")]
+        public IActionResult AddLabThreshold(LabThresholdRequest labThreshold)
         {
             try
             {
                 bool success = false;
                 string message;
-                var data = _companyBusiness.AddCompanyRequirement(company);
+                var data = _labBusiness.AddLabThreshold(labThreshold);
                 if (data != null)
                 {
                     success = true;
-                    message = "Company Requirement Added Successfully";
+                    message = "LabThreshold Added Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
