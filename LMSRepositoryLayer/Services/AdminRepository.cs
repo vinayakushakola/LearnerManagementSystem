@@ -41,7 +41,7 @@ namespace LMSRepositoryLayer.Services
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     adminList = new List<AdminResponseModel>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllAdmins", conn)
+                    SqlCommand cmd = new SqlCommand("spGetAllAdminAccounts", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure                    
                     };
@@ -87,7 +87,7 @@ namespace LMSRepositoryLayer.Services
                 
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_InsertAdmin", conn)
+                    SqlCommand cmd = new SqlCommand("spAddAdminAccount", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
@@ -143,14 +143,15 @@ namespace LMSRepositoryLayer.Services
                 AdminResponseModel responseData = new AdminResponseModel();
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_UpdateAdmin", conn)
+                    SqlCommand cmd = new SqlCommand("spUpdateAdminAccount", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
                     cmd.Parameters.AddWithValue("@AdminID", adminID);
-                    cmd.Parameters.AddWithValue("@Email", updateRequest.Email);
+                    cmd.Parameters.AddWithValue("@FirstName", updateRequest.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", updateRequest.LastName);
                     cmd.Parameters.AddWithValue("@ContactNumber", updateRequest.ContactNumber);
-                    cmd.Parameters.AddWithValue("@IsVerified", updateRequest.Verified);
+                    cmd.Parameters.AddWithValue("@IsVerified", updateRequest.IsVerified);
                     cmd.Parameters.AddWithValue("@CreatorStamp", updateRequest.CreatorStamp);
                     cmd.Parameters.AddWithValue("@CreatorUser", updateRequest.CreatorUser);
                     cmd.Parameters.AddWithValue("@ModifiedDate", DateTime.Now);
@@ -194,7 +195,7 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_DeleteAdmin", conn)
+                        SqlCommand cmd = new SqlCommand("spDeleteAdminAccount", conn)
                         {
                             CommandType = System.Data.CommandType.StoredProcedure,
                         };
@@ -226,41 +227,34 @@ namespace LMSRepositoryLayer.Services
             try
             {
                 AdminResponseModel responseData = null;
-                try
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                    SqlCommand cmd = new SqlCommand("spValidateAdminLogin", conn)
                     {
-                        SqlCommand cmd = new SqlCommand("SP_LoginValidation", conn)
-                        {
-                            CommandType = System.Data.CommandType.StoredProcedure
-                        };
-                        cmd.Parameters.AddWithValue("@Email", login.Email);
-                        cmd.Parameters.AddWithValue("@Password", EncodeDecode.EncodePasswordToBase64(login.Password));
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
+                    cmd.Parameters.AddWithValue("@Email", login.Email);
+                    cmd.Parameters.AddWithValue("@Password", EncodeDecode.EncodePasswordToBase64(login.Password));
+                    conn.Open();
 
-                        conn.Open();
-                        SqlDataReader dataReader = cmd.ExecuteReader();
-                        while (dataReader.Read())
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        responseData = new AdminResponseModel()
                         {
-                            responseData = new AdminResponseModel()
-                            {
-                                AdminID = Convert.ToInt32(dataReader["AdminID"].ToString()),
-                                FirstName = dataReader["FirstName"].ToString(),
-                                LastName = dataReader["LastName"].ToString(),
-                                Email = dataReader["Email"].ToString(),
-                                ContactNumber = dataReader["ContactNumber"].ToString(),
-                                IsVerified = Convert.ToBoolean(dataReader["IsVerified"]),
-                                CreatorStamp = dataReader["CreatorStamp"].ToString(),
-                                CreatorUser = dataReader["CreatorUser"].ToString(),
-                                CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
-                                ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
-                            };
-                        }
-                        conn.Close();
+                            AdminID = Convert.ToInt32(dataReader["AdminID"]),
+                            FirstName = dataReader["FirstName"].ToString(),
+                            LastName = dataReader["LastName"].ToString(),
+                            Email = dataReader["Email"].ToString(),
+                            ContactNumber = dataReader["ContactNumber"].ToString(),
+                            IsVerified = Convert.ToBoolean(dataReader["IsVerified"]),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
+                        };
                     }
-                }
-                catch
-                {
-                    return null;
+                    conn.Close();
                 }
                 return responseData;
             }
@@ -284,7 +278,7 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_VerifyEmail", conn)
+                        SqlCommand cmd = new SqlCommand("spCheckEmailExists", conn)
                         {
                             CommandType = System.Data.CommandType.StoredProcedure
                         };
@@ -335,7 +329,7 @@ namespace LMSRepositoryLayer.Services
             {
                 using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_ResetPassword", conn)
+                    SqlCommand cmd = new SqlCommand("spResetAdminPassword", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };

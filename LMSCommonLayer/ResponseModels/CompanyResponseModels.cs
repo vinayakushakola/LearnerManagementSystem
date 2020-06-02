@@ -1,158 +1,71 @@
-﻿using System;
+﻿//
+// Author: Vinayak Ushakola
+// Date: 25/05/2020
+//
+
+using System;
 
 namespace LMSCommonLayer.ResponseModels
 {
 	public class CompanyAddResponse
     {
 		public int CompanyID { get; set; }
+		
 		public string Name { get; set; }
+		
 		public string Address { get; set; }
+		
 		public string Location { get; set; }
+		
 		public string Status { get; set; }
+		
 		public string CreatorStamp { get; set; }
+		
 		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
-	}
-
-	public class MakerProgramResponse
-	{
-		public int ID { get; set; }
-		public string ProgramName { get; set; }
-		public string ProgramType { get; set; }
-		public string ProgramLink { get; set; }
-		public int TechStackID { get; set; }
-		public int TechTypeID { get; set; }
-		public string IsProgramApproved { get; set; }
-		public string DescriptionStatus { get; set; }
-		public string CreatorStamp { get; set; }
-		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
-	}
-
-	public class MentorRegistrationResponse
-	{
-		public int ID { get; set; }
-		public string Name { get; set; }
-		public string MentorType { get; set; }
-		public int LabID { get; set; }
-		public string Status { get; set; }
-		public string CreatorStamp { get; set; }
-		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
-	}
-
-	public class MentorIdeationResponse
-	{
-		public int ID { get; set; }
-		public int LeadID { get; set; }
-		public int MentorID { get; set; }
-		public string Status { get; set; }
-		public string CreatorStamp { get; set; }
-		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
-	}
-
-	public class MentorTechStackResponse
-	{
-		public int ID { get; set; }
-		public int MentorID { get; set; }
-		public int TechStackID { get; set; }
-		public string Status { get; set; }
-		public string CreatorStamp { get; set; }
-		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
-	}
-
-	public class TechStackResponse
-	{
-		public int ID { get; set; }
-		public string TechName { get; set; }
-		public string ImagePath { get; set; }
-		public string Framework { get; set; }
-		public string CurrentStatus { get; set; }
-		public string CreatorStamp { get; set; }
-		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
-	}
-
-	public class TechTypeResponse
-	{
-		public int ID { get; set; }
-		public string TypeName { get; set; }
-		public string CurrentStatus { get; set; }
-		public string CreatorStamp { get; set; }
-		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
-	}
-
-	public class LabRegistrationResponse
-	{
-		public int ID { get; set; }
-		public string Name { get; set; }
-		public string Location { get; set; }
-		public string Address { get; set; }
-		public string Status { get; set; }
-		public string CreatorStamp { get; set; }
-		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
-	}
-
-	public class LabThresholdResponse
-	{
-		public int ID { get; set; }
-		public int LabID { get; set; }
-		public string LabCapacity { get; set; }
-		public string LeadThreshold { get; set; }
-		public string IdeationEnggThreshold { get; set; }
-		public string BuddyEnggThreshold { get; set; }
-		public string Status { get; set; }
-		public string CreatorStamp { get; set; }
-		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
+		
+		public DateTime CreatedDate { get; set; }
+		
+		public DateTime ModifiedDate { get; set; }
 	}
 
 	public class CompanyRequirementResponse
 	{
 		public int ID { get; set; }
+		
 		public int CompanyID { get; set; }
+		
 		public string RequestedMonth { get; set; }
+		
 		public string City { get; set; }
-		public string IsDocVerified { get; set; }
-		public string RequirementDocPath { get; set; }
-		public string NumOfEngg { get; set; }
-		public int TechStackID { get; set; }
-		public int TechTypeID { get; set; }
-		public int MakerProgramID { get; set; }
-		public int LeadID { get; set; }
-		public int IdeationEnggID { get; set; }
-		public int BuddyEnggID { get; set; }
-		public string SpecialRemark { get; set; }
-		public string Status { get; set; }
-		public string CreatorStamp { get; set; }
-		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
-	}
+		
+		public bool IsDocVerified { get; set; }
 
-	public class CandidateTechStackAssignResponse
-	{
-		public int ID  {get; set; }
-		public int RequirementID { get; set; }
-		public int CandidateID { get; set; }
-		public string AssignDate { get; set; }
+		public string RequirementDocPath { get; set; }
+		
+		public string NumOfEngg { get; set; }
+		
+		public int TechStackID { get; set; }
+		
+		public int TechTypeID { get; set; }
+		
+		public int MakerProgramID { get; set; }
+		
+		public int LeadID { get; set; }
+		
+		public int IdeationEnggID { get; set; }
+		
+		public int BuddyEnggID { get; set; }
+		
+		public string SpecialRemark { get; set; }
+		
 		public string Status { get; set; }
+		
 		public string CreatorStamp { get; set; }
+		
 		public string CreatorUser { get; set; }
-		public string CreatedDate { get; set; }
-		public string ModifiedDate { get; set; }
+		
+		public DateTime CreatedDate { get; set; }
+		
+		public DateTime ModifiedDate { get; set; }
 	}
 }

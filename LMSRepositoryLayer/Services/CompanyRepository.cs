@@ -55,8 +55,8 @@ namespace LMSRepositoryLayer.Services
                             Status = dataReader["Status"].ToString(),
                             CreatorStamp = dataReader["CreatorStamp"].ToString(),
                             CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = dataReader["CreatedDate"].ToString(),
-                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };
                         companiesList.Add(responseData);
                     }
@@ -110,8 +110,8 @@ namespace LMSRepositoryLayer.Services
                                 Status = dataReader["Status"].ToString(),
                                 CreatorStamp = dataReader["CreatorStamp"].ToString(),
                                 CreatorUser = dataReader["CreatorUser"].ToString(),
-                                CreatedDate = dataReader["CreatedDate"].ToString(),
-                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                                CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                                ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                             };
                         }
                         conn.Close();
@@ -175,7 +175,7 @@ namespace LMSRepositoryLayer.Services
                             CompanyID = Convert.ToInt32(dataReader["CompanyID"]),
                             RequestedMonth = dataReader["RequestedMonth"].ToString(),
                             City = dataReader["City"].ToString(),
-                            IsDocVerified = dataReader["IsDocVerified"].ToString(),
+                            IsDocVerified = Convert.ToBoolean(dataReader["IsDocVerified"]),
                             RequirementDocPath = dataReader["RequirementDocPath"].ToString(),
                             NumOfEngg = dataReader["NumOfEngg"].ToString(),
                             TechStackID = Convert.ToInt32(dataReader["TechStackID"]),
@@ -188,8 +188,8 @@ namespace LMSRepositoryLayer.Services
                             Status = dataReader["Status"].ToString(),
                             CreatorStamp = dataReader["CreatorStamp"].ToString(),
                             CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = dataReader["CreatedDate"].ToString(),
-                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };
                     }
                     conn.Close();

@@ -66,10 +66,9 @@ namespace LMSRepositoryLayer.Services
                             Status = dataReader["Status"].ToString(),
                             CreatorStamp = dataReader["CreatorStamp"].ToString(),
                             CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = dataReader["CreatedDate"].ToString(),
-                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };
-
                         userList.Add(responseData);
                     }
                     conn.Close();
@@ -136,8 +135,8 @@ namespace LMSRepositoryLayer.Services
                                 Status = dataReader["Status"].ToString(),
                                 CreatorStamp = dataReader["CreatorStamp"].ToString(),
                                 CreatorUser = dataReader["CreatorUser"].ToString(),
-                                CreatedDate = dataReader["CreatedDate"].ToString(),
-                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                                CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                                ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                             };
                         }
                         conn.Close();
@@ -209,8 +208,8 @@ namespace LMSRepositoryLayer.Services
                             Status = dataReader["Status"].ToString(),
                             CreatorStamp = dataReader["CreatorStamp"].ToString(),
                             CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = dataReader["CreatedDate"].ToString(),
-                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };
                     }
                     conn.Close();
@@ -297,7 +296,7 @@ namespace LMSRepositoryLayer.Services
                                 AggregateRemark = dataReader["AggregateRemark"].ToString(),
                                 Status = dataReader["Status"].ToString(),
                                 BirthDate = dataReader["BirthDate"].ToString(),
-                                IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString(),
+                                IsBirthDateVerified = Convert.ToBoolean(dataReader["IsBirthDateVerified"]),
                                 ParentName = dataReader["ParentName"].ToString(),
                                 ParentOccupation = dataReader["ParentOccupation"].ToString(),
                                 ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString(),
@@ -314,8 +313,8 @@ namespace LMSRepositoryLayer.Services
                                 Remark = dataReader["Remark"].ToString(),
                                 CreatorStamp = dataReader["CreatorStamp"].ToString(),
                                 CreatorUser = dataReader["CreatorUser"].ToString(),
-                                CreatedDate = dataReader["CreatedDate"].ToString(),
-                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                                CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                                ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                             };
                         }
                         conn.Close();

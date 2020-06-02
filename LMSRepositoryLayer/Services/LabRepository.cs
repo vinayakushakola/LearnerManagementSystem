@@ -55,8 +55,8 @@ namespace LMSRepositoryLayer.Services
                             Status = dataReader["Status"].ToString(),
                             CreatorStamp = dataReader["CreatorStamp"].ToString(),
                             CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = dataReader["CreatedDate"].ToString(),
-                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };
                         labsList.Add(responseData);
                     }
@@ -110,8 +110,8 @@ namespace LMSRepositoryLayer.Services
                             Status = dataReader["Status"].ToString(),
                             CreatorStamp = dataReader["CreatorStamp"].ToString(),
                             CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = dataReader["CreatedDate"].ToString(),
-                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };
                     }
                     conn.Close();
@@ -167,8 +167,8 @@ namespace LMSRepositoryLayer.Services
                             Status = dataReader["Status"].ToString(),
                             CreatorStamp = dataReader["CreatorStamp"].ToString(),
                             CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = dataReader["CreatedDate"].ToString(),
-                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };
                     }
                     conn.Close();

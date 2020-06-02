@@ -66,7 +66,7 @@ namespace LMSRepositoryLayer.Services
                             AggregateRemark = dataReader["AggregateRemark"].ToString(),
                             Status = dataReader["Status"].ToString(),
                             BirthDate = dataReader["BirthDate"].ToString(),
-                            IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString(),
+                            IsBirthDateVerified = Convert.ToBoolean(dataReader["IsBirthDateVerified"]),
                             ParentName = dataReader["ParentName"].ToString(),
                             ParentOccupation = dataReader["ParentOccupation"].ToString(),
                             ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString(),
@@ -83,8 +83,8 @@ namespace LMSRepositoryLayer.Services
                             Remark = dataReader["Remark"].ToString(),
                             CreatorStamp = dataReader["CreatorStamp"].ToString(),
                             CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = dataReader["CreatedDate"].ToString(),
-                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };
                         fellowshipCandidates.Add(responseData);
                     }
@@ -159,7 +159,7 @@ namespace LMSRepositoryLayer.Services
                                 AggregateRemark = dataReader["AggregateRemark"].ToString(),
                                 Status = dataReader["Status"].ToString(),
                                 BirthDate = dataReader["BirthDate"].ToString(),
-                                IsBirthDateVerified = dataReader["IsBirthDateVerified"].ToString(),
+                                IsBirthDateVerified = Convert.ToBoolean(dataReader["IsBirthDateVerified"]),
                                 ParentName = dataReader["ParentName"].ToString(),
                                 ParentOccupation = dataReader["ParentOccupation"].ToString(),
                                 ParentsMobileNumber = dataReader["ParentsMobileNumber"].ToString(),
@@ -176,10 +176,10 @@ namespace LMSRepositoryLayer.Services
                                 Remark = dataReader["Remark"].ToString(),
                                 CreatorStamp = dataReader["CreatorStamp"].ToString(),
                                 CreatorUser = dataReader["CreatorUser"].ToString(),
-                                CreatedDate = dataReader["CreatedDate"].ToString(),
-                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                                CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                                ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                             };
-                            }
+                        }
                         conn.Close();
                     }
                     return responseData;
@@ -239,17 +239,17 @@ namespace LMSRepositoryLayer.Services
                                 CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
                                 Name = dataReader["Name"].ToString(),
                                 AccountNumber = dataReader["AccountNumber"].ToString(),
-                                IsAccountNumberVerified = dataReader["IsAccountNumberVerified"].ToString(),
+                                IsAccountNumberVerified = Convert.ToBoolean(dataReader["IsAccountNumberVerified"]),
                                 IfscCode = dataReader["IfscCode"].ToString(),
-                                IsIfscCodeVerified = dataReader["IsIfscCodeVerified"].ToString(),
+                                IsIfscCodeVerified = Convert.ToBoolean(dataReader["IsIfscCodeVerified"]),
                                 PanNumber = dataReader["PanNumber"].ToString(),
-                                IsPanNumberVerified = dataReader["IsPanNumberVerified"].ToString(),
+                                IsPanNumberVerified = Convert.ToBoolean(dataReader["IsPanNumberVerified"]),
                                 AdhaarNumber = dataReader["AdhaarNumber"].ToString(),
-                                IsAdhaarNumberVerified = dataReader["IsAdhaarNumberVerified"].ToString(),
+                                IsAdhaarNumberVerified = Convert.ToBoolean(dataReader["IsAdhaarNumberVerified"]),
                                 CreatorStamp = dataReader["CreatorStamp"].ToString(),
                                 CreatorUser = dataReader["CreatorUser"].ToString(),
-                                CreatedDate = dataReader["CreatedDate"].ToString(),
-                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                                CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                                ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                             };
                         }
                         conn.Close();
@@ -314,29 +314,29 @@ namespace LMSRepositoryLayer.Services
                         SqlDataReader dataReader = cmd.ExecuteReader();
                         while (dataReader.Read())
                         {
-                            responseData = new CandidateQualificationResponse()
+                            responseData = new CandidateQualificationResponse
                             {
                                 ID = Convert.ToInt32(dataReader["ID"].ToString()),
                                 CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
                                 Diploma = dataReader["Diploma"].ToString(),
                                 DegreeName = dataReader["DegreeName"].ToString(),
-                                IsDegreeNameVerified = dataReader["IsDegreeNameVerified"].ToString(),
+                                IsDegreeNameVerified = Convert.ToBoolean(dataReader["IsDegreeNameVerified"]),
                                 EmployeeDiscipline = dataReader["EmployeeDiscipline"].ToString(),
-                                IsEmployeeDisciplined = dataReader["IsEmployeeDisciplined"].ToString(),
+                                IsEmployeeDisciplined = Convert.ToBoolean(dataReader["IsEmployeeDisciplined"]),
                                 PassingYear = dataReader["PassingYear"].ToString(),
-                                IsPassingYearVerified = dataReader["IsPassingYearVerified"].ToString(),
+                                IsPassingYearVerified = Convert.ToBoolean(dataReader["IsPassingYearVerified"]),
                                 AggregatePer = dataReader["AggregatePer"].ToString(),
-                                IsAggregatePerVerified = dataReader["IsAggregatePerVerified"].ToString(),
+                                IsAggregatePerVerified = Convert.ToBoolean(dataReader["IsAggregatePerVerified"]),
                                 FinalYearPer = dataReader["FinalYearPer"].ToString(),
-                                IsFinalYearPerVerified = dataReader["IsFinalYearPerVerified"].ToString(),
+                                IsFinalYearPerVerified = Convert.ToBoolean(dataReader["IsFinalYearPerVerified"]),
                                 TrainingInstitute = dataReader["TrainingInstitute"].ToString(),
-                                IsTrainingInstituteVerified = dataReader["IsTrainingInstituteVerified"].ToString(),
+                                IsTrainingInstituteVerified = Convert.ToBoolean(dataReader["IsTrainingInstituteVerified"]),
                                 TrainingDurationMon = dataReader["TrainingDurationMon"].ToString(),
-                                IsTrainingDurationMonVerified = dataReader["IsTrainingDurationMonVerified"].ToString(),
+                                IsTrainingDurationMonVerified = Convert.ToBoolean(dataReader["IsTrainingDurationMonVerified"]),
                                 CreatorStamp = dataReader["CreatorStamp"].ToString(),
                                 CreatorUser = dataReader["CreatorUser"].ToString(),
-                                CreatedDate = dataReader["CreatedDate"].ToString(),
-                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                                CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                                ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                             };
                         }
                         conn.Close();
@@ -396,8 +396,8 @@ namespace LMSRepositoryLayer.Services
                                 Status = dataReader["Status"].ToString(),
                                 CreatorStamp = dataReader["CreatorStamp"].ToString(),
                                 CreatorUser = dataReader["CreatorUser"].ToString(),
-                                CreatedDate = dataReader["CreatedDate"].ToString(),
-                                ModifiedDate = dataReader["ModifiedDate"].ToString()
+                                CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                                ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                             };
                         }
                         conn.Close();
@@ -454,8 +454,8 @@ namespace LMSRepositoryLayer.Services
                             Status = dataReader["Status"].ToString(),
                             CreatorStamp = dataReader["CreatorStamp"].ToString(),
                             CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = dataReader["CreatedDate"].ToString(),
-                            ModifiedDate = dataReader["ModifiedDate"].ToString()
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };
                     }
                     conn.Close();
