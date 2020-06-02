@@ -5,12 +5,17 @@
 
 using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
+using System.Collections.Generic;
 
 namespace LMSRepositoryLayer.Interface
 {
     public interface ITechRepository
     {
+        List<TechStackResponse> ListOfTechStacks();
+        
         TechStackResponse AddTechStack(TechStackRequest techStack);
+
+        List<TechTypeResponse> ListOfTechTypes();
 
         TechTypeResponse AddTechType(TechTypeRequest techType);
     }

@@ -8,6 +8,7 @@ using LMSCommonLayer.ResponseModels;
 using LMSRepositoryLayer.Interface;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace LMSRepositoryLayer.Services
@@ -23,6 +24,47 @@ namespace LMSRepositoryLayer.Services
             _configuration = configuration;
             sqlConnectionString = _configuration.GetConnectionString("LMSDBConnection");
         }
+
+        public List<TechStackResponse> ListOfTechStacks()
+        {
+            try
+            {
+                List<TechStackResponse> techStackList = null;
+
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    techStackList = new List<TechStackResponse>();
+                    SqlCommand cmd = new SqlCommand("spGetAllTechStacks", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        TechStackResponse responseData = new TechStackResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            TechName = dataReader["TechName"].ToString(),
+                            ImagePath = dataReader["ImagePath"].ToString(),
+                            CurrentStatus = dataReader["CurrentStatus"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
+                        };
+                        techStackList.Add(responseData);
+                    }
+                    conn.Close();
+                }
+                return techStackList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// It Stores Tech Type Data in the Database
@@ -69,6 +111,45 @@ namespace LMSRepositoryLayer.Services
                     conn.Close();
                 }
                 return responseData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<TechTypeResponse> ListOfTechTypes()
+        {
+            try
+            {
+                List<TechTypeResponse> techTypeList = null;
+
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    techTypeList = new List<TechTypeResponse>();
+                    SqlCommand cmd = new SqlCommand("spGetAllTechTypes", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        TechTypeResponse responseData = new TechTypeResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            TypeName = dataReader["TypeName"].ToString(),
+                            CurrentStatus = dataReader["CurrentStatus"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
+                        };
+                        techTypeList.Add(responseData);
+                    }
+                    conn.Close();
+                }
+                return techTypeList;
             }
             catch (Exception ex)
             {

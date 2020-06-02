@@ -23,6 +23,36 @@ namespace LearnerManagementSystem.Controllers
             _techBusiness = techBusiness;
         }
 
+        /// <summary>
+        /// It is used Show All Tech Stacks
+        /// </summary>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
+        [HttpGet]
+        [Route("TechStacks")]
+        public IActionResult GetAllTechStacks()
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _techBusiness.ListOfTechStacks();
+                if (data != null)
+                {
+                    success = true;
+                    message = "Tech Stacks Data Fetched Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "No data Found!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
 
         /// <summary>
         /// It is used to Add Tech Stack
@@ -47,6 +77,37 @@ namespace LearnerManagementSystem.Controllers
                 else
                 {
                     message = "Try Again!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// It is used to Show All Tech Types 
+        /// </summary>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
+        [HttpGet]
+        [Route("TechTypes")]
+        public IActionResult GetAllTechTypes()
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _techBusiness.ListOfTechTypes();
+                if (data != null)
+                {
+                    success = true;
+                    message = "Tech Types Data Fetched Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "No data Found!";
                     return NotFound(new { success, message });
                 }
             }
