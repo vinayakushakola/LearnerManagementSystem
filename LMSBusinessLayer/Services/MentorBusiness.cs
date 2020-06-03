@@ -32,6 +32,12 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
+        public List<LeadBuddyResponse> ListOfLeads()
+        {
+            var responseData = _mentorRepository.ListOfLeads();
+            return responseData;
+        }
+
         public MentorTechStackResponse AddMentorTechStack(MentorTechStackRequest techStack)
         {
             var responseData = _mentorRepository.AddMentorTechStack(techStack);

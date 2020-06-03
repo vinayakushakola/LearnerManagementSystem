@@ -38,7 +38,7 @@ namespace LMSRepositoryLayer.Services
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     mentorsList = new List<MentorRegistrationResponse>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllMentors", conn)
+                    SqlCommand cmd = new SqlCommand("spGetAllMentors", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
@@ -49,7 +49,7 @@ namespace LMSRepositoryLayer.Services
                     {
                         MentorRegistrationResponse responseData = new MentorRegistrationResponse()
                         {
-                            ID = Convert.ToInt32(dataReader["ID"]),
+                            ID = Convert.ToInt32(dataReader["MentorID"]),
                             Name = dataReader["Name"].ToString(),
                             MentorType = dataReader["MentorType"].ToString(),
                             LabID = Convert.ToInt32(dataReader["LabID"]),
@@ -71,7 +71,97 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        public List<LeadBuddyResponse> ListOfLeads()
+        {
+            try
+            {
+                List<LeadBuddyResponse> leadsList = null;
+                List<LeadResponse> lead = null;
+                lead = GetAllLeads();
+                LeadBuddyResponse responseData = new LeadBuddyResponse();
+                responseData.Leads = lead;
+                leadsList.Add(responseData);
+                return leadsList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
+        public List<LeadResponse> GetAllLeads()
+        {
+            try
+            {
+                List<LeadResponse> leadsList = null;
+                List<BuddyResponse> buddyList = null;
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    leadsList = new List<LeadResponse>();
+                    SqlCommand cmd = new SqlCommand("spGetAllLeads", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        LeadResponse responseData = new LeadResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            Name = dataReader["Name"].ToString()
+                        };
+                        buddyList = GetAllBuddy();
+                        responseData.Buddy = buddyList;
+                        leadsList.Add(responseData);
+                    }
+                    conn.Close();
+                }
+                return leadsList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<BuddyResponse> GetAllBuddy()
+        {
+            try
+            {
+                List<BuddyResponse> leadsList = null;
+
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    leadsList = new List<BuddyResponse>();
+                    SqlCommand cmd = new SqlCommand("spGetAllBuddy", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        BuddyResponse responseData = new BuddyResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["ID"]),
+                            Name = dataReader["Name"].ToString(),
+                            Stack = dataReader["Stack"].ToString()
+                        };
+                        leadsList.Add(responseData);
+                    }
+                    conn.Close();
+                }
+                return leadsList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        
         /// <summary>
         /// It Stores Mentor Data in the Database
         /// </summary>
@@ -86,7 +176,7 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_InsertMentor", conn)
+                        SqlCommand cmd = new SqlCommand("spAddMentor", conn)
                         {
                             CommandType = System.Data.CommandType.StoredProcedure
                         };
@@ -106,7 +196,7 @@ namespace LMSRepositoryLayer.Services
                         {
                             responseData = new MentorRegistrationResponse()
                             {
-                                ID = Convert.ToInt32(dataReader["ID"]),
+                                ID = Convert.ToInt32(dataReader["MentorID"]),
                                 Name = dataReader["Name"].ToString(),
                                 MentorType = dataReader["MentorType"].ToString(),
                                 LabID = Convert.ToInt32(dataReader["LabID"]),
@@ -144,7 +234,7 @@ namespace LMSRepositoryLayer.Services
                 MentorIdeationResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_MentorIdeationMap", conn)
+                    SqlCommand cmd = new SqlCommand("spAddMentorIdeationMap", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
@@ -195,7 +285,7 @@ namespace LMSRepositoryLayer.Services
                 MentorTechStackResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_MentorTechStack", conn)
+                    SqlCommand cmd = new SqlCommand("spAddMentorTechStack", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };

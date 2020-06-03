@@ -39,7 +39,7 @@ namespace LMSRepositoryLayer.Services
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     fellowshipCandidates = new List<FellowshipResponseModel>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllFellowshipCandidates", conn)
+                    SqlCommand cmd = new SqlCommand("spGetAllFellowshipCandidates", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
@@ -58,7 +58,7 @@ namespace LMSRepositoryLayer.Services
                             MobileNumber = dataReader["MobileNumber"].ToString(),
                             PermanentPincode = dataReader["PermanentPincode"].ToString(),
                             HiredCity = dataReader["HiredCity"].ToString(),
-                            HiredDate = dataReader["HiredDate"].ToString(),
+                            HiredDate = Convert.ToDateTime(dataReader["HiredDate"]),
                             HiredLab = dataReader["HiredLab"].ToString(),
                             Attitude = dataReader["Attitude"].ToString(),
                             CommunicationRemark = dataReader["CommunicationRemark"].ToString(),
@@ -113,7 +113,7 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_FellowshipUpdate", conn)
+                        SqlCommand cmd = new SqlCommand("spUpdateFellowshipCandidate", conn)
                         {
                             CommandType = System.Data.CommandType.StoredProcedure
                         };
@@ -151,7 +151,7 @@ namespace LMSRepositoryLayer.Services
                                 MobileNumber = dataReader["MobileNumber"].ToString(),
                                 PermanentPincode = dataReader["PermanentPincode"].ToString(),
                                 HiredCity = dataReader["HiredCity"].ToString(),
-                                HiredDate = dataReader["HiredDate"].ToString(),
+                                HiredDate = Convert.ToDateTime(dataReader["HiredDate"]),
                                 HiredLab = dataReader["HiredLab"].ToString(),
                                 Attitude = dataReader["Attitude"].ToString(),
                                 CommunicationRemark = dataReader["CommunicationRemark"].ToString(),
@@ -210,7 +210,7 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_AddCandidateBankDetails", conn)
+                        SqlCommand cmd = new SqlCommand("spAddCandidateBankDetails", conn)
                         {
                             CommandType = System.Data.CommandType.StoredProcedure
                         };
@@ -282,7 +282,7 @@ namespace LMSRepositoryLayer.Services
                 {
                     using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_AddCandidateQualification", conn)
+                        SqlCommand cmd = new SqlCommand("spAddCandidateQualification", conn)
                         {
                             CommandType = System.Data.CommandType.StoredProcedure
                         };
@@ -369,7 +369,7 @@ namespace LMSRepositoryLayer.Services
                 {
                     using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_AddCandidateDocuments", conn)
+                        SqlCommand cmd = new SqlCommand("spAddCandidateDocuments", conn)
                         {
                             CommandType = System.Data.CommandType.StoredProcedure
                         };
@@ -428,7 +428,7 @@ namespace LMSRepositoryLayer.Services
                 CandidateTechStackAssignResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_CandidateTechStackAssignment", conn)
+                    SqlCommand cmd = new SqlCommand("spAddCandidateTechStackAssignment", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };

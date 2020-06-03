@@ -38,7 +38,7 @@ namespace LMSRepositoryLayer.Services
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     labsList = new List<LabRegistrationResponse>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllLabs", conn)
+                    SqlCommand cmd = new SqlCommand("spGetAllLabs", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
@@ -48,7 +48,7 @@ namespace LMSRepositoryLayer.Services
                     {
                         LabRegistrationResponse responseData = new LabRegistrationResponse()
                         {
-                            ID = Convert.ToInt32(dataReader["ID"]),
+                            ID = Convert.ToInt32(dataReader["LabID"]),
                             Name = dataReader["Name"].ToString(),
                             Location = dataReader["Location"].ToString(),
                             Address = dataReader["Address"].ToString(),
@@ -83,7 +83,7 @@ namespace LMSRepositoryLayer.Services
                 LabRegistrationResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_InsertLab", conn)
+                    SqlCommand cmd = new SqlCommand("spAddLab", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
@@ -103,7 +103,7 @@ namespace LMSRepositoryLayer.Services
                     {
                         responseData = new LabRegistrationResponse()
                         {
-                            ID = Convert.ToInt32(dataReader["ID"]),
+                            ID = Convert.ToInt32(dataReader["LabID"]),
                             Name = dataReader["Name"].ToString(),
                             Location = dataReader["Location"].ToString(),
                             Address = dataReader["Address"].ToString(),
@@ -136,7 +136,7 @@ namespace LMSRepositoryLayer.Services
                 LabThresholdResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_LabThreshold", conn)
+                    SqlCommand cmd = new SqlCommand("spAddLabThreshold", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };

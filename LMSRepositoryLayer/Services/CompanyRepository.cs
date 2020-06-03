@@ -38,7 +38,7 @@ namespace LMSRepositoryLayer.Services
                 using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     companiesList = new List<CompanyAddResponse>();
-                    SqlCommand cmd = new SqlCommand("SP_GetAllCompanies", conn)
+                    SqlCommand cmd = new SqlCommand("spGetAllCompanies", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
@@ -48,7 +48,7 @@ namespace LMSRepositoryLayer.Services
                     {
                         CompanyAddResponse responseData = new CompanyAddResponse()
                         {
-                            CompanyID = Convert.ToInt32(dataReader["ID"]),
+                            CompanyID = Convert.ToInt32(dataReader["CompanyID"]),
                             Name = dataReader["Name"].ToString(),
                             Address = dataReader["Address"].ToString(),
                             Location = dataReader["Location"].ToString(),
@@ -84,7 +84,7 @@ namespace LMSRepositoryLayer.Services
                 {
                     using(SqlConnection conn = new SqlConnection(sqlConnectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("SP_AddCompanies", conn)
+                        SqlCommand cmd = new SqlCommand("spAddCompany", conn)
                         {
                             CommandType = System.Data.CommandType.StoredProcedure
                         };
@@ -103,7 +103,7 @@ namespace LMSRepositoryLayer.Services
                         {
                             responseData = new CompanyAddResponse()
                             {
-                                CompanyID = Convert.ToInt32(dataReader["ID"]),
+                                CompanyID = Convert.ToInt32(dataReader["CompanyID"]),
                                 Name = dataReader["Name"].ToString(),
                                 Address = dataReader["Address"].ToString(),
                                 Location = dataReader["Location"].ToString(),
@@ -141,7 +141,7 @@ namespace LMSRepositoryLayer.Services
                 CompanyRequirementResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_CompanyRequirement", conn)
+                    SqlCommand cmd = new SqlCommand("spAddCompanyRequirement", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };

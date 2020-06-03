@@ -13,6 +13,8 @@ namespace LMSRepositoryLayer.Interface
     {
         List<MentorRegistrationResponse> ListOfMentors();
 
+        List<LeadBuddyResponse> ListOfLeads();
+
         MentorRegistrationResponse AddMentor(MentorRegistrationRequest mentorRegistration);
 
         MentorIdeationResponse AddMentorIdeation(MentorIdeationRequest mentorIdeation);

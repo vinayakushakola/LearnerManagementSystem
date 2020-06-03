@@ -78,7 +78,7 @@ namespace LMSRepositoryLayer.Services
                 TechStackResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_TechStack", conn)
+                    SqlCommand cmd = new SqlCommand("spAddTechStack", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
@@ -169,7 +169,7 @@ namespace LMSRepositoryLayer.Services
                 TechTypeResponse responseData = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SP_TechType", conn)
+                    SqlCommand cmd = new SqlCommand("spAddTechType", conn)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };

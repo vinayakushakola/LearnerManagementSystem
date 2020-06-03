@@ -27,7 +27,7 @@ namespace LMSCommonLayer.ResponseModels
 		
 		public string HiredCity { get; set; }
 		
-		public string HiredDate { get; set; }
+		public DateTime HiredDate { get; set; }
 		
 		public string HiredLab { get; set; }
 		

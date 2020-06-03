@@ -48,7 +48,5 @@ namespace LMSCommonLayer.ResponseModels
 		public DateTime CreatedDate { get; set; }
 
 		public DateTime ModifiedDate { get; set; }
-
-		public FellowshipResponseModel FellowshipResponseModel { get; set; }
 	}
 }

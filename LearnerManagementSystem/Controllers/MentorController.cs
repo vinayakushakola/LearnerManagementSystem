@@ -54,6 +54,33 @@ namespace LearnerManagementSystem.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Leads")]
+        public IActionResult GetAllLeads()
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _mentorBusiness.ListOfLeads();
+                if (data != null)
+                {
+                    success = true;
+                    message = "Leads with Mentors Data Fetched Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "No Data Found";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
         /// <summary>
         /// It is used for Mentor Registration
         /// </summary>
