@@ -86,6 +86,6 @@ namespace LMSCommonLayer.ResponseModels
 
 		public string Name { get; set; }
 
-		public int TechStack { get; set; }
+		public string TechStack { get; set; }
 	}
 }

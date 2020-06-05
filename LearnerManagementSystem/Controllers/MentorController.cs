@@ -54,6 +54,10 @@ namespace LearnerManagementSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// It is used to Show Leads Info
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("Leads")]
         public IActionResult GetAllLeads()

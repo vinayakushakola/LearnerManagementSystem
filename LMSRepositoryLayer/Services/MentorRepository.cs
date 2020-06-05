@@ -9,6 +9,7 @@ using LMSRepositoryLayer.Interface;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace LMSRepositoryLayer.Services
@@ -71,7 +72,10 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
-
+        /// <summary>
+        /// It Fetches Leads Information from the Database
+        /// </summary>
+        /// <returns>If Data Found return Response Data else null or Exception</returns>
         public List<LeadBuddyResponse> ListOfLeads()
         {
             try
@@ -83,7 +87,7 @@ namespace LMSRepositoryLayer.Services
                 {
                     leadsList = new List<LeadResponse>();
                     buddyList = new List<BuddyResponse>();
-                    SqlCommand cmd = new SqlCommand("spGetAllLeadsBuddies", conn);
+                    SqlCommand cmd = new SqlCommand("spGetAllLeads", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     conn.Open();
@@ -92,19 +96,14 @@ namespace LMSRepositoryLayer.Services
                     {
                         LeadResponse responseData = new LeadResponse()
                         {
-                            ID = Convert.ToInt32(dataReader["LeadID"]),
-                            Name = dataReader["Name"].ToString()
-                        };
-                        BuddyResponse buddyResponse = new BuddyResponse()
-                        {
                             ID = Convert.ToInt32(dataReader["MentorID"]),
-                            Name = dataReader["MentorName"].ToString(),
-                            TechStack = Convert.ToInt32(dataReader["TechStackID"])
+                            Name = dataReader["Name"].ToString(),
+                            Buddy = buddyList
                         };
-                        buddyList.Add(buddyResponse);
+                        buddyList = GetBuddyLeads(responseData.ID);
                         responseData.Buddy = buddyList;
                         leadsList.Add(responseData);
-                        
+
                     }
                     conn.Close();
                     LeadBuddyResponse leadBuddyResponse = new LeadBuddyResponse
@@ -121,7 +120,44 @@ namespace LMSRepositoryLayer.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<BuddyResponse> GetBuddyLeads(int leadID)
+        {
+            try
+            {
+                List<BuddyResponse> buddyList = null;
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    buddyList = new List<BuddyResponse>();
+                    SqlCommand cmd = new SqlCommand("spGetAllLeadsBuddies", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@LeadID", leadID);
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        BuddyResponse buddyResponse = new BuddyResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["MentorID"]),
+                            Name = dataReader["BuddyName"].ToString(),
+                            TechStack = dataReader["TechName"].ToString()
+                        };
+                        buddyList.Add(buddyResponse);
+                    }
+                    conn.Close();
+                }
+                return buddyList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         
+
+
         /// <summary>
         /// It Stores Mentor Data in the Database
         /// </summary>

@@ -179,6 +179,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.MentorController.GetAllLeads">
+            <summary>
+            It is used to Show Leads Info
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.MentorController.AddMentor(LMSCommonLayer.RequestModels.MentorRegistrationRequest)">
             <summary>
             It is used for Mentor Registration
