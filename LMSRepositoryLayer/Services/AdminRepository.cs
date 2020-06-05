@@ -10,6 +10,7 @@ using LMSRepositoryLayer.Interface;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace LMSRepositoryLayer.Services
@@ -233,26 +234,35 @@ namespace LMSRepositoryLayer.Services
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
+                    SqlParameter parm = new SqlParameter("@Status", SqlDbType.Int);
+                    parm.Direction = ParameterDirection.ReturnValue;
+                    cmd.Parameters.Add(parm);
                     cmd.Parameters.AddWithValue("@Email", login.Email);
                     cmd.Parameters.AddWithValue("@Password", EncodeDecode.EncodePasswordToBase64(login.Password));
+             
                     conn.Open();
-
-                    SqlDataReader dataReader = cmd.ExecuteReader();
-                    while (dataReader.Read())
+                    cmd.ExecuteNonQuery();
+                    var status = Convert.ToInt32(parm.Value);
+                    if (status > 0)
                     {
-                        responseData = new AdminResponseModel()
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+
+                        while (dataReader.Read())
                         {
-                            AdminID = Convert.ToInt32(dataReader["AdminID"]),
-                            FirstName = dataReader["FirstName"].ToString(),
-                            LastName = dataReader["LastName"].ToString(),
-                            Email = dataReader["Email"].ToString(),
-                            ContactNumber = dataReader["ContactNumber"].ToString(),
-                            IsVerified = Convert.ToBoolean(dataReader["IsVerified"]),
-                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
-                            CreatorUser = dataReader["CreatorUser"].ToString(),
-                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
-                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
-                        };
+                            responseData = new AdminResponseModel()
+                            {
+                                AdminID = Convert.ToInt32(dataReader["AdminID"]),
+                                FirstName = dataReader["FirstName"].ToString(),
+                                LastName = dataReader["LastName"].ToString(),
+                                Email = dataReader["Email"].ToString(),
+                                ContactNumber = dataReader["ContactNumber"].ToString(),
+                                IsVerified = Convert.ToBoolean(dataReader["IsVerified"]),
+                                CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                                CreatorUser = dataReader["CreatorUser"].ToString(),
+                                CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                                ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
+                            };
+                        }
                     }
                     conn.Close();
                 }

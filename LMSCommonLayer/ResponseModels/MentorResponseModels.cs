@@ -82,10 +82,10 @@ namespace LMSCommonLayer.ResponseModels
 
 	public class BuddyResponse
 	{
+		public int ID { get; set; }
+
 		public string Name { get; set; }
 
-		public string Stack { get; set; }
-
-		public int ID { get; set; }
+		public int TechStack { get; set; }
 	}
 }

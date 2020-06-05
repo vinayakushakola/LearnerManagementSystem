@@ -98,8 +98,6 @@ namespace LMSCommonLayer.RequestModels
 
 	public class CandidateBankDetailRequest
 	{
-		public int CandidateID { get; set; }
-
 		public string Name { get; set; }
 
 		public string AccountNumber { get; set; }
@@ -129,8 +127,6 @@ namespace LMSCommonLayer.RequestModels
 
 	public class CandidateQualificationRequest
 	{
-		public int CandidateID { get; set; }
-
 		public string Diploma { get; set; }
 
 		public string DegreeName { get; set; }

@@ -49,7 +49,7 @@ namespace LMSRepositoryLayer.Services
                     {
                         FellowshipResponseModel responseData = new FellowshipResponseModel()
                         {
-                            CandidateID = Convert.ToInt32(dataReader["CandidateID"].ToString()),
+                            CandidateID = Convert.ToInt32(dataReader["CandidateID"]),
                             FirstName = dataReader["FirstName"].ToString(),
                             MiddleName = dataReader["MiddleName"].ToString(),
                             LastName = dataReader["LastName"].ToString(),
@@ -65,6 +65,8 @@ namespace LMSRepositoryLayer.Services
                             KnowledgeRemark = dataReader["KnowledgeRemark"].ToString(),
                             AggregateRemark = dataReader["AggregateRemark"].ToString(),
                             Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
                             BirthDate = dataReader["BirthDate"].ToString(),
                             IsBirthDateVerified = Convert.ToBoolean(dataReader["IsBirthDateVerified"]),
                             ParentName = dataReader["ParentName"].ToString(),
@@ -81,8 +83,6 @@ namespace LMSRepositoryLayer.Services
                             EducationalInformation = dataReader["EducationalInformation"].ToString(),
                             DocumentStatus = dataReader["DocumentStatus"].ToString(),
                             Remark = dataReader["Remark"].ToString(),
-                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
-                            CreatorUser = dataReader["CreatorUser"].ToString(),
                             CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
                             ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
                         };

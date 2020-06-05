@@ -71,37 +71,20 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+
         public List<LeadBuddyResponse> ListOfLeads()
         {
             try
             {
-                List<LeadBuddyResponse> leadsList = null;
-                List<LeadResponse> lead = null;
-                lead = GetAllLeads();
-                LeadBuddyResponse responseData = new LeadBuddyResponse();
-                responseData.Leads = lead;
-                leadsList.Add(responseData);
-                return leadsList;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public List<LeadResponse> GetAllLeads()
-        {
-            try
-            {
+                List<LeadBuddyResponse> leadBuddyList = null;
                 List<LeadResponse> leadsList = null;
                 List<BuddyResponse> buddyList = null;
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     leadsList = new List<LeadResponse>();
-                    SqlCommand cmd = new SqlCommand("spGetAllLeads", conn)
-                    {
-                        CommandType = System.Data.CommandType.StoredProcedure
-                    };
+                    buddyList = new List<BuddyResponse>();
+                    SqlCommand cmd = new SqlCommand("spGetAllLeadsBuddies", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     conn.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
@@ -109,52 +92,29 @@ namespace LMSRepositoryLayer.Services
                     {
                         LeadResponse responseData = new LeadResponse()
                         {
-                            ID = Convert.ToInt32(dataReader["ID"]),
+                            ID = Convert.ToInt32(dataReader["LeadID"]),
                             Name = dataReader["Name"].ToString()
                         };
-                        buddyList = GetAllBuddy();
+                        BuddyResponse buddyResponse = new BuddyResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["MentorID"]),
+                            Name = dataReader["MentorName"].ToString(),
+                            TechStack = Convert.ToInt32(dataReader["TechStackID"])
+                        };
+                        buddyList.Add(buddyResponse);
                         responseData.Buddy = buddyList;
                         leadsList.Add(responseData);
+                        
                     }
                     conn.Close();
-                }
-                return leadsList;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public List<BuddyResponse> GetAllBuddy()
-        {
-            try
-            {
-                List<BuddyResponse> leadsList = null;
-
-                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
-                {
-                    leadsList = new List<BuddyResponse>();
-                    SqlCommand cmd = new SqlCommand("spGetAllBuddy", conn)
+                    LeadBuddyResponse leadBuddyResponse = new LeadBuddyResponse
                     {
-                        CommandType = System.Data.CommandType.StoredProcedure
+                        Leads = leadsList
                     };
-
-                    conn.Open();
-                    SqlDataReader dataReader = cmd.ExecuteReader();
-                    while (dataReader.Read())
-                    {
-                        BuddyResponse responseData = new BuddyResponse()
-                        {
-                            ID = Convert.ToInt32(dataReader["ID"]),
-                            Name = dataReader["Name"].ToString(),
-                            Stack = dataReader["Stack"].ToString()
-                        };
-                        leadsList.Add(responseData);
-                    }
-                    conn.Close();
+                    leadBuddyList = new List<LeadBuddyResponse>();
+                    leadBuddyList.Add(leadBuddyResponse);
                 }
-                return leadsList;
+                return leadBuddyList;
             }
             catch (Exception ex)
             {
