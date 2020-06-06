@@ -24,6 +24,36 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
+        /// It is used to Show Maker Programs
+        /// </summary>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
+        [HttpGet]
+        public IActionResult GetAllMakerPrograms()
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _makerBusiness.ListOfMakerProgram();
+                if (data != null)
+                {
+                    success = true;
+                    message = "Maker Programs Fetched Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "No Data Found!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
         /// It is used to Add Maker Program
         /// </summary>
         /// <param name="makerProgram">Maker Program</param>

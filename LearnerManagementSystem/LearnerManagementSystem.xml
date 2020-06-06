@@ -166,6 +166,12 @@
             <param name="labThreshold">Lab Threshold</param>
             <returns>If Data Found return Ok else null or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.MakerController.GetAllMakerPrograms">
+            <summary>
+            It is used to Show Maker Programs
+            </summary>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.MakerController.MakerProgram(LMSCommonLayer.RequestModels.MakerProgramRequest)">
             <summary>
             It is used to Add Maker Program

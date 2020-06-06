@@ -70,7 +70,7 @@ namespace LearnerManagementSystem.Controllers
                 if (data != null)
                 {
                     success = true;
-                    message = "Leads with Mentors Data Fetched Successfully";
+                    message = "Leads with Buddies Data Fetched Successfully";
                     return Ok(new { success, message, data });
                 }
                 else
