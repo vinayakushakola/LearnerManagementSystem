@@ -213,6 +213,8 @@ namespace LearnerManagementSystem.Controllers
         {
             try
             {
+                if (!ValidateForgotPasswordRequest(forgot))
+                    return BadRequest(new { Message = "Enter Email ID Properly!" });
                 bool success = false, sentMail;
                 string message, token;
                 var data = _adminBusiness.ForgotPassword(forgot);
@@ -366,6 +368,15 @@ namespace LearnerManagementSystem.Controllers
             if (loginRequest == null || string.IsNullOrWhiteSpace(loginRequest.Email) ||
                 string.IsNullOrWhiteSpace(loginRequest.Password) || !loginRequest.Email.Contains('@') ||
                 !loginRequest.Email.Contains('.') || loginRequest.Password.Length < 8)
+                return false;
+
+            return true;
+        }
+
+        private bool ValidateForgotPasswordRequest(ForgotPasswordRequest forgotPassword)
+        {
+            if (forgotPassword == null || string.IsNullOrWhiteSpace(forgotPassword.Email) ||
+                !forgotPassword.Email.Contains('@') || !forgotPassword.Email.Contains('.'))
                 return false;
 
             return true;

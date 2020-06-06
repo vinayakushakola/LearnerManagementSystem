@@ -309,5 +309,90 @@ namespace LMSUnitTesting
 
             Assert.IsType<BadRequestObjectResult>(data);
         }
+
+
+
+        [Fact]
+        public void ForgotPassword_ValidEmailData_Return_OkResult()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var forgotPassword = new ForgotPasswordRequest
+            {
+                Email = "abcd@gmail.com"
+            };
+
+            var data = controller.ForgotPassword(forgotPassword);
+
+            Assert.IsType<OkObjectResult>(data);
+        }
+
+        [Fact]
+        public void ForgotPassword_InValidEmailData_Return_NotFoundResult()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var forgotPassword = new ForgotPasswordRequest
+            {
+                Email = "Sam@gmail.com"
+            };
+
+            var data = controller.ForgotPassword(forgotPassword);
+
+            Assert.IsType<NotFoundObjectResult>(data);
+
+        }
+
+        [Fact]
+        public void ForgotPassword_Null_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            ForgotPasswordRequest forgotPassword = null;
+
+            var data = controller.ForgotPassword(forgotPassword);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+
+        }
+
+        [Fact]
+        public void ForgotPassword_EmptyEmailField_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var forgotPassword = new ForgotPasswordRequest
+            {
+                Email = ""
+            };
+
+            var data = controller.ForgotPassword(forgotPassword);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void ForgotPassword_Email_NoAt_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var forgotPassword = new ForgotPasswordRequest
+            {
+                Email = "abcdgmail.com"
+            };
+
+            var data = controller.ForgotPassword(forgotPassword);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void ForgotPassword_Email_NoDot_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var forgotPassword = new ForgotPasswordRequest
+            {
+                Email = "abcd@gmailcom"
+            };
+
+            var data = controller.ForgotPassword(forgotPassword);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
     }
 }
