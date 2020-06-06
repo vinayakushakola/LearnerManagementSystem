@@ -175,6 +175,9 @@ namespace LearnerManagementSystem.Controllers
         {
             try
             {
+                if (!ValidateLoginRequest(adminLogin))
+                    return BadRequest(new { Message = "Enter proper Input" });
+
                 bool success = false;
                 string message, token;
                 var data = _adminBusiness.Login(adminLogin);
@@ -340,6 +343,16 @@ namespace LearnerManagementSystem.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        private bool ValidateLoginRequest(LoginRequest loginRequest)
+        {
+            if (loginRequest == null || string.IsNullOrWhiteSpace(loginRequest.Email) ||
+                string.IsNullOrWhiteSpace(loginRequest.Password) || !loginRequest.Email.Contains('@') ||
+                !loginRequest.Email.Contains('.') || loginRequest.Password.Length < 5)
+                return false;
+
+            return true;
         }
     }
 }

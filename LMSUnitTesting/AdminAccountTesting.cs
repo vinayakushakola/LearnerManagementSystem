@@ -40,7 +40,7 @@ namespace LMSUnitTesting
             {
                 FirstName = "Abcd",
                 LastName = "Efgh",
-                Email = "abcd123455@gmail.com",
+                Email = "abcd@gmail.com",
                 Password = "Abcd1234",
                 ContactNumber =  "1234567890",
                 IsVerified = true,
@@ -81,6 +81,37 @@ namespace LMSUnitTesting
             var data = controller.Login(loginData);
 
             Assert.IsType<NotFoundObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminLogin_PasswordEmpty_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var logindata = new LoginRequest
+            {
+                Email = "JohnCena@gmail.com",
+                Password = ""
+            };
+
+            var data = controller.Login(logindata);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+
+        [Fact]
+        public void AdminLogin_EmailEmpty_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var logindata = new LoginRequest
+            {
+                Email = "",
+                Password = "123445sdfs"
+            };
+
+            var data = controller.Login(logindata);
+
+            Assert.IsType<BadRequestObjectResult>(data);
         }
     }
 }
