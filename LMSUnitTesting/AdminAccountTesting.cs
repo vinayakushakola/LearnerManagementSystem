@@ -54,6 +54,146 @@ namespace LMSUnitTesting
         }
 
         [Fact]
+        public void AdminRegistration_Password_LessThan8_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var adminData = new RegistrationRequest
+            {
+                FirstName = "Mark",
+                LastName = "Henry",
+                Email = "MarkHenry@gmail.com",
+                Password = "1234567",
+                ContactNumber = "1234567890",
+                IsVerified = true,
+                CreatorStamp = "Vin",
+                CreatorUser = "Vinayak"
+            };
+
+            var data = controller.Registration(adminData);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminRegistration_Null_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            RegistrationRequest newAdminData = null;
+
+            var data = controller.Registration(newAdminData);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminRegistration_EmptyFields_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var newAdminData = new RegistrationRequest
+            {
+                FirstName = "",
+                LastName = "",
+                Email = "",
+                Password = "",
+                ContactNumber = "",
+                IsVerified = false,
+                CreatorStamp = "",
+                CreatorUser = ""
+            };
+
+            var data = controller.Registration(newAdminData);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminRegistration_FirstName_LessThan2_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var newAdminData = new RegistrationRequest
+            {
+                FirstName = "A",
+                LastName = "defg",
+                Email = "adef@gmail.com",
+                Password = "1234567891",
+                ContactNumber = "1234567890",
+                IsVerified = true,
+                CreatorStamp = "Vin",
+                CreatorUser = "Vinayak"
+            };
+
+            var data = controller.Registration(newAdminData);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminRegistration_LastName_LessThan2_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var newAdminData = new RegistrationRequest
+            {
+                FirstName = "John",
+                LastName = "C",
+                Email = "john@gmail.com",
+                Password = "1234543216",
+                ContactNumber = "1234567890",
+                IsVerified = true,
+                CreatorStamp = "Vin",
+                CreatorUser = "Vinayak"
+            };
+
+            var data = controller.Registration(newAdminData);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+
+        [Fact]
+        public void AdminRegistration_Email_NoAt_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var newAdminData = new RegistrationRequest
+            {
+                FirstName = "John",
+                LastName = "Cena",
+                Email = "JohnCenagmail.com",
+                Password = "67584932",
+                ContactNumber = "1234567890",
+                IsVerified = true,
+                CreatorStamp = "Vin",
+                CreatorUser = "Vinayak"
+            };
+
+            var data = controller.Registration(newAdminData);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminRegistration_Email_NoDot_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var newAdminData = new RegistrationRequest
+            {
+                FirstName = "John",
+                LastName = "Cena",
+                Email = "JohnCena@gmailcom",
+                Password = "67584932",
+                ContactNumber = "1234567890",
+                IsVerified = true,
+                CreatorStamp = "Vin",
+                CreatorUser = "Vinayak"
+            };
+
+            var data = controller.Registration(newAdminData);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+
+
+        [Fact]
         public void AdminLogin_ValidLoginData_Return_OkResult()
         {
             var controller = new AdminController(_adminBusiness, _configuration);

@@ -78,6 +78,8 @@ namespace LearnerManagementSystem.Controllers
         {
             try
             {
+                if (!ValidateRegistrationRequest(registration))
+                    return BadRequest(new { Message = "Enter Valid Data" });
                 bool success = false;
                 string message;
                 var data = _adminBusiness.Registration(registration);
@@ -343,6 +345,20 @@ namespace LearnerManagementSystem.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        private bool ValidateRegistrationRequest(RegistrationRequest adminDetails)
+        {
+            if (adminDetails == null || string.IsNullOrWhiteSpace(adminDetails.FirstName) ||
+                    string.IsNullOrWhiteSpace(adminDetails.LastName) || string.IsNullOrWhiteSpace(adminDetails.Email) ||
+                    string.IsNullOrWhiteSpace(adminDetails.Password) || adminDetails.FirstName.Length < 2 ||
+                    adminDetails.LastName.Length < 2 || !adminDetails.Email.Contains('@') ||
+                    !adminDetails.Email.Contains('.') || adminDetails.Password.Length < 8 ||
+                    (adminDetails.ContactNumber.Length < 10 || adminDetails.ContactNumber.Length > 10) || 
+                    adminDetails.CreatorStamp.Length < 1 || adminDetails.CreatorUser.Length < 1)
+                return false;
+            else
+                return true;
         }
 
         private bool ValidateLoginRequest(LoginRequest loginRequest)
