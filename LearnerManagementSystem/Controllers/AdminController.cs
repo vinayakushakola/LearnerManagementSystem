@@ -349,7 +349,7 @@ namespace LearnerManagementSystem.Controllers
         {
             if (loginRequest == null || string.IsNullOrWhiteSpace(loginRequest.Email) ||
                 string.IsNullOrWhiteSpace(loginRequest.Password) || !loginRequest.Email.Contains('@') ||
-                !loginRequest.Email.Contains('.') || loginRequest.Password.Length < 5)
+                !loginRequest.Email.Contains('.') || loginRequest.Password.Length < 8)
                 return false;
 
             return true;

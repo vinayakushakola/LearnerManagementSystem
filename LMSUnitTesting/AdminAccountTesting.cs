@@ -75,7 +75,7 @@ namespace LMSUnitTesting
             var loginData = new LoginRequest
             {
                 Email = "abc@gmail.com",
-                Password = "bcd1234",
+                Password = "abcd1234",
             };
 
             var data = controller.Login(loginData);
@@ -108,6 +108,62 @@ namespace LMSUnitTesting
                 Email = "",
                 Password = "123445sdfs"
             };
+
+            var data = controller.Login(logindata);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminLogin_Email_NoAt_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var logindata = new LoginRequest
+            {
+                Email = "abcdgmail.com",
+                Password = "abcd1234"
+            };
+
+            var data = controller.Login(logindata);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminLogin_Email_NoDot_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var logindata = new LoginRequest
+            {
+                Email = "abcd@gmailcom",
+                Password = "abcd1234"
+            };
+
+            var data = controller.Login(logindata);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminLogin_Password_LessThan8_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var logindata = new LoginRequest
+            {
+                Email = "abcde@gmail.com",
+                Password = "abcd1"
+            };
+
+            var data = controller.Login(logindata);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+        }
+
+        [Fact]
+        public void AdminLogin_Null_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            LoginRequest logindata = null;
 
             var data = controller.Login(logindata);
 
