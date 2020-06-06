@@ -255,6 +255,8 @@ namespace LearnerManagementSystem.Controllers
         {
             try
             {
+                if (!ValidateResetPasswordRequest(reset))
+                    return BadRequest(new { Message = "Enter Proper Data" });
                 bool success = false;
                 string message;
                 var adminID = Convert.ToInt32(User.Claims.FirstOrDefault(id => id.Type.Equals("AdminID", StringComparison.InvariantCultureIgnoreCase)).Value);
@@ -377,6 +379,15 @@ namespace LearnerManagementSystem.Controllers
         {
             if (forgotPassword == null || string.IsNullOrWhiteSpace(forgotPassword.Email) ||
                 !forgotPassword.Email.Contains('@') || !forgotPassword.Email.Contains('.'))
+                return false;
+
+            return true;
+        }
+
+        private bool ValidateResetPasswordRequest(ResetPasswordRequest resetPassword)
+        {
+            if (resetPassword == null || string.IsNullOrWhiteSpace(resetPassword.Password) ||
+                resetPassword.Password.Length < 8)
                 return false;
 
             return true;

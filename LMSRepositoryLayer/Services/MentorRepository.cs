@@ -100,7 +100,7 @@ namespace LMSRepositoryLayer.Services
                             Name = dataReader["Name"].ToString(),
                             Buddy = buddyList
                         };
-                        buddyList = GetBuddyLeads(responseData.ID);
+                        buddyList = GetBuddiesUnderALead(responseData.ID);
                         responseData.Buddy = buddyList;
                         leadsList.Add(responseData);
 
@@ -121,7 +121,12 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
-        public List<BuddyResponse> GetBuddyLeads(int leadID)
+        /// <summary>
+        /// It Fetches Data of Buddies who are under a Lead 
+        /// </summary>
+        /// <param name="leadID">LeadID</param>
+        /// <returns>If Data Found return Response Data else null or Exception</returns>
+        public List<BuddyResponse> GetBuddiesUnderALead(int leadID)
         {
             try
             {

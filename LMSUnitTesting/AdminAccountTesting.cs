@@ -394,5 +394,49 @@ namespace LMSUnitTesting
 
             Assert.IsType<BadRequestObjectResult>(data);
         }
+
+
+
+        [Fact]
+        public void ResetPassword_Password_LessThan8_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var resetPassword = new ResetPasswordRequest
+            {
+                Password = "123456"
+            };
+
+            var data = controller.ResetPassword(resetPassword);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+
+        }
+
+        [Fact]
+        public void ResetPassword_Null_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            ResetPasswordRequest resetPassword = null;
+
+            var data = controller.ResetPassword(resetPassword);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+
+        }
+
+        [Fact]
+        public void ResetPassword_EmptyPasswordField_Return_BadRequest()
+        {
+            var controller = new AdminController(_adminBusiness, _configuration);
+            var resetPassword = new ResetPasswordRequest
+            {
+                Password = ""
+            };
+
+            var data = controller.ResetPassword(resetPassword);
+
+            Assert.IsType<BadRequestObjectResult>(data);
+
+        }
     }
 }
