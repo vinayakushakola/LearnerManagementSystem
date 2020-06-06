@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LearnerManagementSystem</name>
+    </assembly>
+    <members>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.GetAllAdmins">
+            <summary>
+            It is used to Show all Admins Registration Data
+            </summary>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.Registration(LMSCommonLayer.RequestModels.RegistrationRequest)">
+            <summary>
+            It is used to Create Admin Account
+            </summary>
+            <param name="registration">Admin Registration Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.UpdateAdmin(LMSCommonLayer.RequestModels.AdminUpdateRequest)">
+            <summary>
+            It is used to Update Admin Account
+            </summary>
+            <param name="updateRequest">Admin Update Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.DeleteAdmin(System.Int32)">
+            <summary>
+            It is used to Delete Admin Account
+            </summary>
+            <param name="adminID">AdminID</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.Login(LMSCommonLayer.RequestModels.LoginRequest)">
+            <summary>
+            It is used to Admin Login
+            </summary>
+            <param name="adminLogin">Admin Login Data</param>
+            <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.ForgotPassword(LMSCommonLayer.RequestModels.ForgotPasswordRequest)">
+            <summary>
+            It is used to send mail to change password
+            </summary>
+            <param name="forgot">Forgot Password</param>
+            <returns>If Data Found return ok else NotFound or Badrequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.ResetPassword(LMSCommonLayer.RequestModels.ResetPasswordRequest)">
+            <summary>
+            It is used to Reset Password
+            </summary>
+            <param name="reset">Reset Password</param>
+            <returns>If ResetPassword Successfull return ok else NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.GenerateToken(LMSCommonLayer.ResponseModels.AdminResponseModel,System.String)">
+            <summary>
+            It is used to Generate Token
+            </summary>
+            <param name="tokenData">Response Data</param>
+            <param name="tokenType">Token Type</param>
+            <returns>It return Token</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.SendMail(LMSCommonLayer.ResponseModels.AdminResponseModel,System.String)">
+            <summary>
+            It is used to Send Mails
+            </summary>
+            <param name="data">Response Data</param>
+            <param name="token">Token</param>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.GetAllCompanies">
+            <summary>
+            It is used to Show all Companies Information
+            </summary>
+            <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddCompany(LMSCommonLayer.RequestModels.CompanyAddRequest)">
+            <summary>
+            It is used to Add a Company
+            </summary>
+            <param name="company">Company Info</param>
+            <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.CompanyController.AddCompanyRequirement(LMSCommonLayer.RequestModels.CompanyRequirementRequest)">
+            <summary>
+            It is used to Add Company Requirements
+            </summary>
+            <param name="company">Company Requirement Information</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetAllFellowshipCandidates">
+            <summary>
+            It is used to Show All Fellowship Candidates Data
+            </summary>
+            <returns>If Data Found return ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.UpdateFellowshipCandidate(System.Int32,LMSCommonLayer.RequestModels.FellowshipUpdateRequest)">
+            <summary>
+            It is used to Add Selected Fellowship Candidate additional details
+            </summary>
+            <param name="candidateID">Candidate ID</param>
+            <param name="updateRequest">Update Fellowship Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.AddBankDetails(System.Int32,LMSCommonLayer.RequestModels.CandidateBankDetailRequest)">
+            <summary>
+            It is used to Add Candidate Bank Details
+            </summary>
+            <param name="candidateID">CandidateID</param>
+            <param name="bankDetail">Candidate Bank Detail</param>
+            <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.AddQualification(System.Int32,LMSCommonLayer.RequestModels.CandidateQualificationRequest)">
+            <summary>
+            It is used to Add Candidate Qualification 
+            </summary>
+            <param name="candidateID">CandidateID</param>
+            <param name="qualification">Candidate Qualification Data</param>
+            <returns>If Data Found return Ok else NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.AddDocuments(System.Int32,LMSCommonLayer.RequestModels.CandidateDocumentsRequest)">
+            <summary>
+            It is used to Add Candidate Documents
+            </summary>
+            <param name="candidateID">CandidateID</param>
+            <param name="documents">Candidate Documents</param>
+            <returns>If Data Found return Ok else NotFound or Badrequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.HiredController.GetAllCandidates">
+            <summary>
+            It is used to Show all Candidates Data
+            </summary>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.HiredController.AddCandidate(LMSCommonLayer.RequestModels.HiredRegistrationRequest)">
+            <summary>
+            It is used to Add Candidate(Hired) Data
+            </summary>
+            <param name="registration">Candidate Registration Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.HiredController.UpdateCandidate(System.Int32,LMSCommonLayer.RequestModels.HiredUpdateRequest)">
+            <summary>
+            It is used to Update Candidate(Hired) Data, If Candidate is Selected It aslo adds Candidate Data to FellowshipProgram
+            </summary>
+            <param name="candidateID">CandidateID</param>
+            <param name="updateRequest">Hired Data</param>
+            <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.LabController.GetAllLabs">
+            <summary>
+            It is used to show All Labs
+            </summary>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.LabController.AddLab(LMSCommonLayer.RequestModels.LabRegistrationRequest)">
+            <summary>
+            It is used to Add Lab
+            </summary>
+            <param name="lab">Lab Data</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.LabController.AddLabThreshold(LMSCommonLayer.RequestModels.LabThresholdRequest)">
+            <summary>
+            It is used to add LabThreshold
+            </summary>
+            <param name="labThreshold">Lab Threshold</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.MakerController.MakerProgram(LMSCommonLayer.RequestModels.MakerProgramRequest)">
+            <summary>
+            It is used to Add Maker Program
+            </summary>
+            <param name="makerProgram">Maker Program</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.MentorController.GetAllMentors">
+            <summary>
+            It is used to Show all Mentors Information
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.MentorController.GetAllLeads">
+            <summary>
+            It is used to Show Leads Info
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.MentorController.AddMentor(LMSCommonLayer.RequestModels.MentorRegistrationRequest)">
+            <summary>
+            It is used for Mentor Registration
+            </summary>
+            <param name="mentor">Mentor Registration Data</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.MentorController.AddMentorIdeation(LMSCommonLayer.RequestModels.MentorIdeationRequest)">
+            <summary>
+            It is used to Map Lead to Mentors
+            </summary>
+            <param name="mentor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.MentorController.AddMentorTechStack(LMSCommonLayer.RequestModels.MentorTechStackRequest)">
+            <summary>
+            It is used to Add Mentor Tech Stack
+            </summary>
+            <param name="mentor">Mentor TEch Stack</param>
+            <returns>IF Data Found return Ok Else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.TechnologyController.GetAllTechStacks">
+            <summary>
+            It is used Show All Tech Stacks
+            </summary>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.TechnologyController.AddTechStack(LMSCommonLayer.RequestModels.TechStackRequest)">
+            <summary>
+            It is used to Add Tech Stack
+            </summary>
+            <param name="techStack">Tech Stack</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.TechnologyController.GetAllTechTypes">
+            <summary>
+            It is used to Show All Tech Types 
+            </summary>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.TechnologyController.AddTechType(LMSCommonLayer.RequestModels.TechTypeRequest)">
+            <summary>
+            It is used to Add Tech Type
+            </summary>
+            <param name="techType">Tech Type</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+    </members>
+</doc>
