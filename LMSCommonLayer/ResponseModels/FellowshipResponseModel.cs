@@ -205,4 +205,33 @@ namespace LMSCommonLayer.ResponseModels
 		
 		public DateTime ModifiedDate { get; set; }
 	}
+
+	public class CandidateTechnologyResponse
+	{
+		public int CandidateID { get; set; }
+
+		public string FirstName { get; set; }
+
+		public string MiddleName { get; set; }
+		
+		public string LastName { get; set; }
+
+		public string Email { get; set; }
+
+		public int CompanyID { get; set; }
+
+		public string CompanyName { get; set; }
+
+		public string CompanyLocation { get; set; }
+
+		public string LeadName { get; set; }
+
+		public string TechName { get; set; }
+
+		public string TypeName { get; set; }
+
+		public DateTime AssignDate { get; set; }
+
+		public DateTime RequestedMonth { get; set; }
+	}
 }

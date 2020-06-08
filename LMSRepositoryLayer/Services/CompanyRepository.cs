@@ -171,7 +171,7 @@ namespace LMSRepositoryLayer.Services
                     {
                         responseData = new CompanyRequirementResponse()
                         {
-                            ID = Convert.ToInt32(dataReader["ID"]),
+                            ID = Convert.ToInt32(dataReader["RequirementID"]),
                             CompanyID = Convert.ToInt32(dataReader["CompanyID"]),
                             RequestedMonth = dataReader["RequestedMonth"].ToString(),
                             City = dataReader["City"].ToString(),

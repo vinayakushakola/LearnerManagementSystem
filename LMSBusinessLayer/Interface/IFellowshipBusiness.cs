@@ -21,6 +21,8 @@ namespace LMSBusinessLayer.Interface
     
         CandidateDocumentsResponse AddCanndidateDocuments(int candidateID, CandidateDocumentsRequest documents);
 
+        List<CandidateTechnologyResponse> ListOfTechAssignedCandidates();
+
         CandidateTechStackAssignResponse AddCandidateTechStackAssign(CandidateTechStackAssignRequest candidateTech);
     }
 }

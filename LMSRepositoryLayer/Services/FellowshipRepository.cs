@@ -415,6 +415,53 @@ namespace LMSRepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// It Fetches Technology Assigned Candidates Data from the Database
+        /// </summary>
+        /// <returns>If Data Found return Response Data else null or Exception</returns>
+        public List<CandidateTechnologyResponse> ListOfTechAssignedCandidates()
+        {
+            try
+            {
+                List<CandidateTechnologyResponse> responseList = null;
+                using(SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("spGetAllTechAssignedCandidates", conn))
+                    {
+                        responseList = new List<CandidateTechnologyResponse>();
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        conn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            CandidateTechnologyResponse responseData = new CandidateTechnologyResponse
+                            {
+                                CandidateID = Convert.ToInt32(dataReader["CandidateID"]),
+                                FirstName = dataReader["FirstName"].ToString(),
+                                MiddleName = dataReader["MiddleName"].ToString(),
+                                LastName = dataReader["LastName"].ToString(),
+                                Email = dataReader["Email"].ToString(),
+                                CompanyID = Convert.ToInt32(dataReader["CompanyID"]),
+                                CompanyName = dataReader["CompanyName"].ToString(),
+                                CompanyLocation = dataReader["City"].ToString(),
+                                LeadName = dataReader["LeadName"].ToString(),
+                                TechName = dataReader["TechName"].ToString(),
+                                TypeName = dataReader["TypeName"].ToString(),
+                                AssignDate = Convert.ToDateTime(dataReader["AssignDate"]),
+                                RequestedMonth = Convert.ToDateTime(dataReader["RequestedMonth"])
+                            };
+                            responseList.Add(responseData);
+                        }
+                    }
+                }
+                return responseList;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// It is used to Add Candidate tech Stack in the Database

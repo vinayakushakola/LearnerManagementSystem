@@ -185,6 +185,42 @@ namespace LearnerManagementSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// It is used to Show All the Technology Assigned Candidates Data
+        /// </summary>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
+        [HttpGet]
+        [Route("CandidateTech")]
+        public IActionResult GetListOfCandidateTechCompany()
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _fellowshipBusiness.ListOfTechAssignedCandidates();
+                if (data != null)
+                {
+                    success = true;
+                    message = "Technology Assigned Candidate Data Fetched Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "No Data Found!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// It is used to Assign Technology to a Candidate
+        /// </summary>
+        /// <param name="candidateTech">Candiate tech</param>
+        /// <returns>If Data Found return Ok else null or BadRequest</returns>
         [HttpPost]
         [Route("TechAssignment")]
         public IActionResult AddCandidateTecStackAssign(CandidateTechStackAssignRequest candidateTech)

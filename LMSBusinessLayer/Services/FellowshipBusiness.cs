@@ -51,6 +51,12 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
+        public List<CandidateTechnologyResponse> ListOfTechAssignedCandidates()
+        {
+            var responseData = _hiredRepository.ListOfTechAssignedCandidates();
+            return responseData;
+        }
+
         public CandidateTechStackAssignResponse AddCandidateTechStackAssign(CandidateTechStackAssignRequest candidateTech)
         {
             var responseData = _hiredRepository.AddCandidateTechStackAssign(candidateTech);

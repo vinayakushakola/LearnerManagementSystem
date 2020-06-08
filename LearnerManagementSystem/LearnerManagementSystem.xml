@@ -125,6 +125,19 @@
             <param name="documents">Candidate Documents</param>
             <returns>If Data Found return Ok else NotFound or Badrequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.GetListOfCandidateTechCompany">
+            <summary>
+            It is used to Show All the Technology Assigned Candidates Data
+            </summary>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.FellowshipController.AddCandidateTecStackAssign(LMSCommonLayer.RequestModels.CandidateTechStackAssignRequest)">
+            <summary>
+            It is used to Assign Technology to a Candidate
+            </summary>
+            <param name="candidateTech">Candiate tech</param>
+            <returns>If Data Found return Ok else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.HiredController.GetAllCandidates">
             <summary>
             It is used to Show all Candidates Data

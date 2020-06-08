@@ -49,7 +49,7 @@ namespace LMSRepositoryLayer.Services
                     {
                         MakerProgramResponse responseData = new MakerProgramResponse()
                         {
-                            ID = Convert.ToInt32(dataReader["ID"]),
+                            ID = Convert.ToInt32(dataReader["MakerProgramID"]),
                             ProgramName = dataReader["ProgramName"].ToString(),
                             ProgramType = dataReader["ProgramType"].ToString(),
                             ProgramLink = dataReader["ProgramLink"].ToString(),
@@ -109,7 +109,7 @@ namespace LMSRepositoryLayer.Services
                     {
                         responseData = new MakerProgramResponse
                         {
-                            ID = Convert.ToInt32(dataReader["ID"]),
+                            ID = Convert.ToInt32(dataReader["MakerProgramID"]),
                             ProgramName = dataReader["ProgramName"].ToString(),
                             ProgramType = dataReader["ProgramType"].ToString(),
                             ProgramLink = dataReader["ProgramLink"].ToString(),
