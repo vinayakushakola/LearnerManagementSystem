@@ -3,10 +3,13 @@
 // Date: 25/05/2020
 //
 
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using LMSBusinessLayer.Interface;
 using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -280,6 +283,37 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
+        /// It is used to Upload Image
+        /// </summary>
+        /// <param name="image">Select Image</param>
+        /// <returns>If Image Link Found return ok else null or BadRequest</returns>
+        [HttpPost]
+        [Route("UploadImage")]
+        public IActionResult UploadImage(IFormFile image)
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                string imageLink = UploadImageToCloudinary(image);
+                if (imageLink != null)
+                {
+                    success = true;
+                    message = "Image Uploaded Successfully";
+                    return Ok(new { success, message, imageLink });
+                }
+                else
+                {
+                    message = "Image Uploading Failed!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+        /// <summary>
         /// It is used to Generate Token
         /// </summary>
         /// <param name="tokenData">Response Data</param>
@@ -351,6 +385,39 @@ namespace LearnerManagementSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// It is used to Upload Image to Cloduinary
+        /// </summary>
+        /// <param name="image">Image Link</param>
+        /// <returns>If Image Uploaded Successfully return Image Link else BadRequest</returns>
+        private string UploadImageToCloudinary(IFormFile image)
+        {
+            try
+            {
+                var myAccount = new Account(_configuration["Cloudinary:CloudName"], _configuration["Cloudinary:ApiKey"], _configuration["Cloudinary:ApiSecret"]);
+
+                Cloudinary _cloudinary = new Cloudinary(myAccount);
+
+                var imageUpload = new ImageUploadParams
+                {
+                    File = new FileDescription(image.FileName, image.OpenReadStream()),
+                };
+
+                var uploadResult = _cloudinary.Upload(imageUpload);
+
+                return uploadResult.SecureUri.AbsoluteUri;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// It Validate Registration Data
+        /// </summary>
+        /// <param name="adminDetails">Registration Data</param>
+        /// <returns>If Validation is Successfull return true else false</returns>
         private bool ValidateRegistrationRequest(RegistrationRequest adminDetails)
         {
             if (adminDetails == null || string.IsNullOrWhiteSpace(adminDetails.FirstName) ||
@@ -365,6 +432,11 @@ namespace LearnerManagementSystem.Controllers
                 return true;
         }
 
+        /// <summary>
+        /// It Validate Login Data
+        /// </summary>
+        /// <param name="loginRequest">Login Data</param>
+        /// <returns>If Validation Successfull return true else false</returns>
         private bool ValidateLoginRequest(LoginRequest loginRequest)
         {
             if (loginRequest == null || string.IsNullOrWhiteSpace(loginRequest.Email) ||
@@ -375,6 +447,11 @@ namespace LearnerManagementSystem.Controllers
             return true;
         }
 
+        /// <summary>
+        /// It Validate Forgot Password Data
+        /// </summary>
+        /// <param name="forgotPassword">Forgot Password</param>
+        /// <returns>If Validation Successfull return true else false</returns>
         private bool ValidateForgotPasswordRequest(ForgotPasswordRequest forgotPassword)
         {
             if (forgotPassword == null || string.IsNullOrWhiteSpace(forgotPassword.Email) ||
@@ -384,6 +461,11 @@ namespace LearnerManagementSystem.Controllers
             return true;
         }
 
+        /// <summary>
+        /// It Validate Reset Password
+        /// </summary>
+        /// <param name="resetPassword">Reset Password</param>
+        /// <returns>If Validation is Successfull return true else false</returns>
         private bool ValidateResetPasswordRequest(ResetPasswordRequest resetPassword)
         {
             if (resetPassword == null || string.IsNullOrWhiteSpace(resetPassword.Password) ||

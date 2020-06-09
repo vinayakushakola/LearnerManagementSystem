@@ -52,6 +52,13 @@
             <param name="reset">Reset Password</param>
             <returns>If ResetPassword Successfull return ok else NotFound or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.UploadImage(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            It is used to Upload Image
+            </summary>
+            <param name="image">Select Image</param>
+            <returns>If Image Link Found return ok else null or BadRequest</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.AdminController.GenerateToken(LMSCommonLayer.ResponseModels.AdminResponseModel,System.String)">
             <summary>
             It is used to Generate Token
@@ -66,6 +73,41 @@
             </summary>
             <param name="data">Response Data</param>
             <param name="token">Token</param>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.UploadImageToCloudinary(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            It is used to Upload Image to Cloduinary
+            </summary>
+            <param name="image">Image Link</param>
+            <returns>If Image Uploaded Successfully return Image Link else BadRequest</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.ValidateRegistrationRequest(LMSCommonLayer.RequestModels.RegistrationRequest)">
+            <summary>
+            It Validate Registration Data
+            </summary>
+            <param name="adminDetails">Registration Data</param>
+            <returns>If Validation is Successfull return true else false</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.ValidateLoginRequest(LMSCommonLayer.RequestModels.LoginRequest)">
+            <summary>
+            It Validate Login Data
+            </summary>
+            <param name="loginRequest">Login Data</param>
+            <returns>If Validation Successfull return true else false</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.ValidateForgotPasswordRequest(LMSCommonLayer.RequestModels.ForgotPasswordRequest)">
+            <summary>
+            It Validate Forgot Password Data
+            </summary>
+            <param name="forgotPassword">Forgot Password</param>
+            <returns>If Validation Successfull return true else false</returns>
+        </member>
+        <member name="M:LearnerManagementSystem.Controllers.AdminController.ValidateResetPasswordRequest(LMSCommonLayer.RequestModels.ResetPasswordRequest)">
+            <summary>
+            It Validate Reset Password
+            </summary>
+            <param name="resetPassword">Reset Password</param>
+            <returns>If Validation is Successfull return true else false</returns>
         </member>
         <member name="M:LearnerManagementSystem.Controllers.CompanyController.GetAllCompanies">
             <summary>
