@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSCommonLayer", "LMSCommon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSRepositoryLayer", "LMSRepositoryLayer\LMSRepositoryLayer.csproj", "{7B25EE2C-CCCC-4FF4-814C-B1810C082670}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSUnitTesting", "LMSUnitTesting\LMSUnitTesting.csproj", "{B66DE1B4-EEE4-457D-8473-18FE184CFD16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSUnitTesting", "LMSUnitTesting\LMSUnitTesting.csproj", "{B66DE1B4-EEE4-457D-8473-18FE184CFD16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSMsmq", "LMSMsmq\LMSMsmq.csproj", "{EF4E9228-6C2D-43A5-9B0C-2B7CD710EBD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B66DE1B4-EEE4-457D-8473-18FE184CFD16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B66DE1B4-EEE4-457D-8473-18FE184CFD16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B66DE1B4-EEE4-457D-8473-18FE184CFD16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF4E9228-6C2D-43A5-9B0C-2B7CD710EBD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF4E9228-6C2D-43A5-9B0C-2B7CD710EBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF4E9228-6C2D-43A5-9B0C-2B7CD710EBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF4E9228-6C2D-43A5-9B0C-2B7CD710EBD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

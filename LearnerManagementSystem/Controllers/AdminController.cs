@@ -6,6 +6,7 @@
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using LMSBusinessLayer.Interface;
+using LMSCommonLayer.DBModels;
 using LMSCommonLayer.RequestModels;
 using LMSCommonLayer.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
@@ -218,21 +219,25 @@ namespace LearnerManagementSystem.Controllers
             {
                 if (!ValidateForgotPasswordRequest(forgot))
                     return BadRequest(new { Message = "Enter Email ID Properly!" });
-                bool success = false, sentMail;
+                bool success = false;
                 string message, token;
                 var data = _adminBusiness.ForgotPassword(forgot);
                 if (data != null)
                 {
                     token = GenerateToken(data, _forgotPassword);
-                    sentMail = SendMail(data, token);
-                    if (sentMail)
-                    {
-                        success = true;
-                        message = "Token Sent Successfully";
-                        return Ok(new { success, message, data, token });
-                    }
-                    message = "Mail Not sent, Try again";
-                    return Ok(new { success, message });
+                    MSMQSender.SendToMsmq(data.Email, token);
+                    success = true;
+                    message = "Token Sent Successfully";
+                    return Ok(new { success, message, data, token });
+                    //sentMail = SendMail(data, token);
+                    //if (sentMail)
+                    //{
+                    //    success = true;
+                    //    message = "Token Sent Successfully";
+                    //    return Ok(new { success, message, data, token });
+                    //}
+                    //message = "Mail Not sent, Try again";
+                    //return Ok(new { success, message });
                 }
                 else
                 {
