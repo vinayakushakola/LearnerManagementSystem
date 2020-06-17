@@ -13,6 +13,8 @@ namespace LMSRepositoryLayer.Interface
     {
         List<HiredResponseModel> GetAllCandidates();
 
+        List<HiredStatusPendingResponse> GetAllPendingCandidates();
+
         HiredResponseModel AddHired(HiredRegistrationRequest hiredRegistration);
 
         HiredResponseModel UpdateHired(int candidateID, HiredUpdateRequest hiredRegistrationUpdate);

@@ -49,4 +49,31 @@ namespace LMSCommonLayer.ResponseModels
 
 		public DateTime ModifiedDate { get; set; }
 	}
+
+	public class HiredStatusPendingResponse
+	{
+		public int CandidateID { get; set; }
+
+		public string FirstName { get; set; }
+
+		public string MiddleName { get; set; }
+
+		public string LastName { get; set; }
+
+		public string Email { get; set; }
+
+		public string Degree { get; set; }
+
+		public string MobileNumber { get; set; }
+
+		public string Status { get; set; }
+
+		public string CreatorStamp { get; set; }
+
+		public string CreatorUser { get; set; }
+
+		public DateTime CreatedDate { get; set; }
+
+		public DateTime ModifiedDate { get; set; }
+	}
 }

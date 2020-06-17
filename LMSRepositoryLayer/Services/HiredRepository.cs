@@ -82,6 +82,54 @@ namespace LMSRepositoryLayer.Services
         }
 
         /// <summary>
+        /// It Fetches Status Pending Candidate Data from the Database
+        /// </summary>
+        /// <returns>If Data Found return Response Data else null or Exception</returns>
+        public List<HiredStatusPendingResponse> GetAllPendingCandidates()
+        {
+            try
+            {
+                List<HiredStatusPendingResponse> userList = null;
+
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    userList = new List<HiredStatusPendingResponse>();
+                    SqlCommand cmd = new SqlCommand("spGetAllStatusPendingCandidates", conn)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        HiredStatusPendingResponse responseData = new HiredStatusPendingResponse()
+                        {
+                            CandidateID = Convert.ToInt32(dataReader["ID"].ToString()),
+                            FirstName = dataReader["FirstName"].ToString(),
+                            MiddleName = dataReader["MiddleName"].ToString(),
+                            LastName = dataReader["LastName"].ToString(),
+                            Email = dataReader["Email"].ToString(),
+                            Degree = dataReader["Degree"].ToString(),
+                            MobileNumber = dataReader["MobileNumber"].ToString(),
+                            Status = dataReader["Status"].ToString(),
+                            CreatorStamp = dataReader["CreatorStamp"].ToString(),
+                            CreatorUser = dataReader["CreatorUser"].ToString(),
+                            CreatedDate = Convert.ToDateTime(dataReader["CreatedDate"]),
+                            ModifiedDate = Convert.ToDateTime(dataReader["ModifiedDate"])
+                        };
+                        userList.Add(responseData);
+                    }
+                    conn.Close();
+                }
+                return userList;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// It Stores Data in the Database
         /// </summary>
         /// <param name="hiredRegistration">Hired Registration Data</param>

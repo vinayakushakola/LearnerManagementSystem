@@ -25,6 +25,12 @@ namespace LMSBusinessLayer.Services
             return responseData;
         }
 
+        public List<HiredStatusPendingResponse> GetAllPendingCandidates()
+        {
+            var responseData = _hiredRepository.GetAllPendingCandidates();
+            return responseData;
+        }
+
         public HiredResponseModel AddHired(HiredRegistrationRequest hiredRegistration)
         {
             var responseData = _hiredRepository.AddHired(hiredRegistration);

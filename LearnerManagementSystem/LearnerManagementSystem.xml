@@ -186,6 +186,12 @@
             </summary>
             <returns>If Data Found return Ok else return NotFound or BadRequest</returns>
         </member>
+        <member name="M:LearnerManagementSystem.Controllers.HiredController.GetAllStatusPendingCandidates">
+            <summary>
+            It is used to Show All the Status Pending Candidates Data
+            </summary>
+            <returns>If Data Found return Ok else null or Bad Request</returns>
+        </member>
         <member name="M:LearnerManagementSystem.Controllers.HiredController.AddCandidate(LMSCommonLayer.RequestModels.HiredRegistrationRequest)">
             <summary>
             It is used to Add Candidate(Hired) Data

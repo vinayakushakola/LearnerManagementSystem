@@ -54,6 +54,37 @@ namespace LearnerManagementSystem.Controllers
         }
 
         /// <summary>
+        /// It is used to Show All the Status Pending Candidates Data
+        /// </summary>
+        /// <returns>If Data Found return Ok else null or Bad Request</returns>
+        [HttpGet]
+        [Route("StatusPending")]
+        public IActionResult GetAllStatusPendingCandidates()
+        {
+            try
+            {
+                bool success = false;
+                string message;
+                var data = _hiredBusiness.GetAllPendingCandidates().ToList();
+                if (data != null)
+                {
+                    success = true;
+                    message = "Status Pending Candidates Data Fetched Successfully";
+                    return Ok(new { success, message, data });
+                }
+                else
+                {
+                    message = "No data Found!";
+                    return NotFound(new { success, message });
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        /// <summary>
         /// It is used to Add Candidate(Hired) Data
         /// </summary>
         /// <param name="registration">Candidate Registration Data</param>
