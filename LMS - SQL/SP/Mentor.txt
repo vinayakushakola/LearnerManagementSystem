@@ -1,0 +1,57 @@
+Create proc spGetAllMentors
+as
+BEGIN
+	Select * from Mentor;
+END
+
+Create proc spAddMentor
+(
+	@Name varchar(50),
+	@MentorType varchar(50),
+	@LabID int,
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into Mentor(Name,MentorType,LabID,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@Name,@MentorType,@LabID,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from Mentor;
+END
+
+Create proc spAddMentorIdeationMap
+(
+	@LeadID int,
+	@MentorID int,
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into MentorIdeationMap(LeadID,MentorID,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@LeadID,@MentorID,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from MentorIdeationMap;
+END
+
+Create proc spAddMentorTechStack
+(
+	@MentorID int,
+	@TechStackID int,
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into MentorTechStack(MentorID,TechStackID,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@MentorID,@TechStackID,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from MentorTechStack;
+END

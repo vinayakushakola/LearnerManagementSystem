@@ -1,0 +1,307 @@
+{ lead:[
+	{Id: 1, 
+	 name: Nagendra,
+	 buddy:[
+		{name :sriniwas,
+		 stack:MEAN,
+		 Id:12},
+		{name :saurabh
+		 stack:.NET,
+		 Id:13}]
+	},
+	{Id: 2, 
+	 name: Dilip,
+	 buddy:[
+		{name :abc,
+		 stack:MEAN,
+		 Id:12},
+		{name :xyz,
+		 stack:.NET,
+		 Id:13}]
+	}]
+} 
+
+
+
+{
+  "success": true,
+  "message": "Leads with Mentors Data Fetched Successfully",
+  "data": [
+    {
+      "leads": [
+        {
+          "id": 1,
+          "name": "Nagendra",
+          "buddy": [
+            {
+              "id": 4,
+              "name": "Suarabh N",
+              "techStack": 1
+            },
+            {
+              "id": 5,
+              "name": "Sachin",
+              "techStack": 1
+            },
+            {
+              "id": 6,
+              "name": "Minesh",
+              "techStack": 1
+            },
+            {
+              "id": 7,
+              "name": "Ravi",
+              "techStack": 2
+            },
+            {
+              "id": 8,
+              "name": "Rohit",
+              "techStack": 3
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "name": "Nagendra",
+          "buddy": [
+            {
+              "id": 4,
+              "name": "Suarabh N",
+              "techStack": 1
+            },
+            {
+              "id": 5,
+              "name": "Sachin",
+              "techStack": 1
+            },
+            {
+              "id": 6,
+              "name": "Minesh",
+              "techStack": 1
+            },
+            {
+              "id": 7,
+              "name": "Ravi",
+              "techStack": 2
+            },
+            {
+              "id": 8,
+              "name": "Rohit",
+              "techStack": 3
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "name": "Nagendra",
+          "buddy": [
+            {
+              "id": 4,
+              "name": "Suarabh N",
+              "techStack": 1
+            },
+            {
+              "id": 5,
+              "name": "Sachin",
+              "techStack": 1
+            },
+            {
+              "id": 6,
+              "name": "Minesh",
+              "techStack": 1
+            },
+            {
+              "id": 7,
+              "name": "Ravi",
+              "techStack": 2
+            },
+            {
+              "id": 8,
+              "name": "Rohit",
+              "techStack": 3
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Saurabh",
+          "buddy": [
+            {
+              "id": 4,
+              "name": "Suarabh N",
+              "techStack": 1
+            },
+            {
+              "id": 5,
+              "name": "Sachin",
+              "techStack": 1
+            },
+            {
+              "id": 6,
+              "name": "Minesh",
+              "techStack": 1
+            },
+            {
+              "id": 7,
+              "name": "Ravi",
+              "techStack": 2
+            },
+            {
+              "id": 8,
+              "name": "Rohit",
+              "techStack": 3
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Dilip",
+          "buddy": [
+            {
+              "id": 4,
+              "name": "Suarabh N",
+              "techStack": 1
+            },
+            {
+              "id": 5,
+              "name": "Sachin",
+              "techStack": 1
+            },
+            {
+              "id": 6,
+              "name": "Minesh",
+              "techStack": 1
+            },
+            {
+              "id": 7,
+              "name": "Ravi",
+              "techStack": 2
+            },
+            {
+              "id": 8,
+              "name": "Rohit",
+              "techStack": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+ public List<LeadBuddyResponse> ListOfLeads()
+        {
+            try
+            {
+                List<LeadBuddyResponse> leadBuddyList = null;
+                List<LeadResponse> leadsList = null;
+                List<BuddyResponse> buddyList = null;
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    leadsList = new List<LeadResponse>();
+                    buddyList = new List<BuddyResponse>();
+                    SqlCommand cmd = new SqlCommand("spGetAllLeadsBuddies", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        LeadResponse responseData = new LeadResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["LeadID"]),
+                            Name = dataReader["Name"].ToString()
+                        };
+                        BuddyResponse buddyResponse = new BuddyResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["MentorID"]),
+                            Name = dataReader["MentorName"].ToString(),
+                            TechStack = Convert.ToInt32(dataReader["TechStackID"])
+                        };
+                        buddyList.Add(buddyResponse);
+                        responseData.Buddy = buddyList;
+                        leadsList.Add(responseData);
+
+                    }
+                    conn.Close();
+                    LeadBuddyResponse leadBuddyResponse = new LeadBuddyResponse
+                    {
+                        Leads = leadsList
+                    };
+                    leadBuddyList = new List<LeadBuddyResponse>();
+                    leadBuddyList.Add(leadBuddyResponse);
+                }
+                return leadBuddyList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+
+ALTER proc [dbo].[spGetAllLeadsBuddies]
+as
+BEGIN
+	Select mm.LeadID,m.Name,mm.MentorID,m2.Name MentorName,mt.TechStackID from Mentor m
+	inner join MentorIdeationMap mm
+	on mm.LeadID = m.MentorID 
+	inner join MentorTechStack mt
+	on mt.MentorID = m.MentorID
+	inner join Mentor m2
+	on m2.MentorID = mm.MentorID
+END
+
+
+
+public List<LeadBuddyResponse> ListOfLeads()
+        {
+            try
+            {
+                List<LeadBuddyResponse> leadBuddyList = null;
+                List<LeadResponse> leadsList = null;
+                List<BuddyResponse> buddyList = null;
+                using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    leadsList = new List<LeadResponse>();
+                    buddyList = new List<BuddyResponse>();
+                    SqlCommand cmd = new SqlCommand("spGetAllLeadsBuddies", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    conn.Open();
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        LeadResponse responseData = new LeadResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["LeadID"]),
+                            Name = dataReader["Name"].ToString()
+                        };
+                        BuddyResponse buddyResponse = new BuddyResponse()
+                        {
+                            ID = Convert.ToInt32(dataReader["MentorID"]),
+                            Name = dataReader["BuddyName"].ToString(),
+                            TechStack = dataReader["TechName"].ToString()
+                        };
+                        buddyList.Add(buddyResponse);
+                        responseData.Buddy = buddyList;
+                        leadsList.Add(responseData);
+
+                    }
+                    conn.Close();
+                    LeadBuddyResponse leadBuddyResponse = new LeadBuddyResponse
+                    {
+                        Leads = leadsList
+                    };
+                    leadBuddyList = new List<LeadBuddyResponse>();
+                    leadBuddyList.Add(leadBuddyResponse);
+                }
+                return leadBuddyList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }

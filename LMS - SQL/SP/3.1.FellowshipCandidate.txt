@@ -1,0 +1,158 @@
+Create proc spGetAllFellowshipCandidates
+as
+BEGIN
+	Select * from FellowshipCandidate
+END
+
+create procedure spAddFellowshipCandidate
+(
+	@FirstName varchar(50),
+	@MiddleName varchar(50),
+	@LastName varchar(50),
+	@Email varchar(50),
+	@Degree varchar(50),
+	@MobileNumber varchar(50),
+	@PermanentPincode varchar(50),
+	@HiredCity varchar(50),
+	@HiredDate datetime,
+	@HiredLab varchar(50),
+	@Attitude varchar(50),
+	@CommunicationRemark varchar(50),
+	@KnowledgeRemark varchar(50),
+	@AggregateRemark varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into FellowshipCandidate(FirstName, MiddleName, LastName, Email, Degree, MobileNumber, PermanentPincode, HiredCity,HiredDate,HiredLab,Attitude,CommunicationRemark,KnowledgeRemark,AggregateRemark,Status, CreatorStamp, CreatorUser, CreatedDate, ModifiedDate)
+	Values(@FirstName,@MiddleName,@LastName,@Email, @Degree, @MobileNumber, @PermanentPincode,@HiredCity, @HiredDate,@HiredLab,@Attitude,@CommunicationRemark,@KnowledgeRemark,@AggregateRemark,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from FellowshipCandidate where Email=@Email;
+END
+
+create procedure spUpdateFellowshipCandidate
+(
+	@CandidateID int,
+	@BirthDate varchar(50),
+	@IsBirthDateVerified bit,
+	@ParentName varchar(50),
+	@ParentOccupation varchar(50),
+	@ParentsMobileNumber varchar(50),
+	@ParentsAnnualSalary varchar(50),
+	@LocalAddress varchar(200),
+	@PermanentAddress varchar(200),
+	@PhotoPath varchar(200),
+	@JoiningDate varchar(50),
+	@CandidateStatus varchar(50),
+	@PersonalInformation varchar(100),
+	@BankInformation varchar(100),
+	@EducationalInformation varchar(100),
+	@DocumentStatus varchar(50),
+	@Remark varchar(50),
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Update FellowshipCandidate set BirthDate=@BirthDate,IsBirthDateVerified=@IsBirthDateVerified,ParentName=@ParentName,ParentOccupation=@ParentOccupation,ParentsMobileNumber=@ParentsMobileNumber,ParentsAnnualSalary=@ParentsAnnualSalary,LocalAddress=@LocalAddress, PermanentAddress=@PermanentAddress,PhotoPath=@PhotoPath,JoiningDate=@JoiningDate,CandidateStatus=@CandidateStatus,PersonalInformation=@PersonalInformation,BankInformation=@BankInformation, EducationalInformation=@EducationalInformation,DocumentStatus=@DocumentStatus, Remark=@Remark,ModifiedDate=@ModifiedDate Where CandidateID=@CandidateID;
+	Select * from FellowshipCandidate where CandidateID=@CandidateID;
+END
+
+
+create procedure spAddCandidateBankDetails
+(
+	@CandidateID int,
+	@Name varchar(50),
+	@AccountNumber varchar(50),
+	@IsAccountNumberVerified varchar(50),
+	@IfscCode varchar(50),
+	@IsIfscCodeVerified varchar(50),
+	@PanNumber varchar(50),
+	@IsPanNumberVerified varchar(50),
+	@AdhaarNumber varchar(50),
+	@IsAdhaarNumberVerified varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CandidateBankDetails(CandidateID,Name, AccountNumber,IsAccountNumberVerified,IfscCode,IsIfscCodeVerified,PanNumber,IsPanNumberVerified,AdhaarNumber,IsAdhaarNumberVerified,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values (@CandidateID,@Name,@AccountNumber,@IsAccountNumberVerified,@IfscCode,@IsIfscCodeVerified,@PanNumber,@IsPanNumberVerified,@AdhaarNumber,@IsAdhaarNumberVerified,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	select * from CandidateBankDetails where CandidateID=@CandidateID;
+END
+
+Create Procedure spAddCandidateQualification
+(
+	@CandidateID int,
+	@Diploma varchar(50),
+	@DegreeName varchar(50),
+	@IsDegreeNameVerified varchar(50),
+	@EmployeeDiscipline varchar(50),
+	@IsEmployeeDisciplined varchar(50),
+	@PassingYear varchar(50),
+	@IsPassingYearVerified varchar(50),
+	@AggregatePer varchar(50),
+	@IsAggregatePerVerified varchar(50),
+	@FinalYearPer varchar(50),
+	@IsFinalYearPerVerified varchar(50),
+	@TrainingInstitute varchar(50),
+	@IsTrainingInstituteVerified varchar(50),
+	@TrainingDurationMon varchar(50),
+	@IsTrainingDurationMonVerified varchar(50),
+	@OtherTraining varchar(50),
+	@IsOtherTrainingVerified varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CandidateQualification(CandidateID,Diploma,DegreeName,IsDegreeNameVerified,EmployeeDiscipline,IsEmployeeDisciplined,PassingYear,
+	IsPassingYearVerified,AggregatePer,IsAggregatePerVerified,FinalYearPer,IsFinalYearPerVerified,TrainingInstitute,IsTrainingInstituteVerified,
+	TrainingDurationMon,IsTrainingDurationMonVerified,OtherTraining,IsOtherTrainingVerified,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@CandidateID,@Diploma,@DegreeName,@IsDegreeNameVerified,@EmployeeDiscipline,@IsEmployeeDisciplined,@PassingYear,@IsPassingYearVerified,
+	@AggregatePer,@IsAggregatePerVerified,@FinalYearPer,@IsFinalYearPerVerified,@TrainingInstitute,@IsTrainingInstituteVerified,@TrainingDurationMon,
+	@IsTrainingDurationMonVerified,@OtherTraining,@IsOtherTrainingVerified,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CandidateQualification where CandidateID=@CandidateID;
+END
+
+create procedure spAddCandidateDocuments
+(
+	@CandidateID varchar(50),
+	@DocType varchar(50),
+	@DocPath varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CandidateDocuments(CandidateID,DocType,DocPath,Status,CreatorStamp, CreatorUser,CreatedDate,ModifiedDate)
+	Values(@CandidateID,@DocType,@DocPath,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CandidateDocuments where CandidateID=@CandidateID;
+END
+
+create proc spAddCandidateTechStackAssignment
+(
+	@RequirementID int,
+	@CandidateID int,
+	@AssignDate varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CandidateTechStackAssignment(RequirementID,CandidateID,AssignDate,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@RequirementID,@CandidateID,@AssignDate,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CandidateTechStackAssignment;
+END

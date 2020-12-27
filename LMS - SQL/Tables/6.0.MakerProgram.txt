@@ -1,0 +1,19 @@
+create table MakerProgram
+(
+	MakerProgramID int Primary key Identity,
+	ProgramName varchar(50),
+	ProgramType varchar(50),
+	ProgramLink varchar(50),
+	TechStackID int,
+	TechTypeID int,
+	IsProgramApproved bit,
+	DescriptionStatus varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate DateTime,
+	ModifiedDate DateTime,
+	Foreign Key(TechStackID)
+	References TechStack(ID),
+	Foreign Key(TechTypeID)
+	References TechType(ID)
+)

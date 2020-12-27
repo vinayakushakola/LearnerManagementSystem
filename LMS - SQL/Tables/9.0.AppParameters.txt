@@ -1,0 +1,14 @@
+create table AppParameters
+(
+	ID int Primary key Identity,
+	KeyType varchar(50),
+	KeyValue varchar(50),
+	KeyText varchar(50),
+	CurentStatus varchar(50),
+	LastUpdateUser varchar(50),
+	LastUpdateStamp varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime
+	ModifiedDate Datetime
+)

@@ -1,0 +1,102 @@
+Create Procedure [dbo].[spGetAllAdminAccounts]
+as
+BEGIN
+	Select * from AdminDetails
+END
+
+Create procedure spAddAdminAccount
+(
+	@FirstName nvarchar(50),
+	@LastName nvarchar(50),
+	@Email nvarchar(50),
+	@Password nvarchar(50),
+	@ContactNumber nvarchar(50),
+	@IsVerified bit,
+	@CreatorStamp nvarchar(50),
+	@CreatorUser nvarchar(50),
+	@CreatedDate datetime,
+	@ModifiedDate datetime
+)
+as
+BEGIN
+	DECLARE @Result int
+	IF EXISTS (SELECT * FROM AdminDetails WHERE Email = @Email)  
+		BEGIN  
+			SET @Result = 1
+		END  
+	ELSE
+		BEGIN
+			Insert into AdminDetails(FirstName, LastName, Email, Password, ContactNumber, IsVerified,CreatorStamp, CreatorUser, CreatedDate, ModifiedDate)
+			Values(@FirstName,@LastName,@Email,@Password,@ContactNumber,@IsVerified,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+			Select * from AdminDetails where Email=@Email;
+			SET @Result = 0;
+		END
+RETURN @Result
+END
+
+Create Procedure [dbo].[spDeleteAdminAccount]
+(
+	@AdminID int
+)
+as
+BEGIN
+	Delete From AdminDetails Where AdminID=@AdminID
+END
+
+procedure [dbo].[spUpdateAdminAccount]
+(
+	@AdminID int,
+	@FirstName nvarchar(50),
+	@LastName nvarchar(50),
+	@ContactNumber nvarchar(50),
+	@IsVerified bit,
+	@CreatorStamp nvarchar(50),
+	@CreatorUser nvarchar(50),
+	@ModifiedDate datetime
+)
+as
+BEGIN
+	Update AdminDetails Set FirstName=@FirstName,LastName=@LastName,ContactNumber=@ContactNumber,IsVerified=@IsVerified,CreatorStamp=@CreatorStamp,CreatorUser=@CreatorUser,ModifiedDate=@ModifiedDate Where AdminID=@AdminID;
+	Select * from AdminDetails where AdminID=@AdminID;
+END
+
+ALTER Procedure [dbo].[spCheckEmailExists]
+(
+	@Email nvarchar(50)
+)
+as
+BEGIN
+	Select * from AdminDetails where Email=@Email;
+END
+
+ALTER Procedure [dbo].[spGetAllAdminAccounts]
+as
+BEGIN
+	Select * from AdminDetails
+END
+
+
+ALTER Procedure [dbo].[spResetAdminPassword]
+(
+	@AdminID int,
+	@Password nvarchar(50)
+)
+as
+BEGIN
+	Update AdminDetails Set Password=@Password where AdminID=@AdminID;
+	Select * from AdminDetails where AdminID=@AdminID;
+END
+
+
+ALTER Procedure [dbo].[spValidateAdminLogin]
+(
+	@Email nvarchar(50),
+	@Password nvarchar(50)
+)
+as
+BEGIN
+
+	Declare @Result int = 0
+	SELECT @Result=AdminID FROM AdminDetails WHERE Email = @Email AND password = @password	
+	Select * from AdminDetails where AdminID=@Result;
+END

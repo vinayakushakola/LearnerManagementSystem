@@ -1,0 +1,21 @@
+create proc spAddTechtype
+(
+	@TypeName varchar(50),
+	@CurrentStatus varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into Techtype(TypeName,CurrentStatus,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@TypeName,@CurrentStatus,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from Techtype;
+END
+
+Create proc spGetAllTechTypes
+as
+BEGIN
+	Select * from TechType
+END

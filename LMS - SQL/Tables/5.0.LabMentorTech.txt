@@ -1,0 +1,100 @@
+create table TechStack
+(
+	ID int Primary key Identity,
+	TechName varchar(50),
+	ImagePath varchar(50),
+	Framework varchar(50),
+	CurrentStatus varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime
+)
+
+create table TechType
+(
+	ID int Primary key Identity,
+	TypeName varchar(50),
+	CurrentStatus varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime
+)
+
+create table Lab
+(
+	LabID int Primary key Identity,
+	Name varchar(50),
+	Location varchar(50),
+	Address varchar(150),
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime
+)
+
+create table LabThreshold
+(
+	ID int Primary key Identity,
+	LabID int,
+	LabCapacity varchar(50),
+	LeadThreshold varchar(50),
+	IdeationEnggThreshold varchar(50),
+	BuddyEnggThreshold varchar(50),
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Foreign Key (LabID)
+	References Lab(LabID)
+)
+
+CREATE TABLE Mentor
+(
+	MentorID int Primary key Identity,
+	Name varchar(50),
+	MentorType varchar(50),
+	LabID int,
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Foreign Key(LabID)
+	References Lab(LabID)
+)
+
+CREATE TABLE MentorIdeationMap
+(
+	ID int Primary Key Identity,
+	LeadID int,
+	MentorID int,
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Foreign Key(LeadID)
+	References Mentor(MentorID),
+	Foreign Key(MentorID)
+	References Mentor(MentorID)
+)
+
+create table MentorTechStack
+(
+	ID int Primary key Identity,
+	MentorID int,
+	TechStackID int,
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Foreign Key(MentorID)
+	References Mentor(MentorID),
+	Foreign Key(TechStackID)
+	References TechStack(ID)
+)

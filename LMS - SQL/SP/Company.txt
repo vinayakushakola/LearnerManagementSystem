@@ -1,0 +1,52 @@
+Create proc spAddCompany
+(
+	@Name varchar(50),
+	@Address varchar(100),
+	@Location varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CompanyDetails(Name,Address,Location,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@Name,@Address,@Location,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CompanyDetails where Name=@Name;
+END
+
+create proc spGetAllCompanies
+as
+BEGIN
+	Select * from CompanyDetails
+END
+
+
+create proc spAddCompanyRequirement
+(
+	@CompanyID int,
+	@RequestedMonth varchar(50),
+	@City varchar(50),
+	@IsDocVerified bit,
+	@RequirementDocPath varchar(50),
+	@NumOfEngg varchar(50),
+	@TechStackID int,
+	@TechTypeID int,
+	@MakerProgramID varchar(50),
+	@LeadID int,
+	@IdeationEnggID int,
+	@BuddyEnggID int,
+	@SpecialRemark varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CompanyRequirement(CompanyID,RequestedMonth,City,IsDocVerified,RequirementDocPath,NumOfEngg,TechStackID,TechTypeID,MakerProgramID,LeadID,IdeationEnggID,BuddyEnggID,SpecialRemark,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@CompanyID,@RequestedMonth,@City,@IsDocVerified,@RequirementDocPath,@NumOfEngg,@TechStackID,@TechTypeID,@MakerProgramID,@LeadID,@IdeationEnggID,@BuddyEnggID,@SpecialRemark,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CompanyRequirement;
+END

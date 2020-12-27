@@ -1,0 +1,16 @@
+create table CandidateTechStackAssignment
+(
+	ID int Primary key Identity,
+	RequirementID int,
+	CandidateID int,
+	AssignDate varchar(50),
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Foreign Key(RequirementID)
+	References CompanyRequirement(RequirementID),
+	Foreign Key(CandidateID)
+	References FellowshipCandidate(CandidateID)
+)

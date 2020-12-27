@@ -1,0 +1,44 @@
+
+Create proc spAddLab
+(
+	@Name varchar(50),
+	@Location varchar(50),
+	@Address varchar(100),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into Lab(Name,Location,Address,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@Name,@Location,@Address,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from Lab;
+END
+
+Create proc spAddLabThreshold
+(
+	@LabID int,
+	@LabCapacity varchar(50),
+	@LeadThreshold varchar(50),
+	@IdeationEnggThreshold varchar(50),
+	@BuddyEnggThreshold varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into LabThreshold(LabID,LabCapacity,LeadThreshold,IdeationEnggThreshold,BuddyEnggThreshold,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@LabID,@LabCapacity,@LeadThreshold,@IdeationEnggThreshold,@BuddyEnggThreshold,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from LabThreshold;
+END
+
+Create proc spGetAllLabs
+as
+BEGIN
+	Select * from Lab
+END

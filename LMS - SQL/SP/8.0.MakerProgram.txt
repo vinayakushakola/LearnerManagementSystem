@@ -1,0 +1,20 @@
+create procedure spAddMakerProgram
+(
+	@ProgramName varchar(50),
+	@ProgramType varchar(50),
+	@ProgramLink varchar(50),
+	@TechStackID int,
+	@TechTypeID int,
+	@IsProgramApproved bit,
+	@DescriptionStatus varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into MakerProgram(ProgramName,ProgramType,ProgramLink,TechSTackID,TechTypeID,IsProgramApproved,DescriptionStatus,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@ProgramName,@programType,@ProgramLink,@TechStackID,@TechTypeID,@IsProgramApproved,@DescriptionSTatus,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from MakerProgram;
+END

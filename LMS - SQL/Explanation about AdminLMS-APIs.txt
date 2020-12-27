@@ -1,0 +1,18 @@
+Hello Sir,
+So today i am going to show you my project ie Learner Management System basically My project is all about handling the Hired Candidate Information From joining date to 
+Completing the fellowship program.
+So in this project first i created an Admin System
+In which first Admin have to register his account then he will be able to add candidates information into our server.
+So for this i created an Registration Api
+Login Api
+Update Admin Account Api
+Delete Admin Account Api
+N Aslo Forgot password n reset password api which is basically use to change the password of the admin
+
+After this We move on to the Candidate APIs
+In which the first thing is Only Admin can control the candidate information
+
+If the admin is not logged in he is not able to do any changes to the candidate information
+If the admin is logged in he can Add An Candidate into our server n delete
+
+This feature is available only when ur logged in.

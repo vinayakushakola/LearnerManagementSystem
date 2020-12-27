@@ -1,0 +1,419 @@
+create proc spGetAllHired
+as
+BEGIN
+	Select * from HiredCandidate
+END
+
+Create procedure spAddHired
+(
+	@FirstName varchar(50),
+	@MiddleName varchar(50),
+	@LastName varchar(50),
+	@Email varchar(50),
+	@Degree varchar(50),
+	@MobileNumber varchar(50),
+	@PermanentPincode varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into HiredCandidate(FirstName, MiddleName, LastName, Email, Degree, MobileNumber, PermanentPincode, CreatorStamp, CreatorUser, CreatedDate, ModifiedDate)
+	Values(@FirstName,@MiddleName,@LastName,@Email, @Degree, @MobileNumber, @PermanentPincode,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from HiredCandidate where Email=@Email;
+END
+
+
+
+Create procedure spUpdateHired
+(
+	@ID int,
+	@HiredCity varchar(50),
+	@HiredDate datetime,
+	@HiredLab varchar(50),
+	@Attitude varchar(50),
+	@CommunicationRemark varchar(50),
+	@KnowledgeRemark varchar(50),
+	@AggregateRemark varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Update HiredCandidate set HiredCity=@HiredCity, HiredDate=@HiredDate, HiredLab=@HiredLab,Attitude=@Attitude,CommunicationRemark=@CommunicationRemark,KnowledgeRemark=@KnowledgeRemark,AggregateRemark=@AggregateRemark,Status=@Status, CreatorStamp=@CreatorStamp, CreatorUser=@CreatorUser, ModifiedDate=@ModifiedDate where ID=@ID;
+	Select * from HiredCandidate where ID=@ID;
+END
+
+Create proc spGetAllFellowshipCandidates
+as
+BEGIN
+	Select * from FellowshipCandidate
+END
+
+create procedure spAddFellowshipCandidate
+(
+	@FirstName varchar(50),
+	@MiddleName varchar(50),
+	@LastName varchar(50),
+	@Email varchar(50),
+	@Degree varchar(50),
+	@MobileNumber varchar(50),
+	@PermanentPincode varchar(50),
+	@HiredCity varchar(50),
+	@HiredDate datetime,
+	@HiredLab varchar(50),
+	@Attitude varchar(50),
+	@CommunicationRemark varchar(50),
+	@KnowledgeRemark varchar(50),
+	@AggregateRemark varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into FellowshipCandidate(FirstName, MiddleName, LastName, Email, Degree, MobileNumber, PermanentPincode, HiredCity,HiredDate,HiredLab,Attitude,CommunicationRemark,KnowledgeRemark,AggregateRemark,Status, CreatorStamp, CreatorUser, CreatedDate, ModifiedDate)
+	Values(@FirstName,@MiddleName,@LastName,@Email, @Degree, @MobileNumber, @PermanentPincode,@HiredCity, @HiredDate,@HiredLab,@Attitude,@CommunicationRemark,@KnowledgeRemark,@AggregateRemark,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from FellowshipCandidate where Email=@Email;
+END
+
+create procedure spUpdateFellowshipCandidate
+(
+	@CandidateID int,
+	@BirthDate varchar(50),
+	@IsBirthDateVerified bit,
+	@ParentName varchar(50),
+	@ParentOccupation varchar(50),
+	@ParentsMobileNumber varchar(50),
+	@ParentsAnnualSalary varchar(50),
+	@LocalAddress varchar(100),
+	@PermanentAddress varchar(100),
+	@PhotoPath varchar(100),
+	@JoiningDate varchar(50),
+	@CandidateStatus varchar(50),
+	@PersonalInformation varchar(100),
+	@BankInformation varchar(100),
+	@EducationalInformation varchar(100),
+	@DocumentStatus varchar(50),
+	@Remark varchar(50),
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Update FellowshipCandidate set BirthDate=@BirthDate,IsBirthDateVerified=@IsBirthDateVerified,ParentName=@ParentName,ParentOccupation=@ParentOccupation,ParentsMobileNumber=@ParentsMobileNumber,ParentsAnnualSalary=@ParentsAnnualSalary,LocalAddress=@LocalAddress, PermanentAddress=@PermanentAddress,PhotoPath=@PhotoPath,JoiningDate=@JoiningDate,CandidateStatus=@CandidateStatus,PersonalInformation=@PersonalInformation,BankInformation=@BankInformation, EducationalInformation=@EducationalInformation,DocumentStatus=@DocumentStatus, Remark=@Remark,ModifiedDate=@ModifiedDate Where CandidateID=@CandidateID;
+	Select * from FellowshipCandidate where CandidateID=@CandidateID;
+END
+
+
+create procedure spAddCandidateBankDetails
+(
+	@CandidateID int,
+	@Name varchar(50),
+	@AccountNumber varchar(50),
+	@IsAccountNumberVerified bit,
+	@IfscCode varchar(50),
+	@IsIfscCodeVerified bit,
+	@PanNumber varchar(50),
+	@IsPanNumberVerified bit,
+	@AdhaarNumber varchar(50),
+	@IsAdhaarNumberVerified bit,
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CandidateBankDetails(CandidateID,Name, AccountNumber,IsAccountNumberVerified,IfscCode,IsIfscCodeVerified,PanNumber,IsPanNumberVerified,AdhaarNumber,IsAdhaarNumberVerified,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values (@CandidateID,@Name,@AccountNumber,@IsAccountNumberVerified,@IfscCode,@IsIfscCodeVerified,@PanNumber,@IsPanNumberVerified,@AdhaarNumber,@IsAdhaarNumberVerified,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	select * from CandidateBankDetails where CandidateID=@CandidateID;
+END
+
+Create Procedure spAddCandidateQualification
+(
+	@CandidateID int,
+	@Diploma varchar(50),
+	@DegreeName varchar(50),
+	@IsDegreeNameVerified bit,
+	@EmployeeDiscipline varchar(50),
+	@IsEmployeeDisciplined bit,
+	@PassingYear varchar(50),
+	@IsPassingYearVerified bit,
+	@AggregatePer varchar(50),
+	@IsAggregatePerVerified bit,
+	@FinalYearPer varchar(50),
+	@IsFinalYearPerVerified bit,
+	@TrainingInstitute varchar(50),
+	@IsTrainingInstituteVerified bit,
+	@TrainingDurationMon varchar(50),
+	@IsTrainingDurationMonVerified bit,
+	@OtherTraining varchar(50),
+	@IsOtherTrainingVerified bit,
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CandidateQualification(CandidateID,Diploma,DegreeName,IsDegreeNameVerified,EmployeeDiscipline,IsEmployeeDisciplined,PassingYear,
+	IsPassingYearVerified,AggregatePer,IsAggregatePerVerified,FinalYearPer,IsFinalYearPerVerified,TrainingInstitute,IsTrainingInstituteVerified,
+	TrainingDurationMon,IsTrainingDurationMonVerified,OtherTraining,IsOtherTrainingVerified,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@CandidateID,@Diploma,@DegreeName,@IsDegreeNameVerified,@EmployeeDiscipline,@IsEmployeeDisciplined,@PassingYear,@IsPassingYearVerified,
+	@AggregatePer,@IsAggregatePerVerified,@FinalYearPer,@IsFinalYearPerVerified,@TrainingInstitute,@IsTrainingInstituteVerified,@TrainingDurationMon,
+	@IsTrainingDurationMonVerified,@OtherTraining,@IsOtherTrainingVerified,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CandidateQualification where CandidateID=@CandidateID;
+END
+
+create procedure spAddCandidateDocuments
+(
+	@CandidateID varchar(50),
+	@DocType varchar(50),
+	@DocPath varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CandidateDocuments(CandidateID,DocType,DocPath,Status,CreatorStamp, CreatorUser,CreatedDate,ModifiedDate)
+	Values(@CandidateID,@DocType,@DocPath,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CandidateDocuments where CandidateID=@CandidateID;
+END
+
+create proc spAddCandidateTechStackAssignment
+(
+	@RequirementID int,
+	@CandidateID int,
+	@AssignDate varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CandidateTechStackAssignment(RequirementID,CandidateID,AssignDate,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@RequirementID,@CandidateID,@AssignDate,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CandidateTechStackAssignment;
+END
+
+create procedure spAddMakerProgram
+(
+	@ProgramName varchar(50),
+	@ProgramType varchar(50),
+	@ProgramLink varchar(50),
+	@TechStackID int,
+	@TechTypeID int,
+	@IsProgramApproved bit,
+	@DescriptionStatus varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into MakerProgram(ProgramName,ProgramType,ProgramLink,TechSTackID,TechTypeID,IsProgramApproved,DescriptionStatus,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@ProgramName,@programType,@ProgramLink,@TechStackID,@TechTypeID,@IsProgramApproved,@DescriptionSTatus,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from MakerProgram;
+END
+
+create proc spAddTechtype
+(
+	@TypeName varchar(50),
+	@CurrentStatus varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into Techtype(TypeName,CurrentStatus,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@TypeName,@CurrentStatus,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from Techtype;
+END
+
+Create proc spAddCompany
+(
+	@Name varchar(50),
+	@Address varchar(100),
+	@Location varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CompanyDetails(Name,Address,Location,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@Name,@Address,@Location,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CompanyDetails where Name=@Name;
+END
+
+create proc spGetAllCompanies
+as
+BEGIN
+	Select * from CompanyDetails
+END
+
+
+create proc spAddCompanyRequirement
+(
+	@CompanyID int,
+	@RequestedMonth varchar(50),
+	@City varchar(50),
+	@IsDocVerified bit,
+	@RequirementDocPath varchar(50),
+	@NumOfEngg varchar(50),
+	@TechStackID int,
+	@TechTypeID int,
+	@MakerProgramID varchar(50),
+	@LeadID int,
+	@IdeationEnggID int,
+	@BuddyEnggID int,
+	@SpecialRemark varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into CompanyRequirement(CompanyID,RequestedMonth,City,IsDocVerified,RequirementDocPath,NumOfEngg,TechStackID,TechTypeID,MakerProgramID,LeadID,IdeationEnggID,BuddyEnggID,SpecialRemark,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@CompanyID,@RequestedMonth,@City,@IsDocVerified,@RequirementDocPath,@NumOfEngg,@TechStackID,@TechTypeID,@MakerProgramID,@LeadID,@IdeationEnggID,@BuddyEnggID,@SpecialRemark,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from CompanyRequirement;
+END
+
+
+Create proc spAddLab
+(
+	@Name varchar(50),
+	@Location varchar(50),
+	@Address varchar(100),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into Lab(Name,Location,Address,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@Name,@Location,@Address,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from Lab;
+END
+
+Create proc spAddLabThreshold
+(
+	@LabID int,
+	@LabCapacity varchar(50),
+	@LeadThreshold varchar(50),
+	@IdeationEnggThreshold varchar(50),
+	@BuddyEnggThreshold varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into LabThreshold(LabID,LabCapacity,LeadThreshold,IdeationEnggThreshold,BuddyEnggThreshold,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@LabID,@LabCapacity,@LeadThreshold,@IdeationEnggThreshold,@BuddyEnggThreshold,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from LabThreshold;
+END
+
+Create proc spGetAllLabs
+as
+BEGIN
+	Select * from Lab
+END
+
+Create proc spGetAllMentors
+as
+BEGIN
+	Select * from Mentor;
+END
+
+Create proc spAddMentor
+(
+	@Name varchar(50),
+	@MentorType varchar(50),
+	@LabID int,
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into Mentor(Name,MentorType,LabID,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@Name,@MentorType,@LabID,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from Mentor;
+END
+
+Create proc spAddMentorIdeationMap
+(
+	@LeadID int,
+	@MentorID int,
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into MentorIdeationMap(LeadID,MentorID,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@LeadID,@MentorID,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from MentorIdeationMap;
+END
+
+Create proc spAddMentorTechStack
+(
+	@MentorID int,
+	@TechStackID int,
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into MentorTechStack(MentorID,TechStackID,Status,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@MentorID,@TechStackID,@Status,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from MentorTechStack;
+END
+
+create proc spAddTechStack
+(
+	@TechName varchar(50),
+	@ImagePath varchar(50),
+	@Framework varchar(50),
+	@CurrentStatus varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into TechStack(TechName,ImagePath,Framework,CurrentStatus,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@TechName,@ImagePath,@Framework,@CurrentStatus,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate)
+	Select * from TechStack;
+END

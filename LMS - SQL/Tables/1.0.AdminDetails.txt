@@ -1,0 +1,15 @@
+CREATE TABLE AdminDetails
+(
+	AdminID int Primary Key IDENTITY,
+	FirstName varchar(50),
+	LastName varchar(50),
+	Email varchar(50),
+	Password varchar(50),
+	ContactNumber varchar(50),
+	IsVerified bit,
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Unique (Email)
+)

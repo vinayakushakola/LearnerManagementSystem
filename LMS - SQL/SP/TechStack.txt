@@ -1,0 +1,23 @@
+create proc spAddTechStack
+(
+	@TechName varchar(50),
+	@ImagePath varchar(50),
+	@Framework varchar(50),
+	@CurrentStatus varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into TechStack(TechName,ImagePath,Framework,CurrentStatus,CreatorStamp,CreatorUser,CreatedDate,ModifiedDate)
+	Values(@TechName,@ImagePath,@Framework,@CurrentStatus,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate)
+	Select * from TechStack;
+END
+
+Create proc spGetAllTechStacks
+as
+BEGIN
+	Select * from TechStack
+END

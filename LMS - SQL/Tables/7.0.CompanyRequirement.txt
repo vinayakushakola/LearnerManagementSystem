@@ -1,0 +1,36 @@
+create table CompanyRequirement
+(
+	RequirementID int Primary key Identity,
+	CompanyID int,
+	RequestedMonth varchar(50),
+	City varchar(50),
+	IsDocVerified bit,
+	RequirementDocPath varchar(50),
+	NumOfEngg varchar(50),
+	TechStackID int,
+	TechTypeID int,
+	MakerProgramID int,
+	LeadID int,
+	IdeationEnggID int,
+	BuddyEnggID int,
+	SpecialRemark varchar(50),
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Foreign Key(CompanyID )
+	References CompanyDetails(CompanyID ),
+	Foreign Key(TechStackID)
+	References TechStack(ID),
+	Foreign Key(TechTypeID)
+	References TechType(ID),
+	Foreign Key(MakerProgramID)
+	References MakerProgram(MakerProgramID),
+	Foreign Key(LeadID)
+	References Mentor(MentorID),
+	Foreign Key(IdeationEnggID)
+	References Mentor(MentorID),
+	Foreign Key(BuddyEnggID)
+	References Mentor(MentorID)
+)

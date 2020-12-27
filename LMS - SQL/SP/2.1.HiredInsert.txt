@@ -1,0 +1,51 @@
+create proc spGetAllHired
+as
+BEGIN
+	Select * from HiredCandidate
+END
+
+Create procedure spAddHired
+(
+	@FirstName varchar(50),
+	@MiddleName varchar(50),
+	@LastName varchar(50),
+	@Email varchar(50),
+	@Degree varchar(50),
+	@MobileNumber varchar(50),
+	@PermanentPincode varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@CreatedDate Datetime,
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Insert into HiredCandidate(FirstName, MiddleName, LastName, Email, Degree, MobileNumber, PermanentPincode, CreatorStamp, CreatorUser, CreatedDate, ModifiedDate)
+	Values(@FirstName,@MiddleName,@LastName,@Email, @Degree, @MobileNumber, @PermanentPincode,@CreatorStamp,@CreatorUser,@CreatedDate,@ModifiedDate);
+	Select * from HiredCandidate where Email=@Email;
+END
+
+
+
+Create procedure spUpdateHired
+(
+	@ID int,
+	@HiredCity varchar(50),
+	@HiredDate datetime,
+	@HiredLab datetime,
+	@Attitude varchar(50),
+	@CommunicationRemark varchar(50),
+	@KnowledgeRemark varchar(50),
+	@AggregateRemark varchar(50),
+	@Status varchar(50),
+	@CreatorStamp varchar(50),
+	@CreatorUser varchar(50),
+	@ModifiedDate Datetime
+)
+as
+BEGIN
+	Update HiredCandidate set HiredCity=@HiredCity, HiredDate=@HiredDate, HiredLab=@HiredLab,Attitude=@Attitude,CommunicationRemark=@CommunicationRemark,KnowledgeRemark=@KnowledgeRemark,AggregateRemark=@AggregateRemark,Status=@Status, CreatorStamp=@CreatorStamp, CreatorUser=@CreatorUser, ModifiedDate=@ModifiedDate where ID=@ID;
+	Select * from HiredCandidate where ID=@ID;
+END
+
+

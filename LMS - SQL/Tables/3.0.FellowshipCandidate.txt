@@ -1,0 +1,105 @@
+Create table FellowshipCandidate
+(
+	CandidateID int Primary Key Identity,
+	FirstName varchar(50),
+	MiddleName varchar(50),
+	LastName varchar(50),
+	Email varchar(50),
+	Degree varchar(50),
+	MobileNumber varchar(50),
+	PermanentPincode varchar(50),
+	HiredCity varchar(50),
+	HiredDate datetime,
+	HiredLab varchar(50),
+	Attitude varchar(50),
+	CommunicationRemark varchar(50),
+	KnowledgeRemark varchar(50),
+	AggregateRemark varchar(50),
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	BirthDate varchar(50),
+	IsBirthDateVerified bit,
+	ParentName varchar(50),
+	ParentOccupation varchar(50),
+	ParentsMobileNumber varchar(50),
+	ParentsAnnualSalary varchar(50),
+	LocalAddress varchar(100),
+	PermanentAddress varchar(100),
+	PhotoPath varchar(100),
+	JoiningDate varchar(50),
+	CandidateStatus varchar(50),
+	PersonalInformation varchar(100),
+	BankInformation varchar(100),
+	EducationalInformation varchar(100),
+	DocumentStatus varchar(50),
+	Remark varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Unique (Email)
+)
+
+CREATE TABLE CandidateBankDetails
+(
+	ID int Primary Key Identity,
+	CandidateID int,
+	Name varchar(50),
+	AccountNumber varchar(50),
+	IsAccountNumberVerified bit,
+	IfscCode varchar(50),
+	IsIfscCodeVerified bit,
+	PanNumber varchar(50),
+	IsPanNumberVerified bit,
+	AdhaarNumber varchar(50),
+	IsAdhaarNumberVerified bit,
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Foreign Key (CandidateID)
+	References FellowshipCandidate(CandidateID)
+)
+
+Create table CandidateQualification
+(
+	ID int Primary Key Identity,
+	CandidateID int,
+	Diploma varchar(50),
+	DegreeName varchar(50),
+	IsDegreeNameVerified bit,
+	EmployeeDiscipline varchar(50),
+	IsEmployeeDisciplined bit,
+	PassingYear varchar(50),
+	IsPassingYearVerified bit,
+	AggregatePer varchar(50),
+	IsAggregatePerVerified bit,
+	FinalYearPer varchar(50),
+	IsFinalYearPerVerified bit,
+	TrainingInstitute varchar(50),
+	IsTrainingInstituteVerified bit,
+	TrainingDurationMon varchar(50),
+	IsTrainingDurationMonVerified bit,
+	OtherTraining varchar(50),
+	IsOtherTrainingVerified bit,
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Foreign Key (CandidateID)
+	References FellowshipCandidate(CandidateID)
+)
+
+create table CandidateDocuments
+(
+	ID int Primary key Identity,
+	CandidateID int,
+	DocType varchar(50),
+	DocPath varchar(50),
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Foreign Key (CandidateID)
+	References FellowshipCandidate(CandidateID)
+)

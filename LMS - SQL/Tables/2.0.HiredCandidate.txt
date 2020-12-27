@@ -1,0 +1,24 @@
+CREATE TABLE HiredCandidate
+(
+	ID int Primary Key IDENTITY,
+	FirstName varchar(50),
+	MiddleName varchar(50),
+	LastName varchar(50),
+	Email varchar(50),
+	Degree varchar(50),
+	MobileNumber varchar(50),
+	PermanentPincode varchar(50),
+	HiredCity varchar(50),
+	HiredDate datetime,
+	HiredLab varchar(50),
+	Attitude varchar(50),
+	CommunicationRemark varchar(50),
+	KnowledgeRemark varchar(50),
+	AggregateRemark varchar(50),
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime,
+	Unique (Email)
+)

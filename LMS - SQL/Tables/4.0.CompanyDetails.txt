@@ -1,0 +1,12 @@
+create table CompanyDetails
+(
+	CompanyID int Primary key Identity,
+	Name varchar(50),
+	Address varchar(100),
+	Location varchar(50),
+	Status varchar(50),
+	CreatorStamp varchar(50),
+	CreatorUser varchar(50),
+	CreatedDate Datetime,
+	ModifiedDate Datetime
+)
